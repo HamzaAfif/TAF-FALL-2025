@@ -265,6 +265,14 @@ jobs:
         run: pytest --cov=app --cov-report=xml --cov-report=html || true
         continue-on-error: true
 
+      - name: Archive Python Coverage XML
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-generation-coverage-xml
+          path: test-generation-service/coverage.xml
+          retention-days: 30
+          if-no-files-found: ignore
+
       - name: Archive Coverage Report
         uses: actions/upload-artifact@v4
         with:
@@ -292,6 +300,36 @@ jobs:
         with:
           path: artifacts/
 
+      - name: Validate Sonar token
+        run: |
+          if [ -z "${{ secrets.SONAR_TOKEN }}" ]; then
+            echo "SONAR_TOKEN is missing. Add it in GitHub -> Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+
+      - name: Prepare coverage reports for SonarScanner
+        run: |
+          mkdir -p backend/target/site/jacoco
+          mkdir -p performance/target/site/jacoco
+          mkdir -p frontend/coverage
+          mkdir -p test-generation-service
+
+          if [ -f artifacts/backend-coverage/jacoco.xml ]; then
+            cp artifacts/backend-coverage/jacoco.xml backend/target/site/jacoco/jacoco.xml
+          fi
+
+          if [ -f artifacts/performance-coverage/jacoco.xml ]; then
+            cp artifacts/performance-coverage/jacoco.xml performance/target/site/jacoco/jacoco.xml
+          fi
+
+          if [ -d artifacts/frontend-coverage ]; then
+            cp -r artifacts/frontend-coverage/* frontend/coverage/ || true
+          fi
+
+          if [ -f artifacts/test-generation-coverage-xml/coverage.xml ]; then
+            cp artifacts/test-generation-coverage-xml/coverage.xml test-generation-service/coverage.xml
+          fi
+
       - name: Set up JDK 17 (for SonarCloud)
         uses: actions/setup-java@v5
         with:
@@ -299,11 +337,10 @@ jobs:
           distribution: 'sapmachine'
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        continue-on-error: true
 
   # ============================================================================
   # Reporting: Aggregate and summarize test results
