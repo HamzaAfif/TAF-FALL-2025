@@ -6,26 +6,13 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Build and test
+name: Build and test (legacy manual)
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
 on:
-  push:
-    branches: [ "develop" ]
-  pull_request:
-    branches:
-      - develop
-    types:
-      - opened
-      - reopened
-      - synchronize
-      - edited
-    paths:
-      - backend/**
-      - performance/**
-      - frontend/**
+  workflow_dispatch:
 
 jobs:
   backend:
@@ -44,14 +31,6 @@ jobs:
       run: |
         mvn -f performance/pom.xml clean install -DskipTests -q
         mvn -f backend/pom.xml clean install -q
-      env:
-        API_TEST_TOKEN: test-secret-for-ci-only
-        API_TEST_EXP_TIME: 3600000
-        API_TEST_URL: http://localhost
-        API_TEST_PORT: 8080
-        SELENIUM_URL: http://localhost
-        SELENIUM_PORT: 4444
-        EUREKA_CLIENT_ENABLED: false
     # For now, the backend jar is not reused in subsequent steps
     # - name: Upload .jar file
     #   uses: actions/upload-artifact@v4

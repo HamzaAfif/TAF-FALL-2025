@@ -5,14 +5,6 @@ on:
     branches:
       - develop
       - main
-    paths:
-      - 'backend/**'
-      - 'frontend/**'
-      - 'performance/**'
-      - 'test-generation-service/**'
-      - '.github/workflows/**'
-      - 'pom.xml'
-      - 'sonar-project.properties'
   pull_request:
     branches:
       - develop
@@ -21,6 +13,7 @@ on:
       - reopened
       - synchronize
       - edited
+  workflow_dispatch:
 
 # Cancel in-progress runs when a new run is triggered
 concurrency:
