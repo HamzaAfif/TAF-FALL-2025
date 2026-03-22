@@ -401,7 +401,7 @@ jobs:
         working-directory: ./frontend
         run: |
           npm install --legacy-peer-deps
-          npx compodoc -p tsconfig.app.json -d ../docs/frontend --hideSource
+          npx @compodoc/compodoc -p tsconfig.app.json -d ../docs/frontend
 
       - name: Generate Backend OpenAPI Documentation
         working-directory: ./backend
