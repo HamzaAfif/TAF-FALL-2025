@@ -348,6 +348,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+      - name: Echo SonarCloud analysis links
+        run: |
+          echo "Sonar project: HamzaAfif_TAF-FALL-2025"
+          echo "Main dashboard: https://sonarcloud.io/project/overview?id=HamzaAfif_TAF-FALL-2025"
+          echo "Current branch dashboard: https://sonarcloud.io/dashboard?id=HamzaAfif_TAF-FALL-2025&branch=${GITHUB_REF_NAME}"
+
+          if [ -f .scannerwork/report-task.txt ]; then
+            echo "report-task.txt found:"
+            cat .scannerwork/report-task.txt
+          else
+            echo "No .scannerwork/report-task.txt found in workspace."
+          fi
+
   # ============================================================================
   # Reporting: Aggregate and summarize test results
   # ============================================================================
