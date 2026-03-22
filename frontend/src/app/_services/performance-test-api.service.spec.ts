@@ -43,7 +43,7 @@ describe('PerformanceTestApiService', () => {
    */
   it('devrait envoyer une requête POST correcte lors de l\'appel de sendGatlingRequest', () => {
     const mockResponse = { success: true };
-    const request: GatlingRequest = {
+    const request: GatlingRequest = new GatlingRequest({
       testBaseUrl: '',
       testScenarioName: '',
       testRequestName: '',
@@ -51,13 +51,13 @@ describe('PerformanceTestApiService', () => {
       testRequestBody: '',
       testMethodType: '',
       testUsersNumber: 0
-    };
+    });
 
     service.sendGatlingRequest(request).subscribe(response => {
       expect(response).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/api/performance/gatling/runSimulation`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/team3/api/performance/gatling/runSimulation`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(request);
     req.flush(mockResponse);
@@ -86,7 +86,7 @@ describe('PerformanceTestApiService', () => {
       expect(response).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/api/performance/jmeter/http`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/team3/api/performance/jmeter/http`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(request);
     req.flush(mockResponse);
@@ -116,7 +116,7 @@ describe('PerformanceTestApiService', () => {
       expect(response).toEqual(mockResponse);
     });
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/api/performance/jmeter/ftp`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/team3/api/performance/jmeter/ftp`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(request);
     req.flush(mockResponse);

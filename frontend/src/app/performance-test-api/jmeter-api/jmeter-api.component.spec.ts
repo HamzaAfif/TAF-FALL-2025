@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { JmeterApiComponent } from './jmeter-api.component';
 import { PerformanceTestApiService } from 'src/app/_services/performance-test-api.service';
 import { of, throwError } from 'rxjs';
@@ -21,10 +23,12 @@ describe('JmeterApiComponent', () => {
     const spy = jasmine.createSpyObj('PerformanceTestApiService', ['sendHttpJMeterRequest', 'sendFtpJMeterRequest']);
 
     await TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule],
       declarations: [ JmeterApiComponent ],
       providers: [
         { provide: PerformanceTestApiService, useValue: spy }
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });
@@ -54,7 +58,8 @@ describe('JmeterApiComponent', () => {
    * Ce test simule un appel à la méthode onHttpSubmit et vérifie que la méthode sendHttpJMeterRequest du service est appelée.
    */
   it('devrait appeler sendHttpJMeterRequest lors de l\'appel de onHttpSubmit', () => {
-    spyOn(component, 'validateHttpForm').and.returnValue(true);
+    component.http_request.domain = 'localhost';
+    component.http_request.path = '/health';
     const mockResponse = [{ success: true }];
     performanceTestApiService.sendHttpJMeterRequest.and.returnValue(of(mockResponse));
 
@@ -68,14 +73,15 @@ describe('JmeterApiComponent', () => {
    * Test pour vérifier que SweetAlert s'affiche en cas d'erreur ou si la réponse est vide dans onHttpSubmit.
    */
   it('devrait afficher SweetAlert en cas d\'erreur ou si la réponse est vide dans onHttpSubmit', () => {
-    spyOn(component, 'validateHttpForm').and.returnValue(true);
+    component.http_request.domain = 'localhost';
+    component.http_request.path = '/health';
     performanceTestApiService.sendHttpJMeterRequest.and.returnValue(of([]));
 
     component.onHttpSubmit();
 
     expect(Swal.isVisible()).toBeTruthy();
 
-    performanceTestApiService.sendHttpJMeterRequest.and.returnValue(throwError('error'));
+    performanceTestApiService.sendHttpJMeterRequest.and.returnValue(throwError(() => 'error'));
 
     component.onHttpSubmit();
 
@@ -87,7 +93,8 @@ describe('JmeterApiComponent', () => {
    * Ce test simule un appel à la méthode onFtpSubmit et vérifie que la méthode sendFtpJMeterRequest du service est appelée.
    */
   it('devrait appeler sendFtpJMeterRequest lors de l\'appel de onFtpSubmit', () => {
-    spyOn(component, 'validateFtpForm').and.returnValue(true);
+    component.ftp_request.domain = 'localhost';
+    component.ftp_request.remotefile = '/tmp/file.txt';
 
     const mockResponse = [{ success: true }];
     performanceTestApiService.sendFtpJMeterRequest.and.returnValue(of(mockResponse));
@@ -102,7 +109,8 @@ describe('JmeterApiComponent', () => {
    * Test pour vérifier que SweetAlert s'affiche en cas d'erreur ou si la réponse est vide dans onFtpSubmit.
    */
   it('devrait afficher SweetAlert en cas d\'erreur ou si la réponse est vide dans onFtpSubmit', () => {
-    spyOn(component, 'validateFtpForm').and.returnValue(true);
+    component.ftp_request.domain = 'localhost';
+    component.ftp_request.remotefile = '/tmp/file.txt';
 
     performanceTestApiService.sendFtpJMeterRequest.and.returnValue(of([]));
 
@@ -110,7 +118,7 @@ describe('JmeterApiComponent', () => {
 
     expect(Swal.isVisible()).toBeTruthy();
 
-    performanceTestApiService.sendFtpJMeterRequest.and.returnValue(throwError('error'));
+    performanceTestApiService.sendFtpJMeterRequest.and.returnValue(throwError(() => 'error'));
 
     component.onFtpSubmit();
 

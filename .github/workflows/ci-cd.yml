@@ -52,6 +52,9 @@ jobs:
           distribution: 'sapmachine'
           cache: maven
 
+      - name: Install Parent POM
+        run: mvn -N -f pom.docker.xml install -q
+
       - name: Build Performance Artifacts Required by Backend
         run: mvn -f performance/pom.xml clean install -DskipTests -q
 
@@ -177,6 +180,9 @@ jobs:
           java-version: '17'
           distribution: 'sapmachine'
           cache: maven
+
+      - name: Install Parent POM
+        run: mvn -N -f pom.docker.xml install -q
 
       - name: Build Performance Modules (without tests)
         working-directory: ./performance

@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { GatlingApiComponent } from './gatling-api.component';
 import { PerformanceTestApiService } from '../../_services/performance-test-api.service';
 import { of } from 'rxjs';
@@ -15,13 +17,16 @@ describe('GatlingApiComponent', () => {
    * Configuration du module de test avant chaque test.
    */
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('PerformanceTestApiService', ['sendGatlingRequest']);
+    const spy = jasmine.createSpyObj('PerformanceTestApiService', ['sendGatlingRequest', 'getLatestReportUrl']);
+    spy.getLatestReportUrl.and.returnValue('http://localhost/report');
 
     await TestBed.configureTestingModule({
+      imports: [ReactiveFormsModule],
       declarations: [ GatlingApiComponent ],
       providers: [
         { provide: PerformanceTestApiService, useValue: spy }
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });
@@ -47,7 +52,6 @@ describe('GatlingApiComponent', () => {
    * Test pour vérifier que la méthode onSubmit appelle sendGatlingRequest.
    */
   it('devrait appeler sendGatlingRequest lors de l\'appel de onSubmit', () => {
-    spyOn(component, 'validateForm').and.returnValue(true);
     const mockResponse = { message: 'request count: 1\nGenerated Report' };
     performanceTestApiService.sendGatlingRequest.and.returnValue(of(mockResponse));
   

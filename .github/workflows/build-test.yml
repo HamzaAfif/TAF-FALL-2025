@@ -38,6 +38,8 @@ jobs:
         java-version: '17'
         distribution: 'sapmachine'
         cache: maven
+    - name: Install Parent POM
+      run: mvn -N -f pom.docker.xml install -q
     - name: Build and test with Maven
       run: |
         mvn -f performance/pom.xml clean install -DskipTests -q

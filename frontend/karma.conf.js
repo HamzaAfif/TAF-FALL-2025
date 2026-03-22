@@ -8,9 +8,6 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
-    files: [
-      'src/**/*.spec.js', // Include all test files in the src directory
-    ],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
