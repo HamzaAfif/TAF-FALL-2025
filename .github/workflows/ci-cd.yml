@@ -287,8 +287,8 @@ jobs:
   sonarcloud:
     needs: [ backend, frontend, performance, test-generation-service ]
     runs-on: ubuntu-latest
-    name: SonarCloud Quality Gate
-    if: always()  # Run even if previous jobs failed
+    name: SonarCloud Quality Gate (develop only)
+    if: github.ref == 'refs/heads/develop' && always()
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -306,6 +306,34 @@ jobs:
             echo "SONAR_TOKEN is missing. Add it in GitHub -> Settings -> Secrets and variables -> Actions."
             exit 1
           fi
+
+      - name: Validate Sonar project access
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          PROJECT_KEY=$(grep '^sonar.projectKey=' sonar-project.properties | cut -d'=' -f2)
+          ORG_KEY=$(grep '^sonar.organization=' sonar-project.properties | cut -d'=' -f2)
+
+          echo "Checking Sonar project access for key: ${PROJECT_KEY} (org: ${ORG_KEY})"
+
+          HTTP_CODE=$(curl -sS -o /tmp/sonar_projects.json -w "%{http_code}" \
+            -u "${SONAR_TOKEN}:" \
+            "https://sonarcloud.io/api/projects/search?organization=${ORG_KEY}&projects=${PROJECT_KEY}")
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "SonarCloud API request failed with HTTP ${HTTP_CODE}."
+            cat /tmp/sonar_projects.json || true
+            exit 1
+          fi
+
+          if ! grep -q '"key":"'"${PROJECT_KEY}"'"' /tmp/sonar_projects.json; then
+            echo "Project key ${PROJECT_KEY} is not visible to this SONAR_TOKEN in org ${ORG_KEY}."
+            echo "Either the project does not exist, or the token user lacks permissions."
+            cat /tmp/sonar_projects.json
+            exit 1
+          fi
+
+          echo "Sonar project access confirmed."
 
       - name: Prepare coverage reports for SonarScanner
         run: |
@@ -349,6 +377,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Echo SonarCloud analysis links
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           echo "Sonar project: HamzaAfif_TAF-FALL-2025"
           echo "Main dashboard: https://sonarcloud.io/project/overview?id=HamzaAfif_TAF-FALL-2025"
@@ -357,6 +387,43 @@ jobs:
           if [ -f .scannerwork/report-task.txt ]; then
             echo "report-task.txt found:"
             cat .scannerwork/report-task.txt
+
+            CE_TASK_URL=$(grep '^ceTaskUrl=' .scannerwork/report-task.txt | cut -d'=' -f2-)
+            if [ -n "$CE_TASK_URL" ]; then
+              echo "Polling CE task until processing completes..."
+              STATUS="PENDING"
+              for i in $(seq 1 30); do
+                curl -sS -u "${SONAR_TOKEN}:" "$CE_TASK_URL" -o /tmp/ce_task.json
+                STATUS=$(grep -o '"status":"[^"]*"' /tmp/ce_task.json | head -1 | cut -d':' -f2 | tr -d '"')
+                echo "CE task attempt ${i}: ${STATUS}"
+                if [ "$STATUS" = "SUCCESS" ] || [ "$STATUS" = "FAILED" ] || [ "$STATUS" = "CANCELED" ]; then
+                  break
+                fi
+                sleep 5
+              done
+
+              echo "Final CE task payload:"
+              cat /tmp/ce_task.json
+
+              COMPONENT_KEY=$(grep -o '"componentKey":"[^"]*"' /tmp/ce_task.json | head -1 | cut -d':' -f2 | tr -d '"')
+              ANALYSIS_ID=$(grep -o '"analysisId":"[^"]*"' /tmp/ce_task.json | head -1 | cut -d':' -f2 | tr -d '"')
+
+              if [ -n "$COMPONENT_KEY" ]; then
+                echo "Resolved componentKey: ${COMPONENT_KEY}"
+                echo "Resolved project dashboard: https://sonarcloud.io/project/overview?id=${COMPONENT_KEY}"
+                echo "Resolved branch dashboard: https://sonarcloud.io/dashboard?id=${COMPONENT_KEY}&branch=${GITHUB_REF_NAME}"
+              fi
+
+              if [ -n "$ANALYSIS_ID" ]; then
+                echo "Analysis API URL: https://sonarcloud.io/api/project_analyses/show?analysis=${ANALYSIS_ID}"
+              fi
+
+              if [ "$STATUS" = "FAILED" ] || [ "$STATUS" = "CANCELED" ]; then
+                echo "Sonar report upload succeeded but processing failed (${STATUS})."
+                echo "Check CE payload above for the exact rejection reason."
+                exit 1
+              fi
+            fi
           else
             echo "No .scannerwork/report-task.txt found in workspace."
           fi
