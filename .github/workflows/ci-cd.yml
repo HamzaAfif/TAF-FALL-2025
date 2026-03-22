@@ -339,7 +339,7 @@ jobs:
       - name: Build Java bytecode for Sonar
         run: |
           mvn -N -f pom.docker.xml install -q
-          mvn -f performance/pom.xml clean compile -DskipTests -q
+          mvn -f performance/pom.xml clean install -DskipTests -q
           mvn -f backend/pom.xml clean compile -DskipTests -q
 
       - name: SonarCloud Scan
