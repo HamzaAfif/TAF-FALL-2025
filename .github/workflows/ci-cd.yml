@@ -15,6 +15,10 @@ on:
       - edited
   workflow_dispatch:
 
+permissions:
+  contents: read
+  packages: write
+
 # Cancel in-progress runs when a new run is triggered
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -282,6 +286,79 @@ jobs:
           if-no-files-found: ignore
 
   # ============================================================================
+  # Docker Images: Build (and optionally push to GHCR on main)
+  # ============================================================================
+  docker-images:
+    needs: [ backend, frontend, test-generation-service ]
+    runs-on: ubuntu-latest
+    name: Docker Images (Build/Publish)
+    if: always() && needs.backend.result == 'success' && needs.frontend.result == 'success' && needs.test-generation-service.result == 'success'
+    env:
+      DOCKER_PUSH: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Compute image namespace
+        id: vars
+        shell: bash
+        run: |
+          echo "owner_lc=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_OUTPUT
+
+      - name: Login to GHCR (main only)
+        if: env.DOCKER_PUSH == 'true'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile.local
+          push: ${{ env.DOCKER_PUSH == 'true' }}
+          tags: |
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/taf-backend:sha-${{ github.sha }}
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/taf-backend:main
+
+      - name: Build Frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./frontend/Dockerfile
+          push: ${{ env.DOCKER_PUSH == 'true' }}
+          tags: |
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/taf-frontend:sha-${{ github.sha }}
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/taf-frontend:main
+
+      - name: Build Test Generation image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./test-generation-service/Dockerfile
+          push: ${{ env.DOCKER_PUSH == 'true' }}
+          tags: |
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/taf-test-generation:sha-${{ github.sha }}
+            ghcr.io/${{ steps.vars.outputs.owner_lc }}/taf-test-generation:main
+
+      - name: Add Docker summary
+        run: |
+          echo "## Docker Images" >> $GITHUB_STEP_SUMMARY
+          echo "- Backend image: built" >> $GITHUB_STEP_SUMMARY
+          echo "- Frontend image: built" >> $GITHUB_STEP_SUMMARY
+          echo "- Test generation image: built" >> $GITHUB_STEP_SUMMARY
+          if [ "${DOCKER_PUSH}" = "true" ]; then
+            echo "- Registry publish: GHCR (enabled on main)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- Registry publish: disabled for this run" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  # ============================================================================
   # Quality Gate: SonarCloud Analysis (runs after tests complete)
   # ============================================================================
   sonarcloud:
@@ -463,7 +540,7 @@ jobs:
   # Reporting: Aggregate and summarize test results
   # ============================================================================
   reporting:
-    needs: [ backend, frontend, performance, test-generation-service ]
+    needs: [ backend, frontend, performance, test-generation-service, docker-images ]
     runs-on: ubuntu-latest
     name: Test Reports Aggregation
     if: always()
@@ -485,6 +562,7 @@ jobs:
           echo "- **Frontend**: ${{ needs.frontend.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Performance**: ${{ needs.performance.result }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Test Generation Service**: ${{ needs.test-generation-service.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Docker Images**: ${{ needs.docker-images.result }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "## Artifacts Available" >> $GITHUB_STEP_SUMMARY
           echo "- Backend JAR build" >> $GITHUB_STEP_SUMMARY
@@ -507,6 +585,7 @@ jobs:
             | Frontend (Angular) | ${{ needs.frontend.result }} |
             | Performance (Maven) | ${{ needs.performance.result }} |
             | Test Generation (Python) | ${{ needs.test-generation-service.result }} |
+            | Docker Images | ${{ needs.docker-images.result }} |
             
             [View detailed logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`;
             
