@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -22,6 +23,8 @@ class TestControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    private final TestController controller = new TestController();
 
     @Test
     @DisplayName("GET /api/test/all - Should return welcome message")
@@ -88,5 +91,22 @@ class TestControllerTest {
                 .andReturn();
         
         org.junit.jupiter.api.Assertions.assertNotNull(result.getResponse().getContentAsString());
+    }
+
+    @Test
+    @DisplayName("normalizeMessage should handle null and spaces")
+    void testNormalizeMessage() {
+        assertEquals("", controller.normalizeMessage(null));
+        assertEquals("", controller.normalizeMessage("   "));
+        assertEquals("hello world", controller.normalizeMessage("  hello   world  "));
+    }
+
+    @Test
+    @DisplayName("hasAdminAccess should accept ADMIN and ROLE_ADMIN")
+    void testHasAdminAccess() {
+        assertTrue(controller.hasAdminAccess("ADMIN"));
+        assertTrue(controller.hasAdminAccess("role_admin"));
+        assertFalse(controller.hasAdminAccess("USER"));
+        assertFalse(controller.hasAdminAccess(null));
     }
 }

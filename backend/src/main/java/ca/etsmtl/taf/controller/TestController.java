@@ -26,4 +26,23 @@ public class TestController {
   public String adminAccess() {
     return "Admin Board.";
   }
+
+  public String normalizeMessage(String message) {
+    if (message == null) {
+      return "";
+    }
+    String normalized = message.trim();
+    if (normalized.isEmpty()) {
+      return "";
+    }
+    return normalized.replaceAll("\\s+", " ");
+  }
+
+  public boolean hasAdminAccess(String role) {
+    if (role == null) {
+      return false;
+    }
+    String normalizedRole = role.trim().toUpperCase();
+    return "ADMIN".equals(normalizedRole) || "ROLE_ADMIN".equals(normalizedRole);
+  }
 }

@@ -335,6 +335,22 @@ jobs:
 
           echo "Sonar project access confirmed."
 
+      - name: Ensure Sonar new code period is defined
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          PROJECT_KEY=$(grep '^sonar.projectKey=' sonar-project.properties | cut -d'=' -f2)
+          HTTP_CODE=$(curl -sS -o /tmp/sonar_new_code.json -w "%{http_code}" \
+            -u "${SONAR_TOKEN}:" \
+            -X POST "https://sonarcloud.io/api/new_code_periods/set?project=${PROJECT_KEY}&type=NUMBER_OF_DAYS&value=30")
+
+          if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "204" ]; then
+            echo "New code period set to 30 days."
+          else
+            echo "Could not set new code period via API (HTTP ${HTTP_CODE}); continuing with existing Sonar settings."
+            cat /tmp/sonar_new_code.json || true
+          fi
+
       - name: Prepare coverage reports for SonarScanner
         run: |
           mkdir -p backend/target/site/jacoco
