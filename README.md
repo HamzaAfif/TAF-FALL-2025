@@ -1,68 +1,156 @@
-![Logo taf](./logo_taf.png)
+![Logo TAF](./logo_taf.png)
 
-# Test Automation Framework
+# TAF Refactored - TP2 MGL7760 (ETS)
+
 [![Build Status](https://github.com/HamzaAfif/TAF-FALL-2025/workflows/CI%2FCD%20Pipeline/badge.svg?branch=main)](https://github.com/HamzaAfif/TAF-FALL-2025/actions)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=HamzaAfif_TAF-FALL-2025&metric=coverage)](https://sonarcloud.io/project/overview?id=HamzaAfif_TAF-FALL-2025)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=HamzaAfif_TAF-FALL-2025&metric=alert_status)](https://sonarcloud.io/project/overview?id=HamzaAfif_TAF-FALL-2025)
-TAF est un projet de R&amp;D de cadriciel d’automatisation de test
 
-Il permet l'utilisation de plusieurs outils de tests (Selenium, Gatling, ...) à travers une interface web unique.
+Ce depot contient une version refactoree du TAF (Test Automation Framework) realisee dans le cadre du cours MGL7760 a l'ETS, dans le contexte du TP2.
 
-L'application côté serveur est une application Java utilisant Springboot.
-L'interface est une application web utilisant le framework Angular.
+L'objectif est de maintenir une base de code plus stable, testable et observable, avec:
+- un backend Spring Boot
+- un frontend Angular
+- des modules de performance (Gatling/JMeter)
+- un service Python de generation de tests
+- un pipeline CI/CD complet avec analyse SonarCloud et publication de documentation
 
-**NOTE**  
-Cette documentation n'est pas à jour pour les modules de test de performance Gatling et JMeter.
-La documentation à jour (Automne 2024) est [disponible ici](./documentation/README.md).
+## Contexte TP2 (MGL7760)
 
-## Builder et lancer le projet
+Cette version "TAF-Refactored" formalise le travail de refactorisation demande dans le TP2:
+- reduction de la dette technique
+- stabilisation des tests et du pipeline
+- standardisation des processus d'integration continue
+- documentation du processus de correction et d'exploitation
 
-### Localement :
+Le guide de correction complet et a jour est disponible ici: [CI_CD_FIX_GUIDE.md](./CI_CD_FIX_GUIDE.md).
 
-Il est possible de lancer les applications côté serveur et côté client séparément. Cela est recommandé malgré sa complexité, étant donné qu'ils sont plus facile à débugger de cette manière et que Docker n'est présentement pas fonctionnel.
+## Architecture du projet
 
-#### Backend
+- `backend/`: API principale Spring Boot (Java 17)
+- `frontend/`: interface Angular
+- `performance/`: tests de performance (Gatling/JMeter)
+- `test-generation-service/`: service Python (generation de tests)
+- `.github/workflows/ci-cd.yml`: pipeline CI/CD principal
+- `sonar-project.properties`: configuration SonarCloud
 
-**Prérequis**
-1. Installer Maven
-2. Installer Jmeter
-3. Installer l'extension `Spring Boot Dashboard`avec VSCode
+## Prerequis
 
-**Pour tester localement**
-1. Naviguer à la racine du projet et ouvrir le fichier `.env` sous la racine du projet et changer la valeur de la variable `JMETER_INSTALL_DIR` pour le chemin où jmeter a été installé. Par exemple: `JMETER_INSTALL_DIR=/Users/jean-francoisl/Downloads/apache-jmeter-5.6.3`
+- Java 17
+- Maven 3.9+
+- Node.js 20+
+- npm
+- Python 3.11+
 
-2. Exécuter la commande `mvn clean install`
+## Lancer le projet localement
 
-3. Lancer le module `taf-backend` à travers l'extension VSCode `Spring Boot Dashboard` (vscjava.vscode-spring-boot-dashboard)
-La variable d'environnement devrait être chargée.
+## 1) Backend
 
-#### Frontend
-- Naviguer dans l;e répertoire `cd /frontend`
-- Installez des dépendances avec `npm install`.
-- Lancez l'application avec la ligne de commande `npm start`.
+Depuis la racine du projet:
 
-L'application devrait être accessible sur http://localhost:4200
-
-### Avec docker :
-
-***NON FONCTIONNEL***
-- (Prérequis) Installez Docker ainsi que Docker Compose sur votre système
-- Exécutez la commande suivante :
 ```bash
-docker compose --env-file .docker_config.env up
+mvn -N -f pom.docker.xml install -q
+mvn -f performance/pom.xml clean install -DskipTests -q
+mvn -f backend/pom.xml clean install
 ```
-***NON FONCTIONNEL***
 
-**Autres services :**  
-Pour les autres services, vous pouvez vous référer au Wiki ou contacter les équipes directement.
+Pour executer les tests backend:
 
-## Contribuer au projet
+```bash
+cd backend
+mvn test jacoco:report -q
+```
 
-La démarche pour contribuer au projet est disponible dans le document [CONTRIBUTING.md](./CONTRIBUTING.md).  
-La programmation en JS/TS et Java font usage de conventions précises disponibles dans le fichier [CONVENTIONS.md](./documentation/CONVENTIONS.md). La non-utilisation de ces normes pourrait mener à un refus de vos contributions.
+## 2) Frontend
 
-## Contact
+```bash
+cd frontend
+npm install --legacy-peer-deps
+npm start
+```
 
-En cas de questions, vous pouvez rejoindre [le discord TAF](https://discord.gg/TYrqTdHEqk). Veilliez à ce qu'uniquement 1 ou 2 personnes de votre équipe le rejoigne afin de limiter le nombres de personnes et de faciliter la communication.
+Frontend accessible sur `http://localhost:4200`.
 
-upd
+## 3) Service Python
+
+```bash
+cd test-generation-service
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+## 4) Execution locale orientee qualite (recommandee)
+
+```bash
+# Frontend tests + coverage
+cd frontend
+npm run test -- --watch=false --code-coverage
+
+# Backend tests + coverage
+cd ../backend
+mvn test jacoco:report -q
+```
+
+## Pipeline CI/CD (resume)
+
+Le workflow principal est: `.github/workflows/ci-cd.yml`.
+
+Le pipeline execute notamment:
+- build + tests backend
+- build + tests frontend
+- verifications performance
+- tests du service Python
+- analyse SonarCloud
+- generation/publication de la documentation
+
+Points importants du pipeline actuel:
+- SonarCloud reste visible meme en cas de quality gate rouge (`sonar.qualitygate.wait=false`)
+- la couverture backend est regeneree dans le job Sonar pour eviter les faux `0%`
+- la documentation backend/frontend est publiee avec fallback pour garantir des URLs valides
+
+## SonarCloud
+
+Projet SonarCloud:
+- Dashboard: <https://sonarcloud.io/project/overview?id=HamzaAfif_TAF-FALL-2025>
+- Branche principale: <https://sonarcloud.io/dashboard?id=HamzaAfif_TAF-FALL-2025&branch=main>
+
+Le fichier de configuration est: `sonar-project.properties`.
+
+## Documentation generee
+
+La documentation est generee dans le pipeline (frontend + backend) et publiee via GitHub Pages.
+
+En local, pour verifier le backend:
+
+```bash
+cd backend
+mvn test jacoco:report -q
+```
+
+Puis ouvrir le rapport de couverture:
+- `backend/target/site/jacoco/index.html`
+
+## Processus de correction CI/CD (historique + runbook)
+
+Pour tout le detail des correctifs appliques, des incidents rencontres et de la procedure d'exploitation:
+
+- [CI_CD_FIX_GUIDE.md](./CI_CD_FIX_GUIDE.md)
+
+Ce document couvre:
+- les correctifs frontend/backend/python
+- les ajustements SonarCloud et couverture
+- les correctifs JavaDoc
+- la procedure de verification par etape
+
+## Contribution
+
+Pour une contribution propre:
+1. creer une branche de travail
+2. ajouter des tests avec votre changement
+3. verifier localement (`mvn test`, `npm test`)
+4. ouvrir une pull request avec description claire
+
+## Statut
+
+Projet actif dans le cadre du TP2 MGL7760.
+Base refactoree, pipeline documente, et processus de stabilisation trace dans le guide CI/CD.
