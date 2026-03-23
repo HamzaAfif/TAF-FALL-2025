@@ -1,17 +1,21 @@
 package ca.etsmtl.taf.security.jwt;
 
+import ca.etsmtl.taf.security.services.UserDetailsImpl;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Collection;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -28,7 +32,17 @@ class JwtUtilsTest {
     @BeforeEach
     void setUp() {
         authentication = mock(Authentication.class);
-        when(authentication.getName()).thenReturn("testuser");
+
+        UserDetailsImpl principal = new UserDetailsImpl(
+            "u-1",
+            "Test User",
+            "testuser",
+            "test@example.com",
+            "secret",
+            List.of(new SimpleGrantedAuthority("ROLE_USER"))
+        );
+
+        when(authentication.getPrincipal()).thenReturn(principal);
     }
 
     @Test
@@ -93,7 +107,6 @@ class JwtUtilsTest {
         String token = jwtUtils.generateJwtToken(authentication);
 
         assertNotNull(token);
-        // Token should be valid immediately after generation
         assertTrue(jwtUtils.validateJwtToken(token));
     }
 }
