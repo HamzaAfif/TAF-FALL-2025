@@ -686,6 +686,7 @@ jobs:
         working-directory: ./docs/diagrams
         run: |
           echo "Generating Mermaid diagrams..."
+          export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
           mmdc -i architecture.mmd -o generated/architecture.svg --theme dark --backgroundColor white
           mmdc -i ci-cd-pipeline.mmd -o generated/ci-cd-pipeline.svg --theme dark --backgroundColor white
           mmdc -i test-execution-flow.mmd -o generated/test-execution-flow.svg --theme dark --backgroundColor white

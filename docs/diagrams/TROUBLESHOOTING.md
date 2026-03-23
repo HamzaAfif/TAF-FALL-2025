@@ -1,0 +1,122 @@
+# 🔧 Troubleshooting - Diagram Generation
+
+## Problème: "No usable sandbox! Failed to launch the browser process"
+
+### Cause
+L'erreur survient quand `mermaid-cli` utilise Puppeteer pour générer les diagrammes SVG, mais le sandbox Chromium n'est pas disponible dans l'environnement (notamment dans GitHub Actions ou conteneurs Linux).
+
+### ✅ Solution
+
+#### 1. **GitHub Actions (CI/CD)** - Déjà fixé ✅
+Le workflow CI/CD inclut maintenant:
+```yaml
+- name: Generate Mermaid diagrams as SVG
+  run: |
+    export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
+    mmdc -i architecture.mmd -o generated/architecture.svg ...
+```
+
+#### 2. **Localement (macOS/Linux)**
+Si vous rencontrez l'erreur en local:
+
+```bash
+# Option A: Exporter la variable d'environnement
+export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
+./generate-diagrams.sh
+
+# Option B: Utiliser directement
+PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox" \
+  mmdc -i docs/diagrams/architecture.mmd -o docs/diagrams/generated/architecture.svg
+```
+
+#### 3. **Windows PowerShell** - Déjà fixé ✅
+Le script `generate-diagrams.ps1` inclut maintenant:
+```powershell
+$env:PUPPETEER_ARGS = "--no-sandbox --disable-setuid-sandbox"
+```
+
+#### 4. **Docker** - Alternative recommandée
+Si vous avez Docker, utiliser une image avec dépendances:
+
+```bash
+docker run --rm -v $(pwd):/data node:20-alpine sh -c "
+  npm install -g @mermaid-js/mermaid-cli
+  cd /data
+  export PUPPETEER_ARGS='--no-sandbox --disable-setuid-sandbox'
+  mmdc -i docs/diagrams/architecture.mmd -o docs/diagrams/generated/architecture.svg
+"
+```
+
+---
+
+## Autres Problèmes Communs
+
+### ❌ "mermaid-cli not found"
+```bash
+# Installer globalement
+npm install -g @mermaid-js/mermaid-cli
+
+# Ou localement dans le projet
+npm install --save-dev @mermaid-js/mermaid-cli
+npx mmdc -i file.mmd -o output.svg
+```
+
+### ❌ "Permission denied: ./generate-diagrams.sh"
+```bash
+# Rendre le script exécutable
+chmod +x generate-diagrams.sh
+./generate-diagrams.sh
+```
+
+### ❌ "Output directory not writable"
+```bash
+# Créer le répertoire avec les permissions adéquates
+mkdir -p docs/diagrams/generated
+chmod 755 docs/diagrams/generated
+```
+
+### ❌ "Out of memory"
+Si la génération échoue faute de mémoire:
+```bash
+# Windows
+$env:NODE_OPTIONS = "--max-old-space-size=2048"
+
+# macOS/Linux
+export NODE_OPTIONS="--max-old-space-size=2048"
+./generate-diagrams.sh
+```
+
+---
+
+## 🧪 Test de la Configuration
+
+```bash
+# Test simple - générer un seul diagramme
+mmdc -i docs/diagrams/architecture.mmd -o test.svg
+
+# Test avec sandbox configuré
+export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
+mmdc -i docs/diagrams/architecture.mmd -o test.svg
+
+# Vérifier le résultat
+ls -lh test.svg
+```
+
+---
+
+## 📊 Alternative: Utiliser Mermaid Live
+
+Si la génération pose problème, les diagrammes Mermaid peuvent être visualisés directement:
+
+1. **Dans GitHub**: Les fichiers `.mmd` sont rendus nativement dans le navigateur
+2. **En ligne**: [Mermaid Live Editor](https://mermaid.live/)
+3. **VS Code**: Extension Mermaid Markdown Syntax Highlighting
+
+---
+
+## 🔗 Ressources
+
+- [Mermaid CLI Troubleshooting](https://github.com/mermaid-js/mermaid-cli)
+- [Puppeteer Troubleshooting](https://pptr.dev/troubleshooting)
+- [Chromium Sandbox Issues](https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md)
+

@@ -161,6 +161,8 @@ Diagrammes automatiquement générés pour visualiser l'architecture et les flux
 
 Les diagrammes sont générés automatiquement dans le pipeline et intégrés dans la documentation GitHub Pages.
 
+**Espace:** [TROUBLESHOOTING.md](./docs/diagrams/TROUBLESHOOTING.md) si problème de génération.
+
 ## SonarCloud
 
 Projet SonarCloud:

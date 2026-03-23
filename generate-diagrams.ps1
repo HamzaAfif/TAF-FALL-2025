@@ -27,6 +27,9 @@ if (-not $mmdc) {
     npm install -g @mermaid-js/mermaid-cli
 }
 
+# Set environment variable for Puppeteer
+$env:PUPPETEER_ARGS = "--no-sandbox --disable-setuid-sandbox"
+
 # Generate Mermaid diagrams
 $mermaidFiles = @(
     @{ input = "architecture.mmd"; output = "architecture.svg" },

@@ -28,6 +28,7 @@ fi
 
 # Generate Mermaid diagrams
 echo "📐 Generating architecture.svg..."
+export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
 mmdc -i "$DIAGRAMS_DIR/architecture.mmd" \
       -o "$OUTPUT_DIR/architecture.svg" \
       --theme dark \
