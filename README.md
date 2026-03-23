@@ -1,7 +1,9 @@
 ![Logo taf](./logo_taf.png)
 
 # Test Automation Framework
-
+[![Build Status](https://github.com/HamzaAfif/TAF-FALL-2025/workflows/CI%2FCD%20Pipeline/badge.svg?branch=main)](https://github.com/HamzaAfif/TAF-FALL-2025/actions)
+[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=HamzaAfif_TAF-FALL-2025&metric=coverage)](https://sonarcloud.io/project/overview?id=HamzaAfif_TAF-FALL-2025)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=HamzaAfif_TAF-FALL-2025&metric=alert_status)](https://sonarcloud.io/project/overview?id=HamzaAfif_TAF-FALL-2025)
 TAF est un projet de R&amp;D de cadriciel d’automatisation de test
 
 Il permet l'utilisation de plusieurs outils de tests (Selenium, Gatling, ...) à travers une interface web unique.
