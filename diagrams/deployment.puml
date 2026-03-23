@@ -1,0 +1,81 @@
+@startuml TAF-Deployment
+' PlantUML Deployment Diagram
+' Shows local development vs production infrastructure
+
+!theme plain
+skinparam rectangle {
+  BackgroundColor<<local>> #e1f5fe
+  BackgroundColor<<prod>> #fff3e0
+  BackgroundColor<<container>> #f3e5f5
+  BorderColor<<container>> #9c27b0
+}
+
+frame "🖥️ Local Development Environment" <<local>> {
+  component "Docker Compose" as Compose
+  
+  frame "Services" {
+    component "MongoDB\n(Port 27017)" as LocalMongo
+    component "Backend Container\n(Port 8080)" as LocalBackend
+    component "Frontend Container\n(Port 4200)" as LocalFrontend
+    component "Selenium Hub\n(Port 4444)" as LocalSelenium
+  }
+  
+  Compose --> LocalMongo
+  Compose --> LocalBackend
+  Compose --> LocalFrontend
+  Compose --> LocalSelenium
+}
+
+frame "☁️ Production Deployment" <<prod>> {
+  component "GitHub Actions\nCI/CD Pipeline" as GHActions
+  
+  frame "Container Registries" <<container>> {
+    component "GHCR\n(GitHub Container Registry)" as GHCR
+    component "Docker Hub\n(docker.io/hamzaafif)" as DockerHub
+  }
+  
+  frame "Kubernetes Cluster" {
+    component "Load Balancer\n(Nginx Ingress)" as LB
+    
+    frame "Backend Services" {
+      component "Backend Pod #1\nReplicas: N" as K8sBackend1
+      component "Backend Pod #2" as K8sBackend2
+      component "Backend Pod #N" as K8sBackendN
+    }
+    
+    frame "Data Layer" {
+      component "MongoDB\nStatefulSet\n(Persistent Volume)" as K8sMongo
+    }
+  }
+  
+  GHActions --> GHCR : Build & Push
+  GHActions --> DockerHub : Build & Push
+  GHCR -.->|image pull| K8sBackend1
+  DockerHub -.->|image pull| K8sBackend1
+  GHCR -.->|image pull| K8sBackend2
+  DockerHub -.->|image pull| K8sBackend2
+  
+  LB --> K8sBackend1
+  LB --> K8sBackend2
+  LB --> K8sBackendN
+  K8sBackend1 --> K8sMongo
+  K8sBackend2 --> K8sMongo
+  K8sBackendN --> K8sMongo
+}
+
+note right of Compose
+  Development workflow:
+  - docker-compose up
+  - Full stack locally
+  - MongoDB, services, selenium
+end note
+
+note right of GHActions
+  CI/CD Automation:
+  - Build on push
+  - Run tests
+  - Push images
+  - Deploy to prod
+end note
+
+@enduml

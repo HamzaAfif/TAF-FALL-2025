@@ -1,0 +1,85 @@
+@startuml TAF-Architecture
+' PlantUML Architecture Diagram - Alternative to Mermaid
+' Supports more advanced diagram types (component, deployment, etc.)
+
+!theme plain
+skinparam linetype ortho
+
+package "🖥️ Client Layer" {
+  component "Angular Frontend" as Frontend <<WEB>>
+  component "Web Browser" as Browser
+}
+
+package "🔌 API Gateway & Security" {
+  component "Spring Boot Backend" as Backend <<API>>
+  component "JWT Auth Service" as Auth <<SECURITY>>
+  component "OpenAPI/Swagger" as OpenAPI <<DOC>>
+}
+
+package "⚙️ Business Services" {
+  component "Test Controller" as TestCtrl <<SERVICE>>
+  component "Selenium Service" as SeleniumSvc <<AUTOMATION>>
+  component "Performance Service" as PerfSvc <<PERFORMANCE>>
+  component "Test Service" as TestSvc <<BUSINESS>>
+}
+
+package "🛠️ External Tools & Integrations" {
+  component "Selenium Hub" as SeleniumHub <<TOOL>>
+  component "Gatling Engine" as Gatling <<PERF_TOOL>>
+  component "JMeter Engine" as JMeter <<PERF_TOOL>>
+  component "MongoDB" as MongoDB <<DB>>
+}
+
+package "🐍 Python Microservice" {
+  component "Test Generation API" as GenAPI <<MICROSERVICE>>
+  component "BAML LLM Config" as BAML <<CONFIG>>
+}
+
+package "🚀 CI/CD & DevOps" {
+  component "GitHub Actions" as CI <<CI_CD>>
+  component "SonarCloud" as Sonar <<QUALITY>>
+  component "Docker Registry" as Docker <<REGISTRY>>
+}
+
+' Connections
+Browser --> Frontend : HTTP/REST
+Frontend --> Backend : REST API Calls
+Backend --> Auth : Request Validation
+Backend --> TestCtrl : Orchestrate Tests
+Backend --> TestSvc : Manage Tests
+
+TestCtrl --> SeleniumSvc : Execute Selenium
+TestCtrl --> PerfSvc : Performance Tests
+TestSvc --> MongoDB : Persist Results
+
+SeleniumSvc --> SeleniumHub : Control Browser
+PerfSvc --> Gatling : Gatling Tests
+PerfSvc --> JMeter : JMeter Tests
+
+Backend --> GenAPI : Test Generation
+GenAPI --> BAML : LLM Configuration
+
+CI --> Backend : Build & Test
+CI --> Frontend : Build & Test
+CI --> Sonar : Quality Gate
+CI --> Docker : Publish Images
+
+note right of Auth
+  JWT Token validation
+  User authentication
+  Request interception
+end note
+
+note right of TestCtrl
+  Main REST endpoints
+  Route test requests
+  Manages services
+end note
+
+note right of MongoDB
+  Test results storage
+  User data persistence
+  Execution logs
+end note
+
+@enduml

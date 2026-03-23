@@ -1,0 +1,94 @@
+graph TB
+    subgraph Backend["Backend - Java Modules"]
+        direction TB
+        
+        subgraph Controllers["🎯 Controllers"]
+            TestCtrl["TestController"]
+            TestSeleniumCtrl["TestSeleniumController"]
+            TestApiCtrl["TestApiController"]
+        end
+        
+        subgraph Services["⚙️ Services"]
+            SeleniumSvc["SeleniumService"]
+            TestSvc["TestService"]
+            PerformanceSvc["PerformanceService"]
+        end
+        
+        subgraph Security["🔐 Security"]
+            JwtUtils["JwtUtils"]
+            UserDetailsImpl["UserDetailsImpl"]
+            AuthInterceptor["AuthInterceptor"]
+        end
+        
+        subgraph Models["📦 Models"]
+            DTOs["DTOs (LoginRequest, etc)"]
+            Entities["Entities (User, Test, etc)"]
+            Payloads["Response Payloads"]
+        end
+        
+        subgraph Repos["🗄️ Repositories"]
+            UserRepo["UserRepository"]
+            TestRepo["TestRepository"]
+        end
+    end
+
+    subgraph Frontend["Frontend - Angular Modules"]
+        direction TB
+        
+        subgraph Components["🖼️ Components"]
+            AppComp["AppComponent"]
+            LoginComp["LoginComponent"]
+            TestApiComp["TestApiComponent"]
+            PerfComp["PerformanceComponent"]
+        end
+        
+        subgraph Services2["⚙️ Services"]
+            AuthService["AuthService"]
+            TestApiService["TestApiService"]
+            PerformanceService["PerformanceService"]
+            UserService["UserService"]
+        end
+        
+        subgraph Guards["🛡️ Guards"]
+            AuthGuard["AuthGuard"]
+            TokenStorage["TokenStorageService"]
+        end
+    end
+
+    subgraph Performance["Performance Modules"]
+        direction TB
+        Gatling["Gatling Tests"]
+        JMeter["JMeter Tests"]
+        PerfReports["Performance Reports"]
+    end
+
+    subgraph Python["Python Service"]
+        direction TB
+        GenService["Test Generation API"]
+        BAML["BAML LLM Config"]
+    end
+
+    TestCtrl -->|use| SeleniumSvc
+    TestCtrl -->|use| TestSvc
+    SeleniumSvc -->|depends| DTOs
+    AuthInterceptor -->|validate| JwtUtils
+    AppComp -->|use| AuthService
+    AppComp -->|use| TestApiService
+    TestApiService -->|call| TestCtrl
+    AuthService -->|call| JwtUtils
+    PerformanceSvc -->|orchestrate| Gatling
+    PerformanceSvc -->|orchestrate| JMeter
+    PerfComp -->|use| PerformanceService
+    TestSvc -->|persist| Repos
+    GenService -->|config| BAML
+
+    style Controllers fill:#fff3e0
+    style Services fill:#f3e5f5
+    style Security fill:#ffebee
+    style Models fill:#e8f5e9
+    style Repos fill:#e1f5fe
+    style Components fill:#fff3e0
+    style Services2 fill:#f3e5f5
+    style Guards fill:#ffebee
+    style Performance fill:#fce4ec
+    style Python fill:#e8f5e9

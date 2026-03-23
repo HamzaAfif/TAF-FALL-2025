@@ -1,0 +1,59 @@
+graph LR
+    subgraph Pipeline["🚀 CI/CD Pipeline Stages"]
+        direction LR
+        Checkout["1️⃣ Checkout<br/>Code"]
+        BuildBackend["2️⃣ Build<br/>Backend"]
+        BuildFront["2️⃣ Build<br/>Frontend"]
+        BuildPython["2️⃣ Build<br/>Python"]
+        BuildPerf["2️⃣ Build<br/>Performance"]
+        
+        LintJava["3️⃣ Lint Java<br/>Checkstyle+PMD"]
+        LintJS["3️⃣ Lint JS<br/>ESLint"]
+        LintPython["3️⃣ Lint Python<br/>flake8"]
+        
+        TestUnit["4️⃣ Unit Tests<br/>JUnit+Karma"]
+        TestIntegration["4️⃣ Integration<br/>Tests"]
+        TestCoverage["4️⃣ Coverage<br/>JaCoCo+Karma"]
+        
+        Sonar["5️⃣ SonarCloud<br/>Analysis"]
+        Docker["6️⃣ Docker Build<br/>& Publish"]
+        Docs["7️⃣ Generate Docs<br/>JavaDoc+Compodoc"]
+        Reports["8️⃣ Publish Reports<br/>& GitHub Pages"]
+    end
+
+    Checkout --> BuildBackend
+    Checkout --> BuildFront
+    Checkout --> BuildPython
+    Checkout --> BuildPerf
+    
+    BuildBackend --> LintJava
+    BuildFront --> LintJS
+    BuildPython --> LintPython
+    
+    LintJava --> TestUnit
+    LintJS --> TestUnit
+    LintPython --> TestUnit
+    
+    TestUnit --> TestIntegration
+    TestIntegration --> TestCoverage
+    TestCoverage --> Sonar
+    
+    Sonar --> Docker
+    Docker --> Docs
+    Docs --> Reports
+
+    style Checkout fill:#e3f2fd
+    style BuildBackend fill:#fff3e0
+    style BuildFront fill:#fff3e0
+    style BuildPython fill:#fff3e0
+    style BuildPerf fill:#fff3e0
+    style LintJava fill:#f3e5f5
+    style LintJS fill:#f3e5f5
+    style LintPython fill:#f3e5f5
+    style TestUnit fill:#c8e6c9
+    style TestIntegration fill:#c8e6c9
+    style TestCoverage fill:#c8e6c9
+    style Sonar fill:#ffccbc
+    style Docker fill:#ffd54f
+    style Docs fill:#b3e5fc
+    style Reports fill:#a5d6a7

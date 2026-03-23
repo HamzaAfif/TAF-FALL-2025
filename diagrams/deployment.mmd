@@ -1,0 +1,41 @@
+graph TB
+    subgraph LocalDev["🖥️ Local Development"]
+        DockerCompose["docker-compose-local-test.yml"]
+        MongoDB1["MongoDB<br/>Port 27017"]
+        Backend1["Backend Container<br/>Port 8080"]
+        Frontend1["Frontend Container<br/>Port 4200"]
+        Selenium1["Selenium Hub<br/>Port 4444"]
+        
+        DockerCompose -->|spins up| MongoDB1
+        DockerCompose -->|spins up| Backend1
+        DockerCompose -->|spins up| Frontend1
+        DockerCompose -->|spins up| Selenium1
+    end
+
+    subgraph Production["☁️ Production / Staging"]
+        direction TB
+        GitHub["GitHub Actions<br/>CI/CD Pipeline"]
+        
+        subgraph Registry["Docker Registry"]
+            GHCR["GHCR<br/>ghcr.io/<...>"]
+            DockerHub["Docker Hub<br/>docker.io/hamzaafif/<...>"]
+        end
+        
+        subgraph Deployment["Kubernetes / Docker Swarm"]
+            K8sBackend["Backend Pod/Service<br/>Replicas: N"]
+            K8sMongo["MongoDB StatefulSet<br/>Persistent Volume"]
+            K8sNginx["Nginx Ingress<br/>Load Balancer"]
+        end
+    end
+
+    GitHub -->|build| GHCR
+    GitHub -->|build & push| DockerHub
+    GHCR -->|deploy| K8sBackend
+    DockerHub -->|deploy| K8sBackend
+    K8sBackend -->|write| K8sMongo
+    K8sNginx -->|route| K8sBackend
+
+    style LocalDev fill:#e1f5fe
+    style Production fill:#fff3e0
+    style Registry fill:#f3e5f5
+    style Deployment fill:#c8e6c9

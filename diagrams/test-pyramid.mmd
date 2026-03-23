@@ -1,0 +1,63 @@
+graph TB
+    subgraph TestPyramid["🔺 Test Pyramid"]
+        E2E["🔴 E2E Tests<br/>5-10%<br/>Full workflows<br/>(TODO: Add Cypress)"]
+        IntegrationTests["🟠 Integration Tests<br/>15-25%<br/>Module interactions<br/>IntegrationTest.java<br/>20+ scénarios"]
+        UnitTests["🟢 Unit Tests<br/>70-80%<br/>Individual functions<br/>54 Java + 30 TS<br/>Total: 84+ tests"]
+    end
+
+    subgraph JavaTests["☕ Backend Tests (Java)"]
+        JUnit["JUnit 5 Framework"]
+        Mockito["Mockito Mocking"]
+        
+        UnitJava["Unit Tests<br/>- JwtUtilsTest (7)<br/>- UserDetailsImplTest (2)<br/>- LoginRequestTest (8)<br/>- Controllers (10)<br/>- Services (20+)"]
+        
+        IntegrationJava["Integration Tests<br/>- IntegrationTest (20)<br/>- E2E Workflows<br/>- DB interactions<br/>- Auth flow"]
+        
+        JUnit -->|powers| UnitJava
+        Mockito -->|mocks| UnitJava
+        JUnit -->|powers| IntegrationJava
+    end
+
+    subgraph TypeScriptTests["📘 Frontend Tests (TypeScript)"]
+        Karma["Karma Test Runner"]
+        Jasmine["Jasmine Framework"]
+        KarmaCodeCov["Karma Coverage"]
+        
+        UnitTS["Unit Tests (30+)<br/>- Components (10)<br/>- Services (8)<br/>- Guards (2)<br/>- Interceptors (2)<br/>- Utilities (8)"]
+        
+        Karma -->|runs| UnitTS
+        Jasmine -->|framework| UnitTS
+        KarmaCodeCov -->|measure| UnitTS
+    end
+
+    subgraph CoverageReports["📊 Coverage Reports"]
+        JaCoCo["JaCoCo Backend<br/>target/site/jacoco/"]
+        KarmaCov["Karma Frontend<br/>coverage/"]
+        Sonar["SonarCloud<br/>Aggregated metrics<br/>+ Quality Gate"]
+        
+        JaCoCo -->|uploaded| Sonar
+        KarmaCov -->|uploaded| Sonar
+    end
+
+    subgraph CI["🚀 CI/CD Integration"]
+        GithubActions["GitHub Actions"]
+        Artifacts["Artifacts Archive<br/>JUnit XML, HTML reports"]
+        
+        GithubActions -->|execute| UnitJava
+        GithubActions -->|execute| IntegrationJava
+        GithubActions -->|execute| UnitTS
+        GithubActions -->|generate| CoverageReports
+        CoverageReports -->|store| Artifacts
+    end
+
+    TestPyramid -->|implements| JavaTests
+    TestPyramid -->|implements| TypeScriptTests
+    JavaTests -->|report| CoverageReports
+    TypeScriptTests -->|report| CoverageReports
+    CoverageReports -->|publish| CI
+
+    style TestPyramid fill:#fff3e0
+    style JavaTests fill:#c8e6c9
+    style TypeScriptTests fill:#bbdefb
+    style CoverageReports fill:#ffccbc
+    style CI fill:#ffd54f

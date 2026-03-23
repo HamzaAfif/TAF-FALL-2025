@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant User as 👤 User/Tester
+    participant Frontend as 🖥️ Angular Frontend
+    participant Backend as 🔌 Spring Backend
+    participant TestCtrl as 🧪 Test Controller
+    participant Selenium as 🤖 Selenium Service
+    participant Browser as 🌐 Target Browser
+    participant DB as 💾 MongoDB
+    participant Results as 📊 Test Results
+
+    User->>Frontend: 1. Input test scenario
+    Frontend->>Frontend: 2. Validate form
+    Frontend->>Backend: 3. POST /api/tests/execute
+    Backend->>Backend: 4. JWT auth + validation
+    Backend->>TestCtrl: 5. Route to Test Controller
+    TestCtrl->>Selenium: 6. Create test session
+    Selenium->>Browser: 7. Open browser instance
+    Browser->>Browser: 8. Navigate & execute actions
+    Browser->>Selenium: 9. Return results
+    Selenium->>TestCtrl: 10. Aggregate results
+    TestCtrl->>DB: 11. Store test execution record
+    DB->>Backend: 12. Confirm save
+    Backend->>Results: 13. Generate report
+    Results->>Frontend: 14. Return report data
+    Frontend->>User: 15. Display results & metrics
+
+    Note over User,Results: Serial flow for single test execution<br/>Parallel execution supported in Performance module

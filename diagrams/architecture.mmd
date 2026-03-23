@@ -1,0 +1,63 @@
+graph TB
+    subgraph Client["🖥️ Client Layer"]
+        UI["Angular Frontend<br/>Port 4200"]
+        Browser["Web Browser"]
+    end
+
+    subgraph API["🔌 API Layer"]
+        Gateway["Spring Boot Backend<br/>Port 8080"]
+        Auth["JWT Security<br/>& Auth Service"]
+        OpenAPI["OpenAPI/Swagger<br/>Documentation"]
+    end
+
+    subgraph Services["⚙️ Services"]
+        TestCtrl["Test Controller<br/>(REST API)"]
+        SeleniumSvc["Selenium Service<br/>(Browser Automation)"]
+        PerfSvc["Performance Service<br/>(Gatling/JMeter)"]
+    end
+
+    subgraph Data["💾 Data Layer"]
+        MongoDB["MongoDB<br/>Test Results"]
+        Cache["Redis Cache<br/>(Optional)"]
+    end
+
+    subgraph Tools["🛠️ External Tools"]
+        Selenium["Selenium Hub<br/>Driver Management"]
+        Gatling["Gatling Engine<br/>Performance Tests"]
+        JMeter["JMeter Engine<br/>Load Testing"]
+    end
+
+    subgraph Python["🐍 Python Service"]
+        GenSvc["Test Generation<br/>Service (FastAPI)"]
+        BAML["BAML Configuration<br/>LLM Integration"]
+    end
+
+    subgraph CI["🚀 CI/CD & Ops"]
+        GitHub["GitHub Actions<br/>Pipeline"]
+        Sonar["SonarCloud<br/>Quality Gate"]
+        Docker["Docker Registry<br/>GHCR + Docker Hub"]
+    end
+
+    Browser -->|HTTP/REST| UI
+    UI -->|API Calls| Gateway
+    Gateway -->|Auth| Auth
+    Gateway -->|Orchestrate| TestCtrl
+    TestCtrl -->|Use| SeleniumSvc
+    TestCtrl -->|Use| PerfSvc
+    SeleniumSvc -->|Control| Selenium
+    PerfSvc -->|Use| Gatling
+    PerfSvc -->|Use| JMeter
+    Gateway -->|Read/Write| MongoDB
+    Auth -->|Cache| Cache
+    GenSvc -->|LLM Config| BAML
+    Gateway -->|Call| GenSvc
+    GitHub -->|Build & Test| Docker
+    GitHub -->|Analyze| Sonar
+    
+    style Client fill:#e1f5ff
+    style API fill:#f3e5f5
+    style Services fill:#fff3e0
+    style Data fill:#f1f8e9
+    style Tools fill:#fce4ec
+    style Python fill:#e8f5e9
+    style CI fill:#fff9c4
