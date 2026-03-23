@@ -297,6 +297,8 @@ jobs:
       DOCKER_PUSH: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
       DOCKER_BUILD_SUMMARY: 'false'
       DOCKER_BUILD_RECORD_UPLOAD: 'false'
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -319,11 +321,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Login to Docker Hub (main only)
-        if: env.DOCKER_PUSH == 'true' && secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_TOKEN != ''
+        if: env.DOCKER_PUSH == 'true' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Build Backend image
         uses: docker/build-push-action@v6
@@ -336,15 +338,15 @@ jobs:
             ghcr.io/${{ steps.vars.outputs.owner_lc }}/taf-backend:main
 
       - name: Publish Backend image to Docker Hub
-        if: env.DOCKER_PUSH == 'true' && secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_TOKEN != ''
+        if: env.DOCKER_PUSH == 'true' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./Dockerfile.local
           push: true
           tags: |
-            docker.io/${{ secrets.DOCKERHUB_USERNAME }}/taf-backend:sha-${{ github.sha }}
-            docker.io/${{ secrets.DOCKERHUB_USERNAME }}/taf-backend:main
+            docker.io/${{ env.DOCKERHUB_USERNAME }}/taf-backend:sha-${{ github.sha }}
+            docker.io/${{ env.DOCKERHUB_USERNAME }}/taf-backend:main
 
       - name: Build Frontend image
         uses: docker/build-push-action@v6
@@ -357,15 +359,15 @@ jobs:
             ghcr.io/${{ steps.vars.outputs.owner_lc }}/taf-frontend:main
 
       - name: Publish Frontend image to Docker Hub
-        if: env.DOCKER_PUSH == 'true' && secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_TOKEN != ''
+        if: env.DOCKER_PUSH == 'true' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./frontend/Dockerfile
           push: true
           tags: |
-            docker.io/${{ secrets.DOCKERHUB_USERNAME }}/taf-frontend:sha-${{ github.sha }}
-            docker.io/${{ secrets.DOCKERHUB_USERNAME }}/taf-frontend:main
+            docker.io/${{ env.DOCKERHUB_USERNAME }}/taf-frontend:sha-${{ github.sha }}
+            docker.io/${{ env.DOCKERHUB_USERNAME }}/taf-frontend:main
 
       - name: Build Test Generation image
         uses: docker/build-push-action@v6
@@ -378,15 +380,15 @@ jobs:
             ghcr.io/${{ steps.vars.outputs.owner_lc }}/taf-test-generation:main
 
       - name: Publish Test Generation image to Docker Hub
-        if: env.DOCKER_PUSH == 'true' && secrets.DOCKERHUB_USERNAME != '' && secrets.DOCKERHUB_TOKEN != ''
+        if: env.DOCKER_PUSH == 'true' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
         uses: docker/build-push-action@v6
         with:
           context: .
           file: ./test-generation-service/Dockerfile
           push: true
           tags: |
-            docker.io/${{ secrets.DOCKERHUB_USERNAME }}/taf-test-generation:sha-${{ github.sha }}
-            docker.io/${{ secrets.DOCKERHUB_USERNAME }}/taf-test-generation:main
+            docker.io/${{ env.DOCKERHUB_USERNAME }}/taf-test-generation:sha-${{ github.sha }}
+            docker.io/${{ env.DOCKERHUB_USERNAME }}/taf-test-generation:main
 
       - name: Add Docker summary
         run: |
@@ -396,7 +398,7 @@ jobs:
           echo "- Test generation image: built" >> $GITHUB_STEP_SUMMARY
           if [ "${DOCKER_PUSH}" = "true" ]; then
             echo "- Registry publish: GHCR (enabled on main)" >> $GITHUB_STEP_SUMMARY
-            if [ -n "${{ secrets.DOCKERHUB_USERNAME }}" ] && [ -n "${{ secrets.DOCKERHUB_TOKEN }}" ]; then
+            if [ -n "${DOCKERHUB_USERNAME}" ] && [ -n "${DOCKERHUB_TOKEN}" ]; then
               echo "- Registry publish: Docker Hub (enabled on main)" >> $GITHUB_STEP_SUMMARY
             else
               echo "- Registry publish: Docker Hub (skipped, missing secrets)" >> $GITHUB_STEP_SUMMARY
