@@ -104,11 +104,48 @@ Le pipeline execute notamment:
 - tests du service Python
 - analyse SonarCloud
 - generation/publication de la documentation
+- build des images Docker (backend, frontend, service Python)
 
 Points importants du pipeline actuel:
 - SonarCloud reste visible meme en cas de quality gate rouge (`sonar.qualitygate.wait=false`)
 - la couverture backend est regeneree dans le job Sonar pour eviter les faux `0%`
 - la documentation backend/frontend est publiee avec fallback pour garantir des URLs valides
+- publication automatique des images Docker sur `main` vers GHCR et Docker Hub
+
+## Docker Hub (hamzaafif)
+
+Les images sont publiees automatiquement par le pipeline sur la branche `main`.
+
+Depot Docker Hub:
+- `docker.io/hamzaafif/taf-backend`
+- `docker.io/hamzaafif/taf-frontend`
+- `docker.io/hamzaafif/taf-test-generation`
+
+Tags publies:
+- `main`
+- `sha-<commit>`
+
+### Recuperer les images
+
+```bash
+docker pull docker.io/hamzaafif/taf-backend:main
+docker pull docker.io/hamzaafif/taf-frontend:main
+docker pull docker.io/hamzaafif/taf-test-generation:main
+```
+
+### Lancer rapidement avec Docker Compose (recommande)
+
+```bash
+docker compose --env-file .docker_config.env -f docker-compose-local-test.yml up --build
+```
+
+### Exemple de lancement manuel (backend)
+
+```bash
+docker run --rm -p 8080:8080 docker.io/hamzaafif/taf-backend:main
+```
+
+Pour un environnement complet (MongoDB + backend + frontend + selenium + service python), utiliser Compose.
 
 ## SonarCloud
 
