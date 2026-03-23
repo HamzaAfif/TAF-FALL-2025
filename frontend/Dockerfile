@@ -1,8 +1,8 @@
-FROM node:alpine AS builder
+FROM node:20-alpine AS builder
 WORKDIR /frontend
 COPY frontend .
 
-RUN npm install && \
+RUN npm ci --legacy-peer-deps && \
     npm run build
 
 FROM nginx:alpine
