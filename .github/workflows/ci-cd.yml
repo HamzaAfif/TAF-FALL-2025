@@ -525,7 +525,7 @@ jobs:
 
       - name: Generate Backend JavaDoc
         working-directory: ./backend
-        run: mvn javadoc:javadoc -DskipTests -q
+        run: mvn javadoc:javadoc -DskipTests -Dmaven.javadoc.failOnError=false -q
         continue-on-error: true
 
       - name: Build Backend Docs Site
@@ -537,14 +537,40 @@ jobs:
             cp -r backend/target/site/apidocs/* docs/backend/javadoc/
           fi
 
+          # Fallback: ensure the javadoc URL always resolves even if generation failed.
+          if [ ! -f docs/backend/javadoc/index.html ]; then
+            cat > docs/backend/javadoc/index.html << 'EOF'
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <meta charset="utf-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <title>JavaDoc indisponible</title>
+              <style>
+                body { font-family: Arial, sans-serif; margin: 32px; }
+                .box { border: 1px solid #ddd; border-radius: 8px; padding: 16px; max-width: 720px; }
+              </style>
+            </head>
+            <body>
+              <div class="box">
+                <h1>JavaDoc indisponible pour ce build</h1>
+                <p>La génération JavaDoc a échoué ou n'a produit aucun fichier.</p>
+                <p>Consultez les logs du job Documentation dans GitHub Actions pour le détail.</p>
+                <p><a href="../index.html">Retour à la documentation backend</a></p>
+              </div>
+            </body>
+            </html>
+            EOF
+          fi
+
           # Build a simple endpoint catalog from controller annotations.
           # This is static and works even when the backend app is not running.
           {
-            echo "<h2>Discovered Endpoints (static scan)</h2>"
+            echo "<h2>Endpoints détectés (scan statique)</h2>"
             echo "<ul>"
             grep -R --include='*.java' -nE '@(Get|Post|Put|Delete|Patch)Mapping|@RequestMapping' backend/src/main/java | \
               sed -E 's#^backend/src/main/java/##' | \
-              sed -E 's#([0-9]+):#(line \1): #' | \
+              sed -E 's#([0-9]+):#(ligne \1): #' | \
               sed -E 's#@#<code>@#' | \
               sed -E 's#$#</code>#' | \
               sed -E 's#^#<li>#' | \
@@ -558,7 +584,7 @@ jobs:
           <head>
             <meta charset="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>TAF Backend Documentation</title>
+            <title>Documentation Backend TAF</title>
             <style>
               :root {
                 --bg: #f6f8fb;
@@ -580,24 +606,24 @@ jobs:
           </head>
           <body>
             <div class="wrap">
-              <h1>Backend API Documentation</h1>
+              <h1>Documentation API Backend</h1>
 
               <div class="card">
                 <h2>OpenAPI / Swagger UI</h2>
-                <p>When the backend is running locally, interactive API docs are available at:</p>
+                <p>Quand le backend tourne en local, la documentation interactive est disponible ici :</p>
                 <div class="pill"><a href="http://localhost:8080/swagger-ui.html">http://localhost:8080/swagger-ui.html</a></div>
               </div>
 
               <div class="card">
-                <h2>Java API (JavaDoc)</h2>
-                <p>Generated from source during CI.</p>
-                <div class="pill"><a href="./javadoc/index.html">Open JavaDoc</a></div>
+                <h2>API Java (JavaDoc)</h2>
+                <p>Générée à partir du code source pendant la CI.</p>
+                <div class="pill"><a href="./javadoc/index.html">Ouvrir JavaDoc</a></div>
               </div>
 
               <div class="card">
-                <h2>Route Catalog</h2>
-                <p>Static scan of controller annotations from source code.</p>
-                <div class="pill"><a href="./endpoints.html">View Endpoint Catalog</a></div>
+                <h2>Catalogue des routes</h2>
+                <p>Scan statique des annotations de contrôleurs dans le code source.</p>
+                <div class="pill"><a href="./endpoints.html">Voir le catalogue des endpoints</a></div>
               </div>
             </div>
           </body>
@@ -606,13 +632,13 @@ jobs:
 
           # Backward compatibility for old links pointing to backend/README.md.
           cat > docs/backend/README.md << 'EOF'
-          # Backend API Documentation Moved
+          # Documentation Backend déplacée
 
-          This page moved to the new backend docs site:
+          Cette page a été déplacée vers le nouveau site de documentation backend :
 
-          - [Open Backend Documentation](./index.html)
-          - [Open Endpoint Catalog](./endpoints.html)
-          - [Open JavaDoc](./javadoc/index.html)
+          - [Ouvrir la documentation backend](./index.html)
+          - [Ouvrir le catalogue des endpoints](./endpoints.html)
+          - [Ouvrir JavaDoc](./javadoc/index.html)
           EOF
 
       - name: Create Documentation Index
@@ -632,11 +658,11 @@ jobs:
           </head>
           <body>
             <h1>Test Automation Framework - Documentation</h1>
-            <h2>Components</h2>
-            <a href="./frontend/index.html" class="doc-link">📱 Frontend (Angular) - Component & Service Documentation</a>
-            <a href="./backend/index.html" class="doc-link">🔌 Backend (Java/Spring) - API, JavaDoc & Routes</a>
+            <h2>Composants</h2>
+            <a href="./frontend/index.html" class="doc-link">📱 Frontend (Angular) - Documentation des composants et services</a>
+            <a href="./backend/index.html" class="doc-link">🔌 Backend (Java/Spring) - API, JavaDoc et routes</a>
             <hr>
-            <p>Generated on: ${GENERATED_AT}</p>
+            <p>Généré le : ${GENERATED_AT}</p>
           </body>
           </html>
           EOF
