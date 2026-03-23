@@ -604,9 +604,21 @@ jobs:
           </html>
           EOF
 
+          # Backward compatibility for old links pointing to backend/README.md.
+          cat > docs/backend/README.md << 'EOF'
+          # Backend API Documentation Moved
+
+          This page moved to the new backend docs site:
+
+          - [Open Backend Documentation](./index.html)
+          - [Open Endpoint Catalog](./endpoints.html)
+          - [Open JavaDoc](./javadoc/index.html)
+          EOF
+
       - name: Create Documentation Index
         run: |
-          cat > docs/index.html << 'EOF'
+          GENERATED_AT="$(date -u '+%Y-%m-%d %H:%M UTC')"
+          cat > docs/index.html << EOF
           <!DOCTYPE html>
           <html>
           <head>
@@ -624,7 +636,7 @@ jobs:
             <a href="./frontend/index.html" class="doc-link">📱 Frontend (Angular) - Component & Service Documentation</a>
             <a href="./backend/index.html" class="doc-link">🔌 Backend (Java/Spring) - API, JavaDoc & Routes</a>
             <hr>
-            <p>Generated on: $(date)</p>
+            <p>Generated on: ${GENERATED_AT}</p>
           </body>
           </html>
           EOF
