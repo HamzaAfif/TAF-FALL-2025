@@ -538,12 +538,13 @@ jobs:
             cp -r backend/target/site/apidocs/* docs/backend/javadoc/
           fi
 
-          # Secondary attempt: generate JavaDoc directly with JDK tool if Maven output is missing.
+          # Secondary attempt: generate JavaDoc from compiled classes with Maven dependencies on classpath.
           if [ ! -f docs/backend/javadoc/index.html ]; then
             mkdir -p docs/backend/javadoc
-            SRC_FILES=$(find backend/src/main/java -name '*.java' | tr '\n' ' ')
-            if [ -n "$SRC_FILES" ]; then
-              javadoc -quiet -Xdoclint:none -encoding UTF-8 -source 17 -d docs/backend/javadoc $SRC_FILES || true
+            SRC_FILES=$(find backend/src/main/java -name '*.java' | paste -sd: -)
+            CP="backend/target/classes:$(find ~/.m2/repository -name '*.jar' | paste -sd: -)"
+            if [ -n "$SRC_FILES" ] && [ -f backend/target/classes/ca/etsmtl/taf/TestAutomationFrameworkApplication.class ]; then
+              javadoc -quiet -Xdoclint:none -encoding UTF-8 -source 17 -classpath "$CP" -sourcepath backend/src/main/java -d docs/backend/javadoc ca.etsmtl.taf ca.etsmtl.taf.controller ca.etsmtl.taf.entity ca.etsmtl.taf.service 2>&1 | grep -v 'warning' | head -5 || true
             fi
           fi
 
