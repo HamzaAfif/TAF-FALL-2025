@@ -7,43 +7,43 @@ L'erreur survient quand `mermaid-cli` utilise Puppeteer pour générer les diagr
 
 ### ✅ Solution
 
-#### 1. **GitHub Actions (CI/CD)** - Déjà fixé ✅
-Le workflow CI/CD inclut maintenant:
+#### 1. **GitHub Actions (CI/CD)** - ✅ Fixed
+Le workflow CI/CD utilise maintenant `--puppeteerConfig` avec les flags sandbox:
 ```yaml
 - name: Generate Mermaid diagrams as SVG
   run: |
-    export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
-    mmdc -i architecture.mmd -o generated/architecture.svg ...
+    PUPPETEER_CONFIG='{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
+    mmdc -i architecture.mmd -o generated/architecture.svg \
+      --puppeteerConfig "$PUPPETEER_CONFIG"
 ```
 
 #### 2. **Localement (macOS/Linux)**
-Si vous rencontrez l'erreur en local:
-
+Utiliser le script `generate-diagrams.sh` qui inclut déjà la config:
 ```bash
-# Option A: Exporter la variable d'environnement
-export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
 ./generate-diagrams.sh
-
-# Option B: Utiliser directement
-PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox" \
-  mmdc -i docs/diagrams/architecture.mmd -o docs/diagrams/generated/architecture.svg
 ```
 
-#### 3. **Windows PowerShell** - Déjà fixé ✅
-Le script `generate-diagrams.ps1` inclut maintenant:
+Ou manuellement avec le flag:
+```bash
+PUPPETEER_CONFIG='{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
+mmdc -i docs/diagrams/architecture.mmd \
+  -o docs/diagrams/generated/architecture.svg \
+  --puppeteerConfig "$PUPPETEER_CONFIG"
+```
+
+#### 3. **Windows PowerShell** - ✅ Fixed
+Le script `generate-diagrams.ps1` inclut maintenant la config Puppeteer:
 ```powershell
-$env:PUPPETEER_ARGS = "--no-sandbox --disable-setuid-sandbox"
+.\generate-diagrams.ps1
 ```
 
 #### 4. **Docker** - Alternative recommandée
-Si vous avez Docker, utiliser une image avec dépendances:
-
 ```bash
 docker run --rm -v $(pwd):/data node:20-alpine sh -c "
   npm install -g @mermaid-js/mermaid-cli
-  cd /data
-  export PUPPETEER_ARGS='--no-sandbox --disable-setuid-sandbox'
-  mmdc -i docs/diagrams/architecture.mmd -o docs/diagrams/generated/architecture.svg
+  cd /data/docs/diagrams
+  PUPPETEER_CONFIG='{\"args\":[\"--no-sandbox\",\"--disable-setuid-sandbox\"]}'
+  mmdc -i architecture.mmd -o generated/architecture.svg --puppeteerConfig \"\$PUPPETEER_CONFIG\"
 "
 ```
 
@@ -92,14 +92,14 @@ export NODE_OPTIONS="--max-old-space-size=2048"
 
 ```bash
 # Test simple - générer un seul diagramme
-mmdc -i docs/diagrams/architecture.mmd -o test.svg
-
-# Test avec sandbox configuré
-export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
-mmdc -i docs/diagrams/architecture.mmd -o test.svg
+PUPPETEER_CONFIG='{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
+mmdc -i docs/diagrams/architecture.mmd \
+     -o test.svg \
+     --puppeteerConfig "$PUPPETEER_CONFIG"
 
 # Vérifier le résultat
 ls -lh test.svg
+file test.svg
 ```
 
 ---

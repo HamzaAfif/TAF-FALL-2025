@@ -27,44 +27,51 @@ if ! command -v mmdc &> /dev/null; then
 fi
 
 # Generate Mermaid diagrams
+PUPPETEER_CONFIG='{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
+
 echo "📐 Generating architecture.svg..."
-export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
 mmdc -i "$DIAGRAMS_DIR/architecture.mmd" \
       -o "$OUTPUT_DIR/architecture.svg" \
       --theme dark \
       --backgroundColor white \
       --width 1200 \
-      --height 800
+      --height 800 \
+      --puppeteerConfig "$PUPPETEER_CONFIG"
 
 echo "📐 Generating ci-cd-pipeline.svg..."
 mmdc -i "$DIAGRAMS_DIR/ci-cd-pipeline.mmd" \
       -o "$OUTPUT_DIR/ci-cd-pipeline.svg" \
       --theme dark \
-      --backgroundColor white
+      --backgroundColor white \
+      --puppeteerConfig "$PUPPETEER_CONFIG"
 
 echo "📐 Generating test-execution-flow.svg..."
 mmdc -i "$DIAGRAMS_DIR/test-execution-flow.mmd" \
       -o "$OUTPUT_DIR/test-execution-flow.svg" \
       --theme dark \
-      --backgroundColor white
+      --backgroundColor white \
+      --puppeteerConfig "$PUPPETEER_CONFIG"
 
 echo "📐 Generating module-dependencies.svg..."
 mmdc -i "$DIAGRAMS_DIR/module-dependencies.mmd" \
       -o "$OUTPUT_DIR/module-dependencies.svg" \
       --theme dark \
-      --backgroundColor white
+      --backgroundColor white \
+      --puppeteerConfig "$PUPPETEER_CONFIG"
 
 echo "📐 Generating deployment.svg..."
 mmdc -i "$DIAGRAMS_DIR/deployment.mmd" \
       -o "$OUTPUT_DIR/deployment.svg" \
       --theme dark \
-      --backgroundColor white
+      --backgroundColor white \
+      --puppeteerConfig "$PUPPETEER_CONFIG"
 
 echo "📐 Generating test-pyramid.svg..."
 mmdc -i "$DIAGRAMS_DIR/test-pyramid.mmd" \
       -o "$OUTPUT_DIR/test-pyramid.svg" \
       --theme dark \
-      --backgroundColor white
+      --backgroundColor white \
+      --puppeteerConfig "$PUPPETEER_CONFIG"
 
 echo ""
 echo "=" | str_repeat 60

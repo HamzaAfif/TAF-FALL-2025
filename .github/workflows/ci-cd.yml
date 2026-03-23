@@ -686,13 +686,13 @@ jobs:
         working-directory: ./docs/diagrams
         run: |
           echo "Generating Mermaid diagrams..."
-          export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
-          mmdc -i architecture.mmd -o generated/architecture.svg --theme dark --backgroundColor white
-          mmdc -i ci-cd-pipeline.mmd -o generated/ci-cd-pipeline.svg --theme dark --backgroundColor white
-          mmdc -i test-execution-flow.mmd -o generated/test-execution-flow.svg --theme dark --backgroundColor white
-          mmdc -i module-dependencies.mmd -o generated/module-dependencies.svg --theme dark --backgroundColor white
-          mmdc -i deployment.mmd -o generated/deployment.svg --theme dark --backgroundColor white
-          mmdc -i test-pyramid.mmd -o generated/test-pyramid.svg --theme dark --backgroundColor white
+          PUPPETEER_CONFIG='{"args":["--no-sandbox","--disable-setuid-sandbox"]}'
+          mmdc -i architecture.mmd -o generated/architecture.svg --theme dark --backgroundColor white --puppeteerConfig "$PUPPETEER_CONFIG"
+          mmdc -i ci-cd-pipeline.mmd -o generated/ci-cd-pipeline.svg --theme dark --backgroundColor white --puppeteerConfig "$PUPPETEER_CONFIG"
+          mmdc -i test-execution-flow.mmd -o generated/test-execution-flow.svg --theme dark --backgroundColor white --puppeteerConfig "$PUPPETEER_CONFIG"
+          mmdc -i module-dependencies.mmd -o generated/module-dependencies.svg --theme dark --backgroundColor white --puppeteerConfig "$PUPPETEER_CONFIG"
+          mmdc -i deployment.mmd -o generated/deployment.svg --theme dark --backgroundColor white --puppeteerConfig "$PUPPETEER_CONFIG"
+          mmdc -i test-pyramid.mmd -o generated/test-pyramid.svg --theme dark --backgroundColor white --puppeteerConfig "$PUPPETEER_CONFIG"
           echo "✅ Diagrams generated successfully"
 
       - name: List generated files
