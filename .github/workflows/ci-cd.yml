@@ -558,6 +558,31 @@ jobs:
                 echo "Check CE payload above for the exact rejection reason."
                 exit 1
               fi
+
+              PROJECT_KEY=$(grep '^sonar.projectKey=' sonar-project.properties | cut -d'=' -f2)
+              EFFECTIVE_COMPONENT_KEY="${COMPONENT_KEY:-$PROJECT_KEY}"
+              MIN_COVERAGE="60"
+
+              METRICS_URL="https://sonarcloud.io/api/measures/component?component=${EFFECTIVE_COMPONENT_KEY}&branch=${GITHUB_REF_NAME}&metricKeys=coverage"
+              curl -sS -u "${SONAR_TOKEN}:" "$METRICS_URL" -o /tmp/sonar_coverage.json
+
+              COVERAGE=$(grep -o '"metric":"coverage","value":"[0-9.]*"' /tmp/sonar_coverage.json | sed -E 's/.*"value":"([0-9.]+)".*/\1/' | head -1)
+
+              if [ -z "$COVERAGE" ]; then
+                echo "Unable to read SonarCloud coverage from API response."
+                cat /tmp/sonar_coverage.json
+                exit 1
+              fi
+
+              echo "SonarCloud overall coverage: ${COVERAGE}%"
+              echo "Required minimum coverage: ${MIN_COVERAGE}%"
+
+              if awk "BEGIN {exit !($COVERAGE + 0 >= $MIN_COVERAGE + 0)}"; then
+                echo "Coverage gate passed (>= ${MIN_COVERAGE}%)."
+              else
+                echo "Coverage gate failed: ${COVERAGE}% is below ${MIN_COVERAGE}%."
+                exit 1
+              fi
             fi
           else
             echo "No .scannerwork/report-task.txt found in workspace."
