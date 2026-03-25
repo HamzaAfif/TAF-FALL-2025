@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {testModel} from "../../../models/test-model";
@@ -11,7 +11,7 @@ import {testModel2}  from "../../../models/testmodel2";
   templateUrl: './add-test-dialog.component.html',
   styleUrls: ['./add-test-dialog.component.css']
 })
-export class AddTestDialogComponent implements OnInit {
+export class AddTestDialogComponent {
   headerRequest = [{ key: '', value: '' }];
   expectedHeaderRequest = [{ key: '', value: '' }];
   method: any;
@@ -28,9 +28,6 @@ export class AddTestDialogComponent implements OnInit {
 
               private formBuilder : FormBuilder,
               private testApiService : TestApiService,) { }
-
-  ngOnInit(): void {}
-
 
   addnewHeader() {
     this.headerRequest.push({ key: '', value: '' });

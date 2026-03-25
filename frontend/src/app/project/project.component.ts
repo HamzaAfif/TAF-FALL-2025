@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectComponent {
 
   creationForm: any = {
     projectName: null,
@@ -22,9 +22,6 @@ export class ProjectComponent implements OnInit {
         private router: Router
     ) {
 
-    }
-
-    ngOnInit(): void {
     }
 
     // convenience getter for easy access to form fields

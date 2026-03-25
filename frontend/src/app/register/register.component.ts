@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { AuthService } from '../_services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   form: any = {
     fullName: null,
     username: null,
@@ -18,9 +18,6 @@ export class RegisterComponent implements OnInit {
   errorMessage = '';
 
   constructor(private authService: AuthService) { }
-
-  ngOnInit(): void {
-  }
 
   onSubmit(): void {
     const { fullName, username, email, password } = this.form;

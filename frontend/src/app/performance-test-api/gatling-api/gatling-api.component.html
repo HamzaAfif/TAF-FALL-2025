@@ -13,7 +13,7 @@
 
         <!--Start: The test fails-->
         <span *ngIf="testResult && !isSuccessfull()" class="result-icon test-result-failure">&#10060;</span>
-        <p *ngIf="testResult == null || !isSuccessfull()">Certains critères d’acceptation n’ont pas été validés.</p>
+        <p *ngIf="testResult === null || !isSuccessfull()">Certains critères d’acceptation n’ont pas été validés.</p>
         <p *ngIf="testResult?.reportGenerated" class="text-success">
           <mat-icon>assessment</mat-icon> Le rapport Gatling a été généré avec succès.
         </p>

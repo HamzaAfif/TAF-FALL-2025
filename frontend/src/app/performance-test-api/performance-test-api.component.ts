@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './performance-test-api.component.html',
   styleUrls: ['./performance-test-api.component.css']
 })
-export class PerformanceTestApiComponent implements OnInit {
+export class PerformanceTestApiComponent {
 
   constructor(private router: Router) {}
 
@@ -18,9 +18,6 @@ export class PerformanceTestApiComponent implements OnInit {
   runJMeterTest() {
     // Navigate to JMeter test component
     this.router.navigate(['/jmeter-test']);
-  }
-
-  ngOnInit(): void {
   }
 
 }
