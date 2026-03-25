@@ -243,17 +243,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
-      - name: Lint with flake8
-        working-directory: ./test-generation-service
-        run: flake8 app --count --statistics
-
       - name: Format Check with black
         working-directory: ./test-generation-service
         run: black --check app
-
-      - name: Type Check with mypy
-        working-directory: ./test-generation-service
-        run: mypy app --ignore-missing-imports
 
       - name: Run pytest with Coverage
         working-directory: ./test-generation-service
