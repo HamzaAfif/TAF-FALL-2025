@@ -13,7 +13,7 @@ import { ProjectComponent } from './project/project.component';
 import { RegisterComponent } from './register/register.component';
 import { TestSeleniumComponent } from './selenium/test-selenium.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'project', component: ProjectComponent },
   { path: 'login', component: LoginComponent },
@@ -23,7 +23,6 @@ const routes: Routes = [
   { path: 'admin', component: BoardAdminComponent },
   { path: 'test-api', component: TestApiComponent },
   { path: 'test-selenium', component: TestSeleniumComponent },
-  { path: 'performance-test-api', component: PerformanceTestApiComponent },
   { path: 'performance-test-api', component: PerformanceTestApiComponent },
   { path: 'gatling-test', component: GatlingApiComponent },
   { path: 'jmeter-test', component: JmeterApiComponent },

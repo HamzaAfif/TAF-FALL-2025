@@ -753,7 +753,7 @@ jobs:
         working-directory: ./frontend
         run: |
           npm install --legacy-peer-deps
-          npx @compodoc/compodoc -p tsconfig.app.json -d ../docs/frontend --name "TAF UI" --disableGraph
+          npx @compodoc/compodoc -p tsconfig.app.json -d ../docs/frontend --name "TAF UI"
 
       - name: Install Parent POM
         run: mvn -N -f pom.docker.xml install -q
