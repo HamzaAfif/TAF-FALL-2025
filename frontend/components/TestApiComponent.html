@@ -1,0 +1,1157 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>TAF UI</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">TAF UI</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TestApiComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/interface-test-api/test-api/test-api.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-test-api</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./test-api.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./test-api.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#dataTests" >dataTests</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                <a href="#displayedColumns" >displayedColumns</a>
+                            </li>
+                            <li>
+                                <a href="#isPopupOpened" >isPopupOpened</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addTest" >addTest</a>
+                            </li>
+                            <li>
+                                <a href="#deleteTest" >deleteTest</a>
+                            </li>
+                            <li>
+                                <a href="#exportCSV" >exportCSV</a>
+                            </li>
+                            <li>
+                                <a href="#getTestList" >getTestList</a>
+                            </li>
+                            <li>
+                                <a href="#lunchTests" >lunchTests</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#updateTestsStatusExecution" >updateTestsStatusExecution</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(testApiService: <a href="../injectables/TestApiService.html" target="_self">TestApiService</a>, dialog: MatDialog)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:27</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>testApiService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TestApiService.html" target="_self" >TestApiService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addTest"></a>
+                    <span class="name">
+                        <span ><b>addTest</b></span>
+                        <a href="#addTest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addTest()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteTest"></a>
+                    <span class="name">
+                        <span ><b>deleteTest</b></span>
+                        <a href="#deleteTest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteTest(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportCSV"></a>
+                    <span class="name">
+                        <span ><b>exportCSV</b></span>
+                        <a href="#exportCSV"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportCSV()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTestList"></a>
+                    <span class="name">
+                        <span ><b>getTestList</b></span>
+                        <a href="#getTestList"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTestList()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lunchTests"></a>
+                    <span class="name">
+                        <span ><b>lunchTests</b></span>
+                        <a href="#lunchTests"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>lunchTests()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="104"
+                                    class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:104</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateTestsStatusExecution"></a>
+                    <span class="name">
+                        <span ><b>updateTestsStatusExecution</b></span>
+                        <a href="#updateTestsStatusExecution"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateTestsStatusExecution(listTestsReponses: <a href="../interfaces/TestResponseModel.html" target="_self">TestResponseModel[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="113"
+                                    class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:113</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>listTestsReponses</td>
+                                            <td>
+                                                            <code><a href="../interfaces/TestResponseModel.html" target="_self" >TestResponseModel[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dataTests"></a>
+                    <span class="name">
+                        <span ><b>dataTests</b></span>
+                        <a href="#dataTests"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/testModel2.html" target="_self" >testModel2[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MatDialog</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayedColumns"></a>
+                    <span class="name">
+                        <span ><b>displayedColumns</b></span>
+                        <a href="#displayedColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;id&#x27;,
+    &#x27;method&#x27;,
+    &#x27;apiUrl&#x27;,
+    &#x27;responseTime&#x27;,
+    &#x27;statusCode&#x27;,
+    &#x27;responseStatus&#x27;,
+    &#x27;action&#x27;,
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isPopupOpened"></a>
+                    <span class="name">
+                        <span ><b>isPopupOpened</b></span>
+                        <a href="#isPopupOpened"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/interface-test-api/test-api/test-api.component.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { TestApiService } from &#x27;src/app/_services/test-api.service&#x27;;
+import { testModel } from &#x27;../../models/test-model&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+import { AddTestDialogComponent } from &#x27;./add-test-dialog/add-test-dialog.component&#x27;;
+import { DeleteTestDialogComponent } from &#x27;./delete-test-dialog/delete-test-dialog.component&#x27;;
+import { testModel2 } from &#x27;../../models/testmodel2&#x27;;
+import { TestResponseModel } from &#x27;../../models/testResponseModel&#x27;;
+
+@Component({
+  selector: &#x27;app-test-api&#x27;,
+  templateUrl: &#x27;./test-api.component.html&#x27;,
+  styleUrls: [&#x27;./test-api.component.css&#x27;],
+})
+export class TestApiComponent implements OnInit {
+  isPopupOpened &#x3D; true;
+  // colomn&#x27;s list
+  displayedColumns: string[] &#x3D; [
+    &#x27;id&#x27;,
+    &#x27;method&#x27;,
+    &#x27;apiUrl&#x27;,
+    &#x27;responseTime&#x27;,
+    &#x27;statusCode&#x27;,
+    &#x27;responseStatus&#x27;,
+    &#x27;action&#x27;,
+  ];
+  dataTests: testModel2[] &#x3D; [];
+
+  constructor(
+    private testApiService: TestApiService,
+    public dialog: MatDialog,
+  ) {}
+
+  ngOnInit() {
+    //loade list of tests
+    this.getTestList();
+  }
+
+  //get list of tests after evry test adde
+  getTestList(): void {
+    this.testApiService.tests$.subscribe((tests: testModel2[]) &#x3D;&gt; {
+      this.dataTests &#x3D; tests;
+    });
+  }
+
+  //oppen a dialog when user click on add icon
+  addTest() {
+    this.isPopupOpened &#x3D; true;
+    const dialogRef &#x3D; this.dialog.open(AddTestDialogComponent, {});
+
+    dialogRef.afterClosed().subscribe((result) &#x3D;&gt; {
+      this.isPopupOpened &#x3D; false;
+
+      this.ngOnInit(); //refresh list of tests automaticly after to show the new test
+    });
+  }
+
+  //oppen a dialog when user click
+  deleteTest(id: string) {
+    this.isPopupOpened &#x3D; true;
+    console.log(&#x27;list &#x3D;&#x3D;&#x3D;&gt;0&#x27;, id);
+    const dialogRef &#x3D; this.dialog.open(DeleteTestDialogComponent, { data: id });
+    dialogRef.afterClosed().subscribe((result) &#x3D;&gt; {
+      this.isPopupOpened &#x3D; false;
+      this.ngOnInit();
+    });
+
+    this.getTestList();
+  }
+
+  // download the test list with csv format after they was executed
+  exportCSV(): void {
+    if (this.dataTests.length &#x3D;&#x3D;&#x3D; 0) {
+      return;
+    }
+    const separator &#x3D; &#x27;,&#x27;;
+    const keys &#x3D; Object.keys(this.dataTests[0]) as (keyof testModel)[];
+    const csvContent &#x3D;
+      keys.join(separator) +
+      &#x27;\n&#x27; +
+      this.dataTests
+        .map((item) &#x3D;&gt; {
+          return keys
+            .map((key) &#x3D;&gt; {
+              return (item as any)[key];
+            })
+            .join(separator);
+        })
+        .join(&#x27;\n&#x27;);
+
+    const blob &#x3D; new Blob([csvContent], { type: &#x27;text/csv;charset&#x3D;utf-8;&#x27; });
+    const link &#x3D; document.createElement(&#x27;a&#x27;);
+    if (link.download !&#x3D;&#x3D; undefined) {
+      const url &#x3D; URL.createObjectURL(blob);
+      link.setAttribute(&#x27;href&#x27;, url);
+      link.setAttribute(&#x27;download&#x27;, &#x27;dataTests.csv&#x27;);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
+
+  // lunch tests execution
+  lunchTests() {
+    this.testApiService
+      .executeTests(this.dataTests)
+      .subscribe((listTestsReponses: TestResponseModel[]) &#x3D;&gt; {
+        this.updateTestsStatusExecution(listTestsReponses);
+      });
+  }
+
+  //updates list of tests after the test swas executed
+  updateTestsStatusExecution(listTestsReponses: TestResponseModel[]) {
+    console.log(&#x27;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&gt;&#x27;, listTestsReponses);
+    this.testApiService.updateTestsStatusExecution(listTestsReponses);
+    this.getTestList();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;h1 style&#x3D;&quot;text-align: center&quot;&gt;Liste des tests&lt;/h1&gt;
+
+&lt;table mat-table [dataSource]&#x3D;&quot;dataTests&quot; class&#x3D;&quot;mat-elevation-z8&quot;&gt;
+  &lt;ng-container matColumnDef&#x3D;&quot;id&quot;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt;id&lt;/th&gt;
+    &lt;td mat-cell *matCellDef&#x3D;&quot;let row&quot;&gt;{{ row.id }}&lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;ng-container matColumnDef&#x3D;&quot;method&quot;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt;methode&lt;/th&gt;
+    &lt;td mat-cell *matCellDef&#x3D;&quot;let row&quot;&gt;{{ row.method }}&lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;ng-container matColumnDef&#x3D;&quot;apiUrl&quot;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt;URL&lt;/th&gt;
+    &lt;td mat-cell *matCellDef&#x3D;&quot;let row&quot;&gt;{{ row.apiUrl }}&lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;ng-container matColumnDef&#x3D;&quot;statusCode&quot;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt;status&lt;/th&gt;
+    &lt;td mat-cell *matCellDef&#x3D;&quot;let row&quot;&gt;{{ row.statusCode }}&lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;ng-container matColumnDef&#x3D;&quot;responseTime&quot;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt;TDR&lt;/th&gt;
+    &lt;td mat-cell *matCellDef&#x3D;&quot;let row&quot;&gt;{{ row.responseTime }}&lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;ng-container matColumnDef&#x3D;&quot;responseStatus&quot;&gt;
+    &lt;th mat-header-cell *matHeaderCellDef&gt;resultat du test&lt;/th&gt;
+    &lt;td
+      mat-cell
+      *matCellDef&#x3D;&quot;let row&quot;
+      [ngStyle]&#x3D;&quot;{
+        color:
+          row.responseStatus &#x3D;&#x3D;&#x3D; true
+            ? &#x27;green&#x27;
+            : row.responseStatus &#x3D;&#x3D;&#x3D; false
+              ? &#x27;red&#x27;
+              : &#x27;black&#x27;
+      }&quot;
+    &gt;
+      {{ row.responseStatus }}
+    &lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;ng-container matColumnDef&#x3D;&quot;action&quot;&gt;
+    &lt;mat-header-cell *matHeaderCellDef&gt;
+      &lt;button mat-raised-button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;lunchTests()&quot;&gt;
+        lancer les tests
+      &lt;/button&gt;
+
+      &lt;button mat-icon-button class&#x3D;&quot;download-button&quot; (click)&#x3D;&quot;exportCSV()&quot;&gt;
+        &lt;mat-icon&gt;download&lt;/mat-icon&gt;
+      &lt;/button&gt;
+
+      &lt;button mat-icon-button color&#x3D;&quot;primary&quot;&gt;
+        &lt;mat-icon
+          aria-label&#x3D;&quot;Example icon-button with a heart icon&quot;
+          (click)&#x3D;&quot;addTest()&quot;
+          &gt;add&lt;/mat-icon
+        &gt;
+      &lt;/button&gt;
+    &lt;/mat-header-cell&gt;
+
+    &lt;th mat-header-cell *matHeaderCellDef&gt;actions&lt;/th&gt;
+    &lt;td mat-cell *matCellDef&#x3D;&quot;let row&quot;&gt;
+      &lt;button mat-icon-button (click)&#x3D;&quot;deleteTest(row.id)&quot;&gt;
+        &lt;mat-icon aria-label&#x3D;&quot;Delete&quot; color&#x3D;&quot;warn&quot;&gt;delete&lt;/mat-icon&gt;
+      &lt;/button&gt;
+    &lt;/td&gt;
+  &lt;/ng-container&gt;
+
+  &lt;tr mat-header-row *matHeaderRowDef&#x3D;&quot;displayedColumns&quot;&gt;&lt;/tr&gt;
+  &lt;tr mat-row *matRowDef&#x3D;&quot;let row; columns: displayedColumns&quot;&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./test-api.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">table {
+  width: 100%;
+}
+
+.form {
+  min-height: 56px;
+  max-height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 8px 24px 0;
+  font-size: 20px;
+  justify-content: space-between;
+  border-bottom: 1px solid transparent;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+}
+.mat-form-field {
+  font-size: 14px;
+  flex-grow: 1;
+  margin-top: 8px;
+}
+
+.example-form-field {
+  width: 200px;
+}
+.download-button {
+  margin-left: 8px;
+  color: black;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><h1 style="text-align: center">Liste des tests</h1><table mat-table [dataSource]="dataTests" class="mat-elevation-z8">  <ng-container matColumnDef="id">    <th mat-header-cell *matHeaderCellDef>id</th>    <td mat-cell *matCellDef="let row">{{ row.id }}</td>  </ng-container>  <ng-container matColumnDef="method">    <th mat-header-cell *matHeaderCellDef>methode</th>    <td mat-cell *matCellDef="let row">{{ row.method }}</td>  </ng-container>  <ng-container matColumnDef="apiUrl">    <th mat-header-cell *matHeaderCellDef>URL</th>    <td mat-cell *matCellDef="let row">{{ row.apiUrl }}</td>  </ng-container>  <ng-container matColumnDef="statusCode">    <th mat-header-cell *matHeaderCellDef>status</th>    <td mat-cell *matCellDef="let row">{{ row.statusCode }}</td>  </ng-container>  <ng-container matColumnDef="responseTime">    <th mat-header-cell *matHeaderCellDef>TDR</th>    <td mat-cell *matCellDef="let row">{{ row.responseTime }}</td>  </ng-container>  <ng-container matColumnDef="responseStatus">    <th mat-header-cell *matHeaderCellDef>resultat du test</th>    <td      mat-cell      *matCellDef="let row"      [ngStyle]="{        color:          row.responseStatus === true            ? \'green\'            : row.responseStatus === false              ? \'red\'              : \'black\'      }"    >      {{ row.responseStatus }}    </td>  </ng-container>  <ng-container matColumnDef="action">    <mat-header-cell *matHeaderCellDef>      <button mat-raised-button color="primary" (click)="lunchTests()">        lancer les tests      </button>      <button mat-icon-button class="download-button" (click)="exportCSV()">        <mat-icon>download</mat-icon>      </button>      <button mat-icon-button color="primary">        <mat-icon          aria-label="Example icon-button with a heart icon"          (click)="addTest()"          >add</mat-icon        >      </button>    </mat-header-cell>    <th mat-header-cell *matHeaderCellDef>actions</th>    <td mat-cell *matCellDef="let row">      <button mat-icon-button (click)="deleteTest(row.id)">        <mat-icon aria-label="Delete" color="warn">delete</mat-icon>      </button>    </td>  </ng-container>  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr></table></div>'
+    var COMPONENTS = [{'name': 'AddTestDialogComponent', 'selector': 'app-add-test-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BoardAdminComponent', 'selector': 'app-board-admin'},{'name': 'BoardUserComponent', 'selector': 'app-board-user'},{'name': 'BusySpinnerComponent', 'selector': 'app-busy-spinner'},{'name': 'DeleteTestDialogComponent', 'selector': 'app-delete-test-dialog'},{'name': 'GatlingApiComponent', 'selector': 'app-gatling-api'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'JmeterApiComponent', 'selector': 'app-jmeter-api'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PerformanceTestApiComponent', 'selector': 'app-performance-test-api'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProjectComponent', 'selector': 'app-project'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TestApiComponent', 'selector': 'app-test-api'},{'name': 'TestSeleniumComponent', 'selector': 'app-test-selenium'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TestApiComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TestApiComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,3196 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>TAF UI</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">TAF UI</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  GatlingApiComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/performance-test-api/gatling-api/gatling-api.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-gatling-api</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./gatling-api.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./gatling-api.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#busy" >busy</a>
+                            </li>
+                            <li>
+                                <a href="#criteriaFormGroup" >criteriaFormGroup</a>
+                            </li>
+                            <li>
+                                <a href="#gatlingTestResult" >gatlingTestResult</a>
+                            </li>
+                            <li>
+                                <a href="#isGlossaryVisible" >isGlossaryVisible</a>
+                            </li>
+                            <li>
+                                <a href="#latestReportContent" >latestReportContent</a>
+                            </li>
+                            <li>
+                                <a href="#modal" >modal</a>
+                            </li>
+                            <li>
+                                <a href="#newPercentile" >newPercentile</a>
+                            </li>
+                            <li>
+                                <a href="#newResponseTime" >newResponseTime</a>
+                            </li>
+                            <li>
+                                <a href="#percentiles" >percentiles</a>
+                            </li>
+                            <li>
+                                <a href="#reportModal" >reportModal</a>
+                            </li>
+                            <li>
+                                <a href="#request" >request</a>
+                            </li>
+                            <li>
+                                <a href="#requestFormGroup" >requestFormGroup</a>
+                            </li>
+                            <li>
+                                <a href="#selectedStrategy" >selectedStrategy</a>
+                            </li>
+                            <li>
+                                <a href="#setupFormGroup" >setupFormGroup</a>
+                            </li>
+                            <li>
+                                <a href="#span" >span</a>
+                            </li>
+                            <li>
+                                <a href="#strategies" >strategies</a>
+                            </li>
+                            <li>
+                                <a href="#strategiesEnum" >strategiesEnum</a>
+                            </li>
+                            <li>
+                                <a href="#strategyFormGroup" >strategyFormGroup</a>
+                            </li>
+                            <li>
+                                <a href="#testLog" >testLog</a>
+                            </li>
+                            <li>
+                                <a href="#testResult" >testResult</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addPercentile" >addPercentile</a>
+                            </li>
+                            <li>
+                                <a href="#closeModal" >closeModal</a>
+                            </li>
+                            <li>
+                                <a href="#closeReportModal" >closeReportModal</a>
+                            </li>
+                            <li>
+                                <a href="#getLatestReportUrl" >getLatestReportUrl</a>
+                            </li>
+                            <li>
+                                <a href="#initFormGroups" >initFormGroups</a>
+                            </li>
+                            <li>
+                                <a href="#isSuccessfull" >isSuccessfull</a>
+                            </li>
+                            <li>
+                                <a href="#newTest" >newTest</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onFinalSubmit" >onFinalSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#onStrategySelect" >onStrategySelect</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#openReportModal" >openReportModal</a>
+                            </li>
+                            <li>
+                                <a href="#removePercentile" >removePercentile</a>
+                            </li>
+                            <li>
+                                <a href="#selectTestType" >selectTestType</a>
+                            </li>
+                            <li>
+                                <a href="#showLatestReport" >showLatestReport</a>
+                            </li>
+                            <li>
+                                <a href="#toggleGlossary" >toggleGlossary</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(performanceTestApiService: <a href="../injectables/PerformanceTestApiService.html" target="_self">PerformanceTestApiService</a>, sanitizer: <a href="https://angular.io/api/platform-browser/DomSanitizer" target="_blank">DomSanitizer</a>, fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:63</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>performanceTestApiService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PerformanceTestApiService.html" target="_self" >PerformanceTestApiService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>sanitizer</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/platform-browser/DomSanitizer" target="_blank" >DomSanitizer</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addPercentile"></a>
+                    <span class="name">
+                        <span ><b>addPercentile</b></span>
+                        <a href="#addPercentile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addPercentile()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="290"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:290</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeModal"></a>
+                    <span class="name">
+                        <span ><b>closeModal</b></span>
+                        <a href="#closeModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="263"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:263</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeReportModal"></a>
+                    <span class="name">
+                        <span ><b>closeReportModal</b></span>
+                        <a href="#closeReportModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeReportModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="256"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:256</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLatestReportUrl"></a>
+                    <span class="name">
+                        <span ><b>getLatestReportUrl</b></span>
+                        <a href="#getLatestReportUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getLatestReportUrl()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="248"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:248</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initFormGroups"></a>
+                    <span class="name">
+                        <span ><b>initFormGroups</b></span>
+                        <a href="#initFormGroups"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>initFormGroups()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="87"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSuccessfull"></a>
+                    <span class="name">
+                        <span ><b>isSuccessfull</b></span>
+                        <a href="#isSuccessfull"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isSuccessfull()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="282"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:282</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newTest"></a>
+                    <span class="name">
+                        <span ><b>newTest</b></span>
+                        <a href="#newTest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>newTest()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="270"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:270</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFinalSubmit"></a>
+                    <span class="name">
+                        <span ><b>onFinalSubmit</b></span>
+                        <a href="#onFinalSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFinalSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="154"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:154</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onStrategySelect"></a>
+                    <span class="name">
+                        <span ><b>onStrategySelect</b></span>
+                        <a href="#onStrategySelect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onStrategySelect()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="189"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:189</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openReportModal"></a>
+                    <span class="name">
+                        <span ><b>openReportModal</b></span>
+                        <a href="#openReportModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openReportModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="252"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:252</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removePercentile"></a>
+                    <span class="name">
+                        <span ><b>removePercentile</b></span>
+                        <a href="#removePercentile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removePercentile(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="301"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:301</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectTestType"></a>
+                    <span class="name">
+                        <span ><b>selectTestType</b></span>
+                        <a href="#selectTestType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectTestType(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="309"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:309</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showLatestReport"></a>
+                    <span class="name">
+                        <span ><b>showLatestReport</b></span>
+                        <a href="#showLatestReport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showLatestReport()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="243"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:243</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleGlossary"></a>
+                    <span class="name">
+                        <span ><b>toggleGlossary</b></span>
+                        <a href="#toggleGlossary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleGlossary()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="305"
+                                    class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:305</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="busy"></a>
+                    <span class="name">
+                        <span ><b>busy</b></span>
+                        <a href="#busy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription | undefined</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="criteriaFormGroup"></a>
+                    <span class="name">
+                        <span ><b>criteriaFormGroup</b></span>
+                        <a href="#criteriaFormGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gatlingTestResult"></a>
+                    <span class="name">
+                        <span ><b>gatlingTestResult</b></span>
+                        <a href="#gatlingTestResult"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/GatlingTestResult.html" target="_self" >GatlingTestResult | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isGlossaryVisible"></a>
+                    <span class="name">
+                        <span ><b>isGlossaryVisible</b></span>
+                        <a href="#isGlossaryVisible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="latestReportContent"></a>
+                    <span class="name">
+                        <span ><b>latestReportContent</b></span>
+                        <a href="#latestReportContent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>SafeHtml | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="modal"></a>
+                    <span class="name">
+                        <span ><b>modal</b></span>
+                        <a href="#modal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newPercentile"></a>
+                    <span class="name">
+                        <span ><b>newPercentile</b></span>
+                        <a href="#newPercentile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>50</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newResponseTime"></a>
+                    <span class="name">
+                        <span ><b>newResponseTime</b></span>
+                        <a href="#newResponseTime"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="percentiles"></a>
+                    <span class="name">
+                        <span ><b>percentiles</b></span>
+                        <a href="#percentiles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[50, 75, 90, 95, 99, 99.9]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reportModal"></a>
+                    <span class="name">
+                        <span ><b>reportModal</b></span>
+                        <a href="#reportModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="request"></a>
+                    <span class="name">
+                        <span ><b>request</b></span>
+                        <a href="#request"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/GatlingRequest.html" target="_self" >GatlingRequest</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new GatlingRequest({})</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="requestFormGroup"></a>
+                    <span class="name">
+                        <span ><b>requestFormGroup</b></span>
+                        <a href="#requestFormGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedStrategy"></a>
+                    <span class="name">
+                        <span ><b>selectedStrategy</b></span>
+                        <a href="#selectedStrategy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;DEFAULT&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setupFormGroup"></a>
+                    <span class="name">
+                        <span ><b>setupFormGroup</b></span>
+                        <a href="#setupFormGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="span"></a>
+                    <span class="name">
+                        <span ><b>span</b></span>
+                        <a href="#span"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="strategies"></a>
+                    <span class="name">
+                        <span ><b>strategies</b></span>
+                        <a href="#strategies"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;DEFAULT&#x27;,
+    &#x27;SMOKE_TEST&#x27;,
+    &#x27;LOAD_TEST&#x27;,
+    &#x27;STRESS_TEST&#x27;,
+    &#x27;SPIKE_TEST&#x27;,
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="strategiesEnum"></a>
+                    <span class="name">
+                        <span ><b>strategiesEnum</b></span>
+                        <a href="#strategiesEnum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SIMULATION_STRATEGY</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="strategyFormGroup"></a>
+                    <span class="name">
+                        <span ><b>strategyFormGroup</b></span>
+                        <a href="#strategyFormGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testLog"></a>
+                    <span class="name">
+                        <span ><b>testLog</b></span>
+                        <a href="#testLog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testResult"></a>
+                    <span class="name">
+                        <span ><b>testResult</b></span>
+                        <a href="#testResult"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/performance-test-api/gatling-api/gatling-api.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { DomSanitizer, SafeHtml } from &#x27;@angular/platform-browser&#x27;;
+import { Subscription } from &#x27;rxjs&#x27;;
+import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { PerformanceTestApiService } from &#x27;src/app/_services/performance-test-api.service&#x27;;
+import Swal from &#x27;sweetalert2&#x27;;
+import { GatlingRequest, ResponseTimePerPercentile } from &#x27;./gatling-request&#x27;;
+import {
+  ApiResponse,
+  GatlingAssertionResult,
+  GatlingTestResult,
+} from &#x27;../../models/gatlingTestResult&#x27;;
+import { GATLING_SCENARIOS } from &#x27;../../models/gatling-scenarios&#x27;;
+
+enum SIMULATION_STRATEGY {
+  DEFAULT &#x3D; &#x27;DEFAULT&#x27;,
+  SMOKE_TEST &#x3D; &#x27;SMOKE_TEST&#x27;,
+  LOAD_TEST &#x3D; &#x27;LOAD_TEST&#x27;,
+  STRESS_TEST &#x3D; &#x27;STRESS_TEST&#x27;,
+  SPIKE_TEST &#x3D; &#x27;SPIKE_TEST&#x27;,
+}
+
+@Component({
+  selector: &#x27;app-gatling-api&#x27;,
+  templateUrl: &#x27;./gatling-api.component.html&#x27;,
+  styleUrls: [&#x27;./gatling-api.component.css&#x27;],
+})
+export class GatlingApiComponent implements OnInit {
+  modal: HTMLElement | null &#x3D; null;
+  reportModal: HTMLElement | null &#x3D; null;
+  span: HTMLElement | null &#x3D; null;
+  testResult: any;
+
+  gatlingTestResult: GatlingTestResult | null &#x3D; null;
+
+  percentiles: number[] &#x3D; [50, 75, 90, 95, 99, 99.9];
+  newPercentile: number &#x3D; 50;
+  newResponseTime: number &#x3D; 0;
+
+  testLog: string &#x3D; &#x27;&#x27;;
+  latestReportContent: SafeHtml | null &#x3D; null;
+
+  busy: Subscription | undefined;
+
+  request: GatlingRequest &#x3D; new GatlingRequest({});
+
+  strategies: string[] &#x3D; [
+    &#x27;DEFAULT&#x27;,
+    &#x27;SMOKE_TEST&#x27;,
+    &#x27;LOAD_TEST&#x27;,
+    &#x27;STRESS_TEST&#x27;,
+    &#x27;SPIKE_TEST&#x27;,
+  ];
+  strategiesEnum &#x3D; SIMULATION_STRATEGY;
+  selectedStrategy: string &#x3D; &#x27;DEFAULT&#x27;;
+
+  // Stepper FormGroups
+  setupFormGroup!: FormGroup;
+  requestFormGroup!: FormGroup;
+  strategyFormGroup!: FormGroup;
+  criteriaFormGroup!: FormGroup;
+
+  isGlossaryVisible: boolean &#x3D; false;
+
+  constructor(
+    private readonly performanceTestApiService: PerformanceTestApiService,
+    private sanitizer: DomSanitizer,
+    private fb: FormBuilder,
+  ) {}
+
+  ngOnInit(): void {
+    this.modal &#x3D; document.getElementById(&#x27;myModal&#x27;);
+    this.reportModal &#x3D; document.getElementById(&#x27;reportModal&#x27;);
+    this.span &#x3D; document.getElementsByClassName(&#x27;close&#x27;)[0] as HTMLElement;
+
+    this.initFormGroups();
+
+    // Watch for strategy changes
+    this.strategyFormGroup
+      .get(&#x27;simulationStrategy&#x27;)
+      ?.valueChanges.subscribe((value) &#x3D;&gt; {
+        this.selectedStrategy &#x3D; value;
+        this.onStrategySelect();
+      });
+  }
+
+  initFormGroups() {
+    this.setupFormGroup &#x3D; this.fb.group({
+      testScenarioName: [&#x27;&#x27;, Validators.required],
+      testRequestName: [&#x27;&#x27;],
+      testBaseUrl: [&#x27;&#x27;, [Validators.required]],
+    });
+
+    this.requestFormGroup &#x3D; this.fb.group({
+      testUri: [&#x27;&#x27;, Validators.required],
+      testMethodType: [&#x27;GET&#x27;, Validators.required],
+      testRequestBody: [&#x27;&#x27;],
+    });
+
+    this.strategyFormGroup &#x3D; this.fb.group({
+      simulationStrategy: [&#x27;DEFAULT&#x27;, Validators.required],
+      testUsersNumber: [10],
+      testRampUpDuration: [5],
+      testUserRampUpPerSecondMin: [0],
+      testUserRampUpPerSecondMax: [10],
+      testUserRampUpPerSecondDuration: [30],
+      testConstantUsers: [5],
+      testConstantUsersDuration: [60],
+      testUsersAtOnce: [1],
+    });
+
+    this.criteriaFormGroup &#x3D; this.fb.group({
+      assertionMeanResponseTime: [50, Validators.required],
+      assertionFailedRequestsPercent: [2, Validators.required],
+    });
+  }
+
+  onStrategySelect() {
+    const match &#x3D; GATLING_SCENARIOS.find(
+      (scenario) &#x3D;&gt; scenario.name &#x3D;&#x3D;&#x3D; this.selectedStrategy,
+    );
+    if (match) {
+      // Create a fresh request model
+      this.request &#x3D; new GatlingRequest(match.config);
+
+      // Patch form values
+      this.strategyFormGroup.patchValue(
+        {
+          testUsersNumber: match.config.testUsersNumber,
+          testRampUpDuration: match.config.testRampUpDuration,
+          testUserRampUpPerSecondMin: match.config.testUserRampUpPerSecondMin,
+          testUserRampUpPerSecondMax: match.config.testUserRampUpPerSecondMax,
+          testUserRampUpPerSecondDuration:
+            match.config.testUserRampUpPerSecondDuration,
+          testConstantUsers: match.config.testConstantUsers,
+          testConstantUsersDuration: match.config.testConstantUsersDuration,
+          testUsersAtOnce: match.config.testUsersAtOnce,
+        },
+        { emitEvent: false },
+      );
+
+      // Also patch criteria if they are in the scenario
+      this.criteriaFormGroup.patchValue(
+        {
+          assertionMeanResponseTime: match.config.assertionMeanResponseTime,
+          assertionFailedRequestsPercent:
+            match.config.assertionFailedRequestsPercent,
+        },
+        { emitEvent: false },
+      );
+    }
+  }
+
+  onFinalSubmit() {
+    // Sync all form values to the request model
+    const setup &#x3D; this.setupFormGroup.value;
+    const req &#x3D; this.requestFormGroup.value;
+    const strategy &#x3D; this.strategyFormGroup.value;
+    const criteria &#x3D; this.criteriaFormGroup.value;
+
+    this.request.testScenarioName &#x3D; setup.testScenarioName;
+    this.request.testRequestName &#x3D; setup.testRequestName;
+    this.request.testBaseUrl &#x3D; setup.testBaseUrl;
+
+    this.request.testUri &#x3D; req.testUri;
+    this.request.testMethodType &#x3D; req.testMethodType;
+    this.request.testRequestBody &#x3D; req.testRequestBody;
+
+    this.request.simulationStrategy &#x3D; strategy.simulationStrategy;
+    this.request.testUsersNumber &#x3D; strategy.testUsersNumber;
+    this.request.testRampUpDuration &#x3D; strategy.testRampUpDuration;
+    this.request.testUserRampUpPerSecondMin &#x3D;
+      strategy.testUserRampUpPerSecondMin;
+    this.request.testUserRampUpPerSecondMax &#x3D;
+      strategy.testUserRampUpPerSecondMax;
+    this.request.testUserRampUpPerSecondDuration &#x3D;
+      strategy.testUserRampUpPerSecondDuration;
+    this.request.testConstantUsers &#x3D; strategy.testConstantUsers;
+    this.request.testConstantUsersDuration &#x3D; strategy.testConstantUsersDuration;
+    this.request.testUsersAtOnce &#x3D; strategy.testUsersAtOnce;
+
+    this.request.assertionMeanResponseTime &#x3D; criteria.assertionMeanResponseTime;
+    this.request.assertionFailedRequestsPercent &#x3D;
+      criteria.assertionFailedRequestsPercent;
+
+    this.onSubmit();
+  }
+
+  onSubmit() {
+    console.log(&#x27;Sending Gatling Request:&#x27;, this.request);
+
+    this.busy &#x3D; this.performanceTestApiService
+      .sendGatlingRequest(this.request)
+      .subscribe({
+        next: (response: ApiResponse) &#x3D;&gt; {
+          if (
+            response.message &amp;&amp;
+            (response.message.startsWith(&#x27;Error&#x27;) ||
+              response.message.includes(&#x27;failed to execute&#x27;) ||
+              response.message.includes(&#x27;Simulation failed&#x27;))
+          ) {
+            Swal.fire({
+              icon: &#x27;error&#x27;,
+              title: &#x27;Erreur de simulation&#x27;,
+              text: response.message,
+              footer:
+                &#x27;Veuillez vérifier les logs serveur pour plus de détails.&#x27;,
+            });
+            return;
+          }
+
+          this.testResult &#x3D; response.testResult;
+          const output &#x3D; response.message || &#x27;&#x27;;
+          const hasReport &#x3D;
+            output.includes(&#x27;Generated Report&#x27;) ||
+            output.includes(&#x27;Please open&#x27;);
+
+          if (this.testResult) {
+            (this.testResult as any).reportGenerated &#x3D; hasReport;
+          }
+
+          if (this.modal) this.modal.style.display &#x3D; &#x27;block&#x27;;
+        },
+        error: (error: any) &#x3D;&gt; {
+          let errorMessage &#x3D;
+            &#x27;Le test a échoué, révisez votre configuration de test&#x27;;
+          if (error.error) {
+            if (typeof error.error &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+              errorMessage &#x3D; error.error;
+            } else if (error.error.message) {
+              errorMessage &#x3D; error.error.message;
+            }
+          }
+          Swal.fire({
+            icon: &#x27;error&#x27;,
+            title: &#x27;Erreur Serveur&#x27;,
+            text: errorMessage,
+          });
+        },
+      });
+  }
+
+  showLatestReport() {
+    const url &#x3D; this.performanceTestApiService.getLatestReportUrl();
+    window.open(url, &#x27;_blank&#x27;);
+  }
+
+  getLatestReportUrl(): string {
+    return this.performanceTestApiService.getLatestReportUrl();
+  }
+
+  openReportModal() {
+    if (this.reportModal) this.reportModal.style.display &#x3D; &#x27;block&#x27;;
+  }
+
+  closeReportModal() {
+    if (this.reportModal) {
+      this.reportModal.style.display &#x3D; &#x27;none&#x27;;
+      this.latestReportContent &#x3D; null;
+    }
+  }
+
+  closeModal() {
+    if (this.modal) {
+      this.modal.style.display &#x3D; &#x27;none&#x27;;
+      this.latestReportContent &#x3D; null;
+    }
+  }
+
+  newTest() {
+    this.request &#x3D; new GatlingRequest({});
+    this.setupFormGroup.reset({ testScenarioName: &#x27;&#x27;, testBaseUrl: &#x27;&#x27; });
+    this.requestFormGroup.reset({ testMethodType: &#x27;GET&#x27;, testUri: &#x27;&#x27; });
+    this.strategyFormGroup.reset({ simulationStrategy: &#x27;DEFAULT&#x27; });
+    this.criteriaFormGroup.reset({
+      assertionMeanResponseTime: 50,
+      assertionFailedRequestsPercent: 2,
+    });
+    this.closeModal();
+  }
+
+  isSuccessfull(): boolean {
+    if (!this.testResult || !this.testResult.assertions) return false;
+    const failures &#x3D; this.testResult.assertions.filter(
+      (assertion: GatlingAssertionResult) &#x3D;&gt; assertion.result &#x3D;&#x3D; false,
+    );
+    return failures.length &#x3D;&#x3D; 0;
+  }
+
+  addPercentile(): void {
+    if (this.newPercentile &amp;&amp; this.newResponseTime) {
+      const newAssertion &#x3D; new ResponseTimePerPercentile(
+        this.newPercentile,
+        this.newResponseTime,
+      );
+      this.request.assertionsResponseTimePerPercentile.push(newAssertion);
+      this.newResponseTime &#x3D; 0;
+    }
+  }
+
+  removePercentile(index: number): void {
+    this.request.assertionsResponseTimePerPercentile.splice(index, 1);
+  }
+
+  toggleGlossary(): void {
+    this.isGlossaryVisible &#x3D; !this.isGlossaryVisible;
+  }
+
+  selectTestType(type: string): void {
+    let mapping: { [key: string]: string } &#x3D; {
+      smoke: SIMULATION_STRATEGY.SMOKE_TEST,
+      load: SIMULATION_STRATEGY.LOAD_TEST,
+      stress: SIMULATION_STRATEGY.STRESS_TEST,
+      spike: SIMULATION_STRATEGY.SPIKE_TEST,
+    };
+
+    const strategy &#x3D; mapping[type];
+    if (strategy) {
+      this.strategyFormGroup.patchValue({ simulationStrategy: strategy });
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container&quot;&gt;
+  &lt;div id&#x3D;&quot;myModal&quot; class&#x3D;&quot;modal&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content&quot;&gt;
+      &lt;div
+        class&#x3D;&quot;modal-header&quot;
+        [ngClass]&#x3D;&quot;{ failure: testResult &amp;&amp; !isSuccessfull() }&quot;
+      &gt;
+        &lt;h2&gt;Résultat de test&lt;/h2&gt;
+        &lt;span class&#x3D;&quot;close&quot; (click)&#x3D;&quot;closeModal()&quot;&gt;&amp;times;&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+        &lt;!--Start: The test is successful --&gt;
+        &lt;span *ngIf&#x3D;&quot;testResult &amp;&amp; isSuccessfull()&quot; class&#x3D;&quot;result-icon success&quot;
+          &gt;&amp;#10004;&lt;/span
+        &gt;
+        &lt;p *ngIf&#x3D;&quot;testResult &amp;&amp; isSuccessfull()&quot;&gt;
+          Le test a été exécuté avec succès.
+        &lt;/p&gt;
+        &lt;!--End: The test is successful --&gt;
+
+        &lt;!--Start: The test fails--&gt;
+        &lt;span
+          *ngIf&#x3D;&quot;testResult &amp;&amp; !isSuccessfull()&quot;
+          class&#x3D;&quot;result-icon test-result-failure&quot;
+          &gt;&amp;#10060;&lt;/span
+        &gt;
+        &lt;p *ngIf&#x3D;&quot;testResult &#x3D;&#x3D;&#x3D; null || !isSuccessfull()&quot;&gt;
+          Certains critères d’acceptation n’ont pas été validés.
+        &lt;/p&gt;
+        &lt;p *ngIf&#x3D;&quot;testResult?.reportGenerated&quot; class&#x3D;&quot;text-success&quot;&gt;
+          &lt;mat-icon&gt;assessment&lt;/mat-icon&gt; Le rapport Gatling a été généré avec
+          succès.
+        &lt;/p&gt;
+        &lt;!--End: test fails--&gt;
+
+        &lt;table *ngIf&#x3D;&quot;testResult&quot; class&#x3D;&quot;assertions-table&quot;&gt;
+          &lt;thead&gt;
+            &lt;tr&gt;
+              &lt;th&gt;Assertion&lt;/th&gt;
+              &lt;th&gt;Valeur&lt;/th&gt;
+              &lt;th&gt;Statut&lt;/th&gt;
+            &lt;/tr&gt;
+          &lt;/thead&gt;
+          &lt;tbody&gt;
+            &lt;tr
+              [ngClass]&#x3D;&quot;
+                assertion.result ? &#x27;assertion-success&#x27; : &#x27;assertion-fail&#x27;
+              &quot;
+              *ngFor&#x3D;&quot;let assertion of testResult.assertions&quot;
+            &gt;
+              &lt;td&gt;{{ assertion.message }}&lt;/td&gt;
+              &lt;td&gt;{{ assertion.actualValue }}&lt;/td&gt;
+              &lt;td&gt;{{ assertion.result ? &quot;SUCCÈS&quot; : &quot;ÉCHEC&quot; }}&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;a
+          mat-raised-button
+          class&#x3D;&quot;linkbutton&quot;
+          color&#x3D;&quot;primary&quot;
+          [href]&#x3D;&quot;getLatestReportUrl()&quot;
+          target&#x3D;&quot;_blank&quot;
+          &gt;Afficher le rapport
+        &lt;/a&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+        &lt;button
+          mat-raised-button
+          class&#x3D;&quot;newtestbutton&quot;
+          color&#x3D;&quot;accent&quot;
+          (click)&#x3D;&quot;newTest()&quot;
+        &gt;
+          Nouveau Test
+        &lt;/button&gt;
+        &lt;button
+          mat-raised-button
+          class&#x3D;&quot;closebutton&quot;
+          color&#x3D;&quot;primary&quot;
+          (click)&#x3D;&quot;closeModal()&quot;
+        &gt;
+          Fermer
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;main&quot;&gt;
+    &lt;div class&#x3D;&quot;content glass-stepper&quot;&gt;
+      &lt;div class&#x3D;&quot;form-title text-center&quot;&gt;
+        &lt;img
+          src&#x3D;&quot;assets/logo/Gatling-logo-RVB.png&quot;
+          alt&#x3D;&quot;Gatling Logo&quot;
+          class&#x3D;&quot;gatling-logo&quot;
+          matTooltip&#x3D;&quot;Gatling est un outil de test de performance open-source qui évalue la réactivité des applications web et des API.&quot;
+        /&gt;
+      &lt;/div&gt;
+
+      &lt;mat-horizontal-stepper linear #stepper&gt;
+        &lt;!-- Step 1: Scenario Setup --&gt;
+        &lt;mat-step [stepControl]&#x3D;&quot;setupFormGroup&quot;&gt;
+          &lt;form [formGroup]&#x3D;&quot;setupFormGroup&quot;&gt;
+            &lt;ng-template matStepLabel&gt;Configuration&lt;/ng-template&gt;
+            &lt;div class&#x3D;&quot;step-container&quot;&gt;
+              &lt;div class&#x3D;&quot;section-title&quot;&gt;
+                &lt;h2&gt;Étape 1: Configuration du scénario&lt;/h2&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-6&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Nom du scénario
+                      &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testScenarioName&quot;
+                    placeholder&#x3D;&quot;Scénario Test&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-6&quot;&gt;
+                  &lt;label&gt;&lt;strong&gt;Nom de la requête&lt;/strong&gt;&lt;/label&gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testRequestName&quot;
+                    placeholder&#x3D;&quot;Requête Test&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;URL de base &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testBaseUrl&quot;
+                    placeholder&#x3D;&quot;https://api.monsite.com&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;stepper-actions&quot;&gt;
+                &lt;span&gt;&lt;/span&gt;
+                &lt;button mat-button matStepperNext class&#x3D;&quot;btn-next&quot;&gt;
+                  Suivant
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/mat-step&gt;
+
+        &lt;!-- Step 2: Request Details --&gt;
+        &lt;mat-step [stepControl]&#x3D;&quot;requestFormGroup&quot;&gt;
+          &lt;form [formGroup]&#x3D;&quot;requestFormGroup&quot;&gt;
+            &lt;ng-template matStepLabel&gt;Requête&lt;/ng-template&gt;
+            &lt;div class&#x3D;&quot;step-container&quot;&gt;
+              &lt;div class&#x3D;&quot;section-title&quot;&gt;
+                &lt;h2&gt;Étape 2: Détails de la requête&lt;/h2&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-4&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Méthode HTTP &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;select class&#x3D;&quot;form-control&quot; formControlName&#x3D;&quot;testMethodType&quot;&gt;
+                    &lt;option&gt;GET&lt;/option&gt;
+                    &lt;option&gt;POST&lt;/option&gt;
+                    &lt;option&gt;PUT&lt;/option&gt;
+                    &lt;option&gt;DELETE&lt;/option&gt;
+                    &lt;option&gt;PATCH&lt;/option&gt;
+                  &lt;/select&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-8&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Chemin (URI) &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testUri&quot;
+                    placeholder&#x3D;&quot;/v1/users/login&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col&quot;&gt;
+                  &lt;label&gt;&lt;strong&gt;Corps de la requête (JSON)&lt;/strong&gt;&lt;/label&gt;
+                  &lt;textarea
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testRequestBody&quot;
+                    rows&#x3D;&quot;5&quot;
+                    placeholder&#x3D;&#x27;{ &quot;username&quot;: &quot;test&quot; }&#x27;
+                  &gt;&lt;/textarea&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;stepper-actions&quot;&gt;
+                &lt;button mat-button matStepperPrevious class&#x3D;&quot;btn-prev&quot;&gt;
+                  Retour
+                &lt;/button&gt;
+                &lt;button mat-button matStepperNext class&#x3D;&quot;btn-next&quot;&gt;
+                  Suivant
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/mat-step&gt;
+
+        &lt;!-- Step 3: Load Profile --&gt;
+        &lt;mat-step [stepControl]&#x3D;&quot;strategyFormGroup&quot;&gt;
+          &lt;form [formGroup]&#x3D;&quot;strategyFormGroup&quot;&gt;
+            &lt;ng-template matStepLabel&gt;Profil de charge&lt;/ng-template&gt;
+            &lt;div class&#x3D;&quot;step-container&quot;&gt;
+              &lt;div class&#x3D;&quot;section-title&quot;&gt;
+                &lt;h2&gt;Étape 3: Profil de charge&lt;/h2&gt;
+              &lt;/div&gt;
+
+              &lt;button
+                type&#x3D;&quot;button&quot;
+                class&#x3D;&quot;btn-scenario-toggle&quot;
+                (click)&#x3D;&quot;toggleGlossary()&quot;
+              &gt;
+                &lt;i
+                  class&#x3D;&quot;fas&quot;
+                  [ngClass]&#x3D;&quot;
+                    isGlossaryVisible ? &#x27;fa-chevron-up&#x27; : &#x27;fa-chevron-down&#x27;
+                  &quot;
+                &gt;&lt;/i&gt;
+                {{
+                  isGlossaryVisible
+                    ? &quot;Masquer les profils&quot;
+                    : &quot;Appliquer un profil de charge&quot;
+                }}
+              &lt;/button&gt;
+
+              &lt;div class&#x3D;&quot;test-types-glossary&quot; *ngIf&#x3D;&quot;isGlossaryVisible&quot;&gt;
+                &lt;div class&#x3D;&quot;glossary-header&quot;&gt;
+                  &lt;h3&gt;Scénarios préconfigurés&lt;/h3&gt;
+                  &lt;span class&#x3D;&quot;glossary-hint&quot;
+                    &gt;Cliquez sur un type pour charger les paramètres de
+                    performance&lt;/span
+                  &gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;glossary-grid&quot;&gt;
+                  &lt;div
+                    class&#x3D;&quot;glossary-item&quot;
+                    (click)&#x3D;&quot;selectTestType(&#x27;smoke&#x27;)&quot;
+                    title&#x3D;&quot;Vérification rapide des fonctions de base.&quot;
+                  &gt;
+                    &lt;strong&gt;Smoke Test&lt;/strong&gt;
+                    &lt;span&gt;Charge minimale pour valider la stabilité.&lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div
+                    class&#x3D;&quot;glossary-item&quot;
+                    (click)&#x3D;&quot;selectTestType(&#x27;load&#x27;)&quot;
+                    title&#x3D;&quot;Performance sous une charge normale prévue.&quot;
+                  &gt;
+                    &lt;strong&gt;Load Test&lt;/strong&gt;
+                    &lt;span&gt;Simule le trafic utilisateur attendu.&lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div
+                    class&#x3D;&quot;glossary-item&quot;
+                    (click)&#x3D;&quot;selectTestType(&#x27;stress&#x27;)&quot;
+                    title&#x3D;&quot;Trouver les limites du système.&quot;
+                  &gt;
+                    &lt;strong&gt;Stress Test&lt;/strong&gt;
+                    &lt;span&gt;Pousse le système jusqu&#x27;à ses limites.&lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div
+                    class&#x3D;&quot;glossary-item&quot;
+                    (click)&#x3D;&quot;selectTestType(&#x27;spike&#x27;)&quot;
+                    title&#x3D;&quot;Pic de trafic soudain.&quot;
+                  &gt;
+                    &lt;strong&gt;Spike Test&lt;/strong&gt;
+                    &lt;span&gt;Vérifie la robustesse face aux pics.&lt;/span&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col&quot;&gt;
+                  &lt;label&gt;&lt;strong&gt;Type de test&lt;/strong&gt;&lt;/label&gt;
+                  &lt;select
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;simulationStrategy&quot;
+                  &gt;
+                    &lt;option *ngFor&#x3D;&quot;let s of strategies&quot; [value]&#x3D;&quot;s&quot;&gt;
+                      {{ s }}
+                    &lt;/option&gt;
+                  &lt;/select&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Strategy Specific Fields --&gt;
+              &lt;div
+                *ngIf&#x3D;&quot;[&#x27;DEFAULT&#x27;, &#x27;LOAD_TEST&#x27;].includes(selectedStrategy)&quot;
+                class&#x3D;&quot;row animate-fade&quot;
+              &gt;
+                &lt;div class&#x3D;&quot;form-group col-md-6&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Utilisateurs totaux
+                      &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testUsersNumber&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-6&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Durée de montée (s)
+                      &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testRampUpDuration&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div
+                *ngIf&#x3D;&quot;selectedStrategy &#x3D;&#x3D;&#x3D; &#x27;STRESS_TEST&#x27;&quot;
+                class&#x3D;&quot;row animate-fade&quot;
+              &gt;
+                &lt;div class&#x3D;&quot;form-group col-md-4&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Users Min &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testUserRampUpPerSecondMin&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-4&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Users Max &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testUserRampUpPerSecondMax&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-4&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Durée (s) &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testUserRampUpPerSecondDuration&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div
+                *ngIf&#x3D;&quot;selectedStrategy &#x3D;&#x3D;&#x3D; &#x27;SPIKE_TEST&#x27;&quot;
+                class&#x3D;&quot;row animate-fade&quot;
+              &gt;
+                &lt;div class&#x3D;&quot;form-group col-md-4&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Users Constants
+                      &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testConstantUsers&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-4&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Durée (s) &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testConstantUsersDuration&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-4&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Users à l&#x27;instant t
+                      &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testUsersAtOnce&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div
+                *ngIf&#x3D;&quot;selectedStrategy &#x3D;&#x3D;&#x3D; &#x27;SMOKE_TEST&#x27;&quot;
+                class&#x3D;&quot;row animate-fade&quot;
+              &gt;
+                &lt;div class&#x3D;&quot;form-group col&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Users At Once
+                      &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;testUsersAtOnce&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;stepper-actions&quot;&gt;
+                &lt;button mat-button matStepperPrevious class&#x3D;&quot;btn-prev&quot;&gt;
+                  Retour
+                &lt;/button&gt;
+                &lt;button mat-button matStepperNext class&#x3D;&quot;btn-next&quot;&gt;
+                  Suivant
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/mat-step&gt;
+
+        &lt;!-- Step 4: Acceptance Criteria --&gt;
+        &lt;mat-step [stepControl]&#x3D;&quot;criteriaFormGroup&quot;&gt;
+          &lt;form [formGroup]&#x3D;&quot;criteriaFormGroup&quot;&gt;
+            &lt;ng-template matStepLabel&gt;Validation&lt;/ng-template&gt;
+            &lt;div class&#x3D;&quot;step-container&quot;&gt;
+              &lt;div class&#x3D;&quot;section-title&quot;&gt;
+                &lt;h2&gt;Étape 4: Critères d&#x27;acceptation&lt;/h2&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-6&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Temps moyen max (ms)
+                      &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;assertionMeanResponseTime&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-6&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;% Échecs max toléré (%)
+                      &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;assertionFailedRequestsPercent&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;divider&quot;&gt;&lt;/div&gt;
+              &lt;h4&gt;Temps de réponse par percentile&lt;/h4&gt;
+              &lt;div class&#x3D;&quot;row align-items-end&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-4&quot;&gt;
+                  &lt;label&gt;&lt;strong&gt;Percentile (%)&lt;/strong&gt;&lt;/label&gt;
+                  &lt;select
+                    class&#x3D;&quot;form-control&quot;
+                    [(ngModel)]&#x3D;&quot;newPercentile&quot;
+                    [ngModelOptions]&#x3D;&quot;{ standalone: true }&quot;
+                  &gt;
+                    &lt;option *ngFor&#x3D;&quot;let p of percentiles&quot; [value]&#x3D;&quot;p&quot;&gt;
+                      {{ p }}%
+                    &lt;/option&gt;
+                  &lt;/select&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-4&quot;&gt;
+                  &lt;label&gt;&lt;strong&gt;Temps max (ms)&lt;/strong&gt;&lt;/label&gt;
+                  &lt;input
+                    type&#x3D;&quot;number&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    [(ngModel)]&#x3D;&quot;newResponseTime&quot;
+                    [ngModelOptions]&#x3D;&quot;{ standalone: true }&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-4&quot;&gt;
+                  &lt;button
+                    mat-raised-button
+                    type&#x3D;&quot;button&quot;
+                    (click)&#x3D;&quot;addPercentile()&quot;
+                    class&#x3D;&quot;btn-add-percentile w-100&quot;
+                  &gt;
+                    Ajouter
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;table
+                class&#x3D;&quot;table table-custom mt-3&quot;
+                *ngIf&#x3D;&quot;request.assertionsResponseTimePerPercentile.length &gt; 0&quot;
+              &gt;
+                &lt;thead&gt;
+                  &lt;tr&gt;
+                    &lt;th&gt;Percentile (%)&lt;/th&gt;
+                    &lt;th&gt;Seuil (ms)&lt;/th&gt;
+                    &lt;th&gt;Action&lt;/th&gt;
+                  &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody&gt;
+                  &lt;tr
+                    *ngFor&#x3D;&quot;
+                      let item of request.assertionsResponseTimePerPercentile;
+                      let i &#x3D; index
+                    &quot;
+                  &gt;
+                    &lt;td&gt;{{ item.percentile }}%&lt;/td&gt;
+                    &lt;td&gt;{{ item.responseTime }}ms&lt;/td&gt;
+                    &lt;td&gt;
+                      &lt;button
+                        mat-icon-button
+                        color&#x3D;&quot;warn&quot;
+                        (click)&#x3D;&quot;removePercentile(i)&quot;
+                      &gt;
+                        &lt;mat-icon&gt;delete&lt;/mat-icon&gt;
+                      &lt;/button&gt;
+                    &lt;/td&gt;
+                  &lt;/tr&gt;
+                &lt;/tbody&gt;
+              &lt;/table&gt;
+
+              &lt;div class&#x3D;&quot;stepper-actions&quot;&gt;
+                &lt;button mat-button matStepperPrevious class&#x3D;&quot;btn-prev&quot;&gt;
+                  Retour
+                &lt;/button&gt;
+                &lt;button mat-button matStepperNext class&#x3D;&quot;btn-next&quot;&gt;
+                  Suivant
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/mat-step&gt;
+
+        &lt;!-- Step 5: Review --&gt;
+        &lt;mat-step&gt;
+          &lt;ng-template matStepLabel&gt;Révision&lt;/ng-template&gt;
+          &lt;div class&#x3D;&quot;step-container&quot;&gt;
+            &lt;div class&#x3D;&quot;section-title&quot;&gt;
+              &lt;h2&gt;Étape 5: Récapitulatif&lt;/h2&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;review-card&quot;&gt;
+              &lt;div class&#x3D;&quot;review-section&quot;&gt;
+                &lt;h4&gt;Scénario &amp; Requête&lt;/h4&gt;
+                &lt;p&gt;
+                  &lt;strong&gt;Nom:&lt;/strong&gt;
+                  {{ setupFormGroup.value.testScenarioName }}
+                &lt;/p&gt;
+                &lt;p&gt;
+                  &lt;strong&gt;Cible:&lt;/strong&gt; {{ setupFormGroup.value.testBaseUrl
+                  }}{{ requestFormGroup.value.testUri }}
+                &lt;/p&gt;
+                &lt;p&gt;
+                  &lt;strong&gt;Méthode:&lt;/strong&gt;
+                  {{ requestFormGroup.value.testMethodType }}
+                &lt;/p&gt;
+              &lt;/div&gt;
+              &lt;hr /&gt;
+              &lt;div class&#x3D;&quot;review-section&quot;&gt;
+                &lt;h4&gt;Profil de charge&lt;/h4&gt;
+                &lt;p&gt;
+                  &lt;strong&gt;Type:&lt;/strong&gt;
+                  {{ strategyFormGroup.value.simulationStrategy }}
+                &lt;/p&gt;
+                &lt;p *ngIf&#x3D;&quot;[&#x27;DEFAULT&#x27;, &#x27;LOAD_TEST&#x27;].includes(selectedStrategy)&quot;&gt;
+                  &lt;strong&gt;Utilisateurs:&lt;/strong&gt;
+                  {{ strategyFormGroup.value.testUsersNumber }} |
+                  &lt;strong&gt;Montée:&lt;/strong&gt;
+                  {{ strategyFormGroup.value.testRampUpDuration }}s
+                &lt;/p&gt;
+              &lt;/div&gt;
+              &lt;hr /&gt;
+              &lt;div class&#x3D;&quot;review-section&quot;&gt;
+                &lt;h4&gt;Seuils&lt;/h4&gt;
+                &lt;p&gt;
+                  &lt;strong&gt;Temps moyen:&lt;/strong&gt; &lt;
+                  {{ criteriaFormGroup.value.assertionMeanResponseTime }}ms
+                &lt;/p&gt;
+                &lt;p&gt;
+                  &lt;strong&gt;Échecs:&lt;/strong&gt; &lt;
+                  {{ criteriaFormGroup.value.assertionFailedRequestsPercent }}%
+                &lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;stepper-actions&quot;&gt;
+              &lt;button mat-button matStepperPrevious class&#x3D;&quot;btn-prev&quot;&gt;
+                Retour
+              &lt;/button&gt;
+              &lt;button
+                mat-raised-button
+                color&#x3D;&quot;primary&quot;
+                class&#x3D;&quot;btn-launch&quot;
+                (click)&#x3D;&quot;onFinalSubmit()&quot;
+              &gt;
+                Lancer le test Gatling
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/mat-step&gt;
+      &lt;/mat-horizontal-stepper&gt;
+      &lt;div [ngBusy]&#x3D;&quot;busy&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Modal pour afficher le rapport Gatling --&gt;
+  &lt;div id&#x3D;&quot;reportModal&quot; class&#x3D;&quot;modal&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content report-modal-content&quot;&gt;
+      &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+        &lt;h2&gt;Rapport Gatling&lt;/h2&gt;
+        &lt;span class&#x3D;&quot;close&quot; (click)&#x3D;&quot;closeReportModal()&quot;&gt;&amp;times;&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+        &lt;div
+          *ngIf&#x3D;&quot;latestReportContent&quot;
+          [innerHTML]&#x3D;&quot;latestReportContent&quot;
+        &gt;&lt;/div&gt;
+        &lt;p *ngIf&#x3D;&quot;!latestReportContent&quot;&gt;Chargement du rapport...&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+        &lt;button mat-raised-button color&#x3D;&quot;primary&quot; (click)&#x3D;&quot;closeReportModal()&quot;&gt;
+          Fermer
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./gatling-api.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.glass-stepper {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(15px) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+  padding: 20px;
+  overflow: hidden;
+}
+
+::ng-deep .mat-horizontal-stepper-header-container {
+  padding: 0 20px !important;
+  background: transparent !important;
+}
+
+::ng-deep .mat-step-header .mat-step-label {
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-weight: 500;
+}
+
+::ng-deep .mat-step-header .mat-step-label-active {
+  color: #000 !important;
+  font-weight: 700;
+}
+
+::ng-deep .mat-step-icon {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  color: #333 !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+::ng-deep .mat-step-icon-selected {
+  background-color: #00d2ff !important;
+  color: #fff !important;
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+  border: none !important;
+}
+
+.step-container {
+  padding: 30px;
+  color: #333;
+}
+
+.step-container h2 {
+  color: #00d2ff;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.form-group label strong {
+  display: inline-flex;
+  align-items: center;
+  color: #444;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 12px !important;
+  padding: 12px 15px !important;
+  color: #333 !important;
+  transition: all 0.3s ease !important;
+  height: auto !important;
+  line-height: 1.5 !important;
+}
+
+select.form-control {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  min-height: 45px !important;
+}
+
+.form-control:focus {
+  background: #fff !important;
+  border-color: #00d2ff !important;
+  box-shadow: 0 0 0 3px rgba(0, 210, 255, 0.1) !important;
+}
+
+.stepper-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.btn-next,
+.btn-launch,
+.btn-add-percentile {
+  background: #3a7bd5 !important;
+  color: white !important;
+  padding: 10px 30px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3) !important;
+}
+
+.btn-next:hover,
+.btn-launch:hover,
+.btn-add-percentile:hover {
+  background: #00d2ff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(0, 210, 255, 0.4) !important;
+}
+
+.btn-prev {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #444 !important;
+  padding: 10px 30px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-prev:hover {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+
+.review-card {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.review-section h4 {
+  color: #00d2ff;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.review-section p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.review-section hr {
+  border-color: rgba(0, 0, 0, 0.05);
+  margin: 20px 0;
+}
+
+.gatling-logo {
+  max-width: 200px;
+  margin-bottom: 30px;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+}
+
+.required-star {
+  color: #3a7bd5;
+  margin-left: 4px;
+}
+
+.animate-fade {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.table-custom {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.table-custom th {
+  background: rgba(0, 0, 0, 0.02);
+  border: none;
+  font-weight: 600;
+}
+
+/* Test Types Glossary Refinement */
+.test-types-glossary {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.4s ease-out;
+}
+
+.glossary-header h3 {
+  color: #00d2ff !important;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.glossary-hint {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.glossary-item {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.glossary-item:hover {
+  transform: translateY(-8px);
+  border-color: #00d2ff !important;
+  box-shadow: 0 12px 24px rgba(0, 210, 255, 0.15) !important;
+}
+
+.glossary-item strong {
+  display: block;
+  color: #007bff !important;
+  font-size: 1.05rem;
+  margin-bottom: 5px;
+}
+
+.glossary-item span {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+.btn-scenario-toggle {
+  background: #3a7bd5 !important;
+  box-shadow: 0 4px 15px rgba(58, 123, 213, 0.3) !important;
+  border-radius: 25px !important;
+  padding: 10px 20px !important;
+  color: white !important;
+  border: none !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 20px;
+  transition: all 0.3s ease !important;
+}
+
+.btn-scenario-toggle:hover {
+  background: #00d2ff !important;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 210, 255, 0.4) !important;
+}
+
+.step-container h2 {
+  transition: color 0.3s ease;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  border-radius: 15px;
+  width: 60%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 15px 25px;
+  background-color: #27ae60;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+}
+
+.modal-header.failure {
+  background-color: #e74c3c;
+}
+
+.modal-body {
+  padding: 30px;
+}
+
+.modal-footer {
+  padding: 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.close {
+  cursor: pointer;
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 1;
+  color: white !important;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  order: 2; /* Ensure it stays on the right if needed, but flex handles it */
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+.report-modal-content {
+  width: 90% !important;
+  margin: 2% auto !important;
+  max-height: 95vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.report-modal-content .modal-body {
+  overflow-y: auto;
+  padding: 0;
+  flex: 1;
+}
+
+.result-icon {
+  font-size: 48px;
+  display: block;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.result-icon.success {
+  color: #27ae60;
+}
+
+.test-result-failure {
+  color: #e74c3c;
+}
+
+.assertion-success {
+  background-color: rgba(39, 174, 96, 0.1);
+}
+
+.assertion-fail {
+  background-color: rgba(231, 76, 60, 0.1);
+}
+
+.assertions-table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+}
+
+.assertions-table th,
+.assertions-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="container">  <div id="myModal" class="modal">    <div class="modal-content">      <div        class="modal-header"        [ngClass]="{ failure: testResult && !isSuccessfull() }"      >        <h2>Résultat de test</h2>        <span class="close" (click)="closeModal()">&times;</span>      </div>      <div class="modal-body">        <!--Start: The test is successful -->        <span *ngIf="testResult && isSuccessfull()" class="result-icon success"          >&#10004;</span        >        <p *ngIf="testResult && isSuccessfull()">          Le test a été exécuté avec succès.        </p>        <!--End: The test is successful -->        <!--Start: The test fails-->        <span          *ngIf="testResult && !isSuccessfull()"          class="result-icon test-result-failure"          >&#10060;</span        >        <p *ngIf="testResult === null || !isSuccessfull()">          Certains critères d’acceptation n’ont pas été validés.        </p>        <p *ngIf="testResult?.reportGenerated" class="text-success">          <mat-icon>assessment</mat-icon> Le rapport Gatling a été généré avec          succès.        </p>        <!--End: test fails-->        <table *ngIf="testResult" class="assertions-table">          <thead>            <tr>              <th>Assertion</th>              <th>Valeur</th>              <th>Statut</th>            </tr>          </thead>          <tbody>            <tr              [ngClass]="                assertion.result ? \'assertion-success\' : \'assertion-fail\'              "              *ngFor="let assertion of testResult.assertions"            >              <td>{{ assertion.message }}</td>              <td>{{ assertion.actualValue }}</td>              <td>{{ assertion.result ? "SUCCÈS" : "ÉCHEC" }}</td>            </tr>          </tbody>        </table>        <a          mat-raised-button          class="linkbutton"          color="primary"          [href]="getLatestReportUrl()"          target="_blank"          >Afficher le rapport        </a>      </div>      <div class="modal-footer">        <button          mat-raised-button          class="newtestbutton"          color="accent"          (click)="newTest()"        >          Nouveau Test        </button>        <button          mat-raised-button          class="closebutton"          color="primary"          (click)="closeModal()"        >          Fermer        </button>      </div>    </div>  </div>  <div class="main">    <div class="content glass-stepper">      <div class="form-title text-center">        <img          src="assets/logo/Gatling-logo-RVB.png"          alt="Gatling Logo"          class="gatling-logo"          matTooltip="Gatling est un outil de test de performance open-source qui évalue la réactivité des applications web et des API."        />      </div>      <mat-horizontal-stepper linear #stepper>        <!-- Step 1: Scenario Setup -->        <mat-step [stepControl]="setupFormGroup">          <form [formGroup]="setupFormGroup">            <ng-template matStepLabel>Configuration</ng-template>            <div class="step-container">              <div class="section-title">                <h2>Étape 1: Configuration du scénario</h2>              </div>              <div class="row">                <div class="form-group col-md-6">                  <label                    ><strong                      >Nom du scénario                      <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="text"                    class="form-control"                    formControlName="testScenarioName"                    placeholder="Scénario Test"                  />                </div>                <div class="form-group col-md-6">                  <label><strong>Nom de la requête</strong></label>                  <input                    type="text"                    class="form-control"                    formControlName="testRequestName"                    placeholder="Requête Test"                  />                </div>              </div>              <div class="row">                <div class="form-group col">                  <label                    ><strong                      >URL de base <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="text"                    class="form-control"                    formControlName="testBaseUrl"                    placeholder="https://api.monsite.com"                  />                </div>              </div>              <div class="stepper-actions">                <span></span>                <button mat-button matStepperNext class="btn-next">                  Suivant                </button>              </div>            </div>          </form>        </mat-step>        <!-- Step 2: Request Details -->        <mat-step [stepControl]="requestFormGroup">          <form [formGroup]="requestFormGroup">            <ng-template matStepLabel>Requête</ng-template>            <div class="step-container">              <div class="section-title">                <h2>Étape 2: Détails de la requête</h2>              </div>              <div class="row">                <div class="form-group col-md-4">                  <label                    ><strong                      >Méthode HTTP <span class="required-star">*</span></strong                    ></label                  >                  <select class="form-control" formControlName="testMethodType">                    <option>GET</option>                    <option>POST</option>                    <option>PUT</option>                    <option>DELETE</option>                    <option>PATCH</option>                  </select>                </div>                <div class="form-group col-md-8">                  <label                    ><strong                      >Chemin (URI) <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="text"                    class="form-control"                    formControlName="testUri"                    placeholder="/v1/users/login"                  />                </div>              </div>              <div class="row">                <div class="form-group col">                  <label><strong>Corps de la requête (JSON)</strong></label>                  <textarea                    class="form-control"                    formControlName="testRequestBody"                    rows="5"                    placeholder=\'{ "username": "test" }\'                  ></textarea>                </div>              </div>              <div class="stepper-actions">                <button mat-button matStepperPrevious class="btn-prev">                  Retour                </button>                <button mat-button matStepperNext class="btn-next">                  Suivant                </button>              </div>            </div>          </form>        </mat-step>        <!-- Step 3: Load Profile -->        <mat-step [stepControl]="strategyFormGroup">          <form [formGroup]="strategyFormGroup">            <ng-template matStepLabel>Profil de charge</ng-template>            <div class="step-container">              <div class="section-title">                <h2>Étape 3: Profil de charge</h2>              </div>              <button                type="button"                class="btn-scenario-toggle"                (click)="toggleGlossary()"              >                <i                  class="fas"                  [ngClass]="                    isGlossaryVisible ? \'fa-chevron-up\' : \'fa-chevron-down\'                  "                ></i>                {{                  isGlossaryVisible                    ? "Masquer les profils"                    : "Appliquer un profil de charge"                }}              </button>              <div class="test-types-glossary" *ngIf="isGlossaryVisible">                <div class="glossary-header">                  <h3>Scénarios préconfigurés</h3>                  <span class="glossary-hint"                    >Cliquez sur un type pour charger les paramètres de                    performance</span                  >                </div>                <div class="glossary-grid">                  <div                    class="glossary-item"                    (click)="selectTestType(\'smoke\')"                    title="Vérification rapide des fonctions de base."                  >                    <strong>Smoke Test</strong>                    <span>Charge minimale pour valider la stabilité.</span>                  </div>                  <div                    class="glossary-item"                    (click)="selectTestType(\'load\')"                    title="Performance sous une charge normale prévue."                  >                    <strong>Load Test</strong>                    <span>Simule le trafic utilisateur attendu.</span>                  </div>                  <div                    class="glossary-item"                    (click)="selectTestType(\'stress\')"                    title="Trouver les limites du système."                  >                    <strong>Stress Test</strong>                    <span>Pousse le système jusqu\'à ses limites.</span>                  </div>                  <div                    class="glossary-item"                    (click)="selectTestType(\'spike\')"                    title="Pic de trafic soudain."                  >                    <strong>Spike Test</strong>                    <span>Vérifie la robustesse face aux pics.</span>                  </div>                </div>              </div>              <div class="row">                <div class="form-group col">                  <label><strong>Type de test</strong></label>                  <select                    class="form-control"                    formControlName="simulationStrategy"                  >                    <option *ngFor="let s of strategies" [value]="s">                      {{ s }}                    </option>                  </select>                </div>              </div>              <!-- Strategy Specific Fields -->              <div                *ngIf="[\'DEFAULT\', \'LOAD_TEST\'].includes(selectedStrategy)"                class="row animate-fade"              >                <div class="form-group col-md-6">                  <label                    ><strong                      >Utilisateurs totaux                      <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="number"                    class="form-control"                    formControlName="testUsersNumber"                  />                </div>                <div class="form-group col-md-6">                  <label                    ><strong                      >Durée de montée (s)                      <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="number"                    class="form-control"                    formControlName="testRampUpDuration"                  />                </div>              </div>              <div                *ngIf="selectedStrategy === \'STRESS_TEST\'"                class="row animate-fade"              >                <div class="form-group col-md-4">                  <label                    ><strong                      >Users Min <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="number"                    class="form-control"                    formControlName="testUserRampUpPerSecondMin"                  />                </div>                <div class="form-group col-md-4">                  <label                    ><strong                      >Users Max <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="number"                    class="form-control"                    formControlName="testUserRampUpPerSecondMax"                  />                </div>                <div class="form-group col-md-4">                  <label                    ><strong                      >Durée (s) <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="number"                    class="form-control"                    formControlName="testUserRampUpPerSecondDuration"                  />                </div>              </div>              <div                *ngIf="selectedStrategy === \'SPIKE_TEST\'"                class="row animate-fade"              >                <div class="form-group col-md-4">                  <label                    ><strong                      >Users Constants                      <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="number"                    class="form-control"                    formControlName="testConstantUsers"                  />                </div>                <div class="form-group col-md-4">                  <label                    ><strong                      >Durée (s) <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="number"                    class="form-control"                    formControlName="testConstantUsersDuration"                  />                </div>                <div class="form-group col-md-4">                  <label                    ><strong                      >Users à l\'instant t                      <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="number"                    class="form-control"                    formControlName="testUsersAtOnce"                  />                </div>              </div>              <div                *ngIf="selectedStrategy === \'SMOKE_TEST\'"                class="row animate-fade"              >                <div class="form-group col">                  <label                    ><strong                      >Users At Once                      <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="number"                    class="form-control"                    formControlName="testUsersAtOnce"                  />                </div>              </div>              <div class="stepper-actions">                <button mat-button matStepperPrevious class="btn-prev">                  Retour                </button>                <button mat-button matStepperNext class="btn-next">                  Suivant                </button>              </div>            </div>          </form>        </mat-step>        <!-- Step 4: Acceptance Criteria -->        <mat-step [stepControl]="criteriaFormGroup">          <form [formGroup]="criteriaFormGroup">            <ng-template matStepLabel>Validation</ng-template>            <div class="step-container">              <div class="section-title">                <h2>Étape 4: Critères d\'acceptation</h2>              </div>              <div class="row">                <div class="form-group col-md-6">                  <label                    ><strong                      >Temps moyen max (ms)                      <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="number"                    class="form-control"                    formControlName="assertionMeanResponseTime"                  />                </div>                <div class="form-group col-md-6">                  <label                    ><strong                      >% Échecs max toléré (%)                      <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="number"                    class="form-control"                    formControlName="assertionFailedRequestsPercent"                  />                </div>              </div>              <div class="divider"></div>              <h4>Temps de réponse par percentile</h4>              <div class="row align-items-end">                <div class="form-group col-md-4">                  <label><strong>Percentile (%)</strong></label>                  <select                    class="form-control"                    [(ngModel)]="newPercentile"                    [ngModelOptions]="{ standalone: true }"                  >                    <option *ngFor="let p of percentiles" [value]="p">                      {{ p }}%                    </option>                  </select>                </div>                <div class="form-group col-md-4">                  <label><strong>Temps max (ms)</strong></label>                  <input                    type="number"                    class="form-control"                    [(ngModel)]="newResponseTime"                    [ngModelOptions]="{ standalone: true }"                  />                </div>                <div class="form-group col-md-4">                  <button                    mat-raised-button                    type="button"                    (click)="addPercentile()"                    class="btn-add-percentile w-100"                  >                    Ajouter                  </button>                </div>              </div>              <table                class="table table-custom mt-3"                *ngIf="request.assertionsResponseTimePerPercentile.length > 0"              >                <thead>                  <tr>                    <th>Percentile (%)</th>                    <th>Seuil (ms)</th>                    <th>Action</th>                  </tr>                </thead>                <tbody>                  <tr                    *ngFor="                      let item of request.assertionsResponseTimePerPercentile;                      let i = index                    "                  >                    <td>{{ item.percentile }}%</td>                    <td>{{ item.responseTime }}ms</td>                    <td>                      <button                        mat-icon-button                        color="warn"                        (click)="removePercentile(i)"                      >                        <mat-icon>delete</mat-icon>                      </button>                    </td>                  </tr>                </tbody>              </table>              <div class="stepper-actions">                <button mat-button matStepperPrevious class="btn-prev">                  Retour                </button>                <button mat-button matStepperNext class="btn-next">                  Suivant                </button>              </div>            </div>          </form>        </mat-step>        <!-- Step 5: Review -->        <mat-step>          <ng-template matStepLabel>Révision</ng-template>          <div class="step-container">            <div class="section-title">              <h2>Étape 5: Récapitulatif</h2>            </div>            <div class="review-card">              <div class="review-section">                <h4>Scénario & Requête</h4>                <p>                  <strong>Nom:</strong>                  {{ setupFormGroup.value.testScenarioName }}                </p>                <p>                  <strong>Cible:</strong> {{ setupFormGroup.value.testBaseUrl                  }}{{ requestFormGroup.value.testUri }}                </p>                <p>                  <strong>Méthode:</strong>                  {{ requestFormGroup.value.testMethodType }}                </p>              </div>              <hr />              <div class="review-section">                <h4>Profil de charge</h4>                <p>                  <strong>Type:</strong>                  {{ strategyFormGroup.value.simulationStrategy }}                </p>                <p *ngIf="[\'DEFAULT\', \'LOAD_TEST\'].includes(selectedStrategy)">                  <strong>Utilisateurs:</strong>                  {{ strategyFormGroup.value.testUsersNumber }} |                  <strong>Montée:</strong>                  {{ strategyFormGroup.value.testRampUpDuration }}s                </p>              </div>              <hr />              <div class="review-section">                <h4>Seuils</h4>                <p>                  <strong>Temps moyen:</strong> <                  {{ criteriaFormGroup.value.assertionMeanResponseTime }}ms                </p>                <p>                  <strong>Échecs:</strong> <                  {{ criteriaFormGroup.value.assertionFailedRequestsPercent }}%                </p>              </div>            </div>            <div class="stepper-actions">              <button mat-button matStepperPrevious class="btn-prev">                Retour              </button>              <button                mat-raised-button                color="primary"                class="btn-launch"                (click)="onFinalSubmit()"              >                Lancer le test Gatling              </button>            </div>          </div>        </mat-step>      </mat-horizontal-stepper>      <div [ngBusy]="busy"></div>    </div>  </div>  <!-- Modal pour afficher le rapport Gatling -->  <div id="reportModal" class="modal">    <div class="modal-content report-modal-content">      <div class="modal-header">        <h2>Rapport Gatling</h2>        <span class="close" (click)="closeReportModal()">&times;</span>      </div>      <div class="modal-body">        <div          *ngIf="latestReportContent"          [innerHTML]="latestReportContent"        ></div>        <p *ngIf="!latestReportContent">Chargement du rapport...</p>      </div>      <div class="modal-footer">        <button mat-raised-button color="primary" (click)="closeReportModal()">          Fermer        </button>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AddTestDialogComponent', 'selector': 'app-add-test-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BoardAdminComponent', 'selector': 'app-board-admin'},{'name': 'BoardUserComponent', 'selector': 'app-board-user'},{'name': 'BusySpinnerComponent', 'selector': 'app-busy-spinner'},{'name': 'DeleteTestDialogComponent', 'selector': 'app-delete-test-dialog'},{'name': 'GatlingApiComponent', 'selector': 'app-gatling-api'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'JmeterApiComponent', 'selector': 'app-jmeter-api'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PerformanceTestApiComponent', 'selector': 'app-performance-test-api'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProjectComponent', 'selector': 'app-project'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TestApiComponent', 'selector': 'app-test-api'},{'name': 'TestSeleniumComponent', 'selector': 'app-test-selenium'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'GatlingApiComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'GatlingApiComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

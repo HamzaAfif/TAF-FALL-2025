@@ -1,0 +1,4316 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>TAF UI</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">TAF UI</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  JmeterApiComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/performance-test-api/jmeter-api/jmeter-api.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-jmeter-api</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./jmeter-api.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./jmeter-api.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#aiGenerating" >aiGenerating</a>
+                            </li>
+                            <li>
+                                <a href="#aiPrompt" >aiPrompt</a>
+                            </li>
+                            <li>
+                                <a href="#busy" >busy</a>
+                            </li>
+                            <li>
+                                <a href="#configFormGroup" >configFormGroup</a>
+                            </li>
+                            <li>
+                                <a href="#detailsFormGroup" >detailsFormGroup</a>
+                            </li>
+                            <li>
+                                <a href="#filteredScenarios" >filteredScenarios</a>
+                            </li>
+                            <li>
+                                <a href="#formType" >formType</a>
+                            </li>
+                            <li>
+                                <a href="#ftp_description" >ftp_description</a>
+                            </li>
+                            <li>
+                                <a href="#ftp_request" >ftp_request</a>
+                            </li>
+                            <li>
+                                <a href="#ftpForm" >ftpForm</a>
+                            </li>
+                            <li>
+                                <a href="#http_description" >http_description</a>
+                            </li>
+                            <li>
+                                <a href="#http_request" >http_request</a>
+                            </li>
+                            <li>
+                                <a href="#httpForm" >httpForm</a>
+                            </li>
+                            <li>
+                                <a href="#isFtpSidebarVisible" >isFtpSidebarVisible</a>
+                            </li>
+                            <li>
+                                <a href="#isGlossaryVisible" >isGlossaryVisible</a>
+                            </li>
+                            <li>
+                                <a href="#isHttpSidebarVisible" >isHttpSidebarVisible</a>
+                            </li>
+                            <li>
+                                <a href="#modal" >modal</a>
+                            </li>
+                            <li>
+                                <a href="#paramsFormGroup" >paramsFormGroup</a>
+                            </li>
+                            <li>
+                                <a href="#protocolFormGroup" >protocolFormGroup</a>
+                            </li>
+                            <li>
+                                <a href="#reportFilePath" >reportFilePath</a>
+                            </li>
+                            <li>
+                                <a href="#requestTargets" >requestTargets</a>
+                            </li>
+                            <li>
+                                <a href="#result_table" >result_table</a>
+                            </li>
+                            <li>
+                                <a href="#scenarioConfigurations" >scenarioConfigurations</a>
+                            </li>
+                            <li>
+                                <a href="#selectedScenario" >selectedScenario</a>
+                            </li>
+                            <li>
+                                <a href="#selectedTest" >selectedTest</a>
+                            </li>
+                            <li>
+                                <a href="#showAIPrompt" >showAIPrompt</a>
+                            </li>
+                            <li>
+                                <a href="#showFtpButton" >showFtpButton</a>
+                            </li>
+                            <li>
+                                <a href="#showHttpButton" >showHttpButton</a>
+                            </li>
+                            <li>
+                                <a href="#span" >span</a>
+                            </li>
+                            <li>
+                                <a href="#switchCheckbox" >switchCheckbox</a>
+                            </li>
+                            <li>
+                                <a href="#switchLabel" >switchLabel</a>
+                            </li>
+                            <li>
+                                <a href="#testLog" >testLog</a>
+                            </li>
+                            <li>
+                                <a href="#testResult" >testResult</a>
+                            </li>
+                            <li>
+                                <a href="#testResults" >testResults</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#adjustFormMargin" >adjustFormMargin</a>
+                            </li>
+                            <li>
+                                <a href="#applyScenario" >applyScenario</a>
+                            </li>
+                            <li>
+                                <a href="#closeModal" >closeModal</a>
+                            </li>
+                            <li>
+                                <a href="#closeModalOnOutsideClick" >closeModalOnOutsideClick</a>
+                            </li>
+                            <li>
+                                <a href="#closeTestDetails" >closeTestDetails</a>
+                            </li>
+                            <li>
+                                <a href="#generateFromPrompt" >generateFromPrompt</a>
+                            </li>
+                            <li>
+                                <a href="#newTest" >newTest</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onFinalSubmit" >onFinalSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#onFtpSubmit" >onFtpSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#onHttpSubmit" >onHttpSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#onProtocolChange" >onProtocolChange</a>
+                            </li>
+                            <li>
+                                <a href="#onScenarioSelect" >onScenarioSelect</a>
+                            </li>
+                            <li>
+                                <a href="#resetForms" >resetForms</a>
+                            </li>
+                            <li>
+                                <a href="#selectTestType" >selectTestType</a>
+                            </li>
+                            <li>
+                                <a href="#showLatestReport" >showLatestReport</a>
+                            </li>
+                            <li>
+                                <a href="#showTestDetails" >showTestDetails</a>
+                            </li>
+                            <li>
+                                <a href="#toggleAIPrompt" >toggleAIPrompt</a>
+                            </li>
+                            <li>
+                                <a href="#toggleFtpSidebar" >toggleFtpSidebar</a>
+                            </li>
+                            <li>
+                                <a href="#toggleGlossary" >toggleGlossary</a>
+                            </li>
+                            <li>
+                                <a href="#toggleHttpSidebar" >toggleHttpSidebar</a>
+                            </li>
+                            <li>
+                                <a href="#updateScenariosFilter" >updateScenariosFilter</a>
+                            </li>
+                            <li>
+                                <a href="#validateHttpForm" >validateHttpForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#selectedProtocol" >selectedProtocol</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, performanceTestApiService: <a href="../injectables/PerformanceTestApiService.html" target="_self">PerformanceTestApiService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:65</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>performanceTestApiService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PerformanceTestApiService.html" target="_self" >PerformanceTestApiService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="adjustFormMargin"></a>
+                    <span class="name">
+                        <span ><b>adjustFormMargin</b></span>
+                        <a href="#adjustFormMargin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>adjustFormMargin()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="applyScenario"></a>
+                    <span class="name">
+                        <span ><b>applyScenario</b></span>
+                        <a href="#applyScenario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>applyScenario(target: T, source: Partial<T>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="182"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:182</a></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Type parameters :</b>
+                            <ul class="type-parameters">
+                                    <li>T</li>
+                            </ul>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                        <code>T</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>source</td>
+                                            <td>
+                                                        <code>Partial&lt;T&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>T</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeModal"></a>
+                    <span class="name">
+                        <span ><b>closeModal</b></span>
+                        <a href="#closeModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="494"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:494</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeModalOnOutsideClick"></a>
+                    <span class="name">
+                        <span ><b>closeModalOnOutsideClick</b></span>
+                        <a href="#closeModalOnOutsideClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeModalOnOutsideClick(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="507"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:507</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeTestDetails"></a>
+                    <span class="name">
+                        <span ><b>closeTestDetails</b></span>
+                        <a href="#closeTestDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeTestDetails()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="503"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:503</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateFromPrompt"></a>
+                    <span class="name">
+                        <span ><b>generateFromPrompt</b></span>
+                        <a href="#generateFromPrompt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateFromPrompt()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="268"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:268</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="newTest"></a>
+                    <span class="name">
+                        <span ><b>newTest</b></span>
+                        <a href="#newTest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>newTest()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="513"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:513</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFinalSubmit"></a>
+                    <span class="name">
+                        <span ><b>onFinalSubmit</b></span>
+                        <a href="#onFinalSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFinalSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="334"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:334</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFtpSubmit"></a>
+                    <span class="name">
+                        <span ><b>onFtpSubmit</b></span>
+                        <a href="#onFtpSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFtpSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="458"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:458</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onHttpSubmit"></a>
+                    <span class="name">
+                        <span ><b>onHttpSubmit</b></span>
+                        <a href="#onHttpSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onHttpSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="405"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:405</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onProtocolChange"></a>
+                    <span class="name">
+                        <span ><b>onProtocolChange</b></span>
+                        <a href="#onProtocolChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onProtocolChange()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="196"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:196</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onScenarioSelect"></a>
+                    <span class="name">
+                        <span ><b>onScenarioSelect</b></span>
+                        <a href="#onScenarioSelect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onScenarioSelect()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="172"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:172</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetForms"></a>
+                    <span class="name">
+                        <span ><b>resetForms</b></span>
+                        <a href="#resetForms"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetForms()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="152"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:152</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectTestType"></a>
+                    <span class="name">
+                        <span ><b>selectTestType</b></span>
+                        <a href="#selectTestType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectTestType(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="214"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:214</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showLatestReport"></a>
+                    <span class="name">
+                        <span ><b>showLatestReport</b></span>
+                        <a href="#showLatestReport"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showLatestReport()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="526"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:526</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showTestDetails"></a>
+                    <span class="name">
+                        <span ><b>showTestDetails</b></span>
+                        <a href="#showTestDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showTestDetails(test: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="498"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:498</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>test</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleAIPrompt"></a>
+                    <span class="name">
+                        <span ><b>toggleAIPrompt</b></span>
+                        <a href="#toggleAIPrompt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleAIPrompt()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="264"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:264</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleFtpSidebar"></a>
+                    <span class="name">
+                        <span ><b>toggleFtpSidebar</b></span>
+                        <a href="#toggleFtpSidebar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleFtpSidebar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleGlossary"></a>
+                    <span class="name">
+                        <span ><b>toggleGlossary</b></span>
+                        <a href="#toggleGlossary"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleGlossary()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="210"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:210</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleHttpSidebar"></a>
+                    <span class="name">
+                        <span ><b>toggleHttpSidebar</b></span>
+                        <a href="#toggleHttpSidebar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleHttpSidebar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="125"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:125</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateScenariosFilter"></a>
+                    <span class="name">
+                        <span ><b>updateScenariosFilter</b></span>
+                        <a href="#updateScenariosFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateScenariosFilter()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateHttpForm"></a>
+                    <span class="name">
+                        <span ><b>validateHttpForm</b></span>
+                        <a href="#validateHttpForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateHttpForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="366"
+                                    class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:366</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="aiGenerating"></a>
+                    <span class="name">
+                        <span ><b>aiGenerating</b></span>
+                        <a href="#aiGenerating"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="aiPrompt"></a>
+                    <span class="name">
+                        <span ><b>aiPrompt</b></span>
+                        <a href="#aiPrompt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="busy"></a>
+                    <span class="name">
+                        <span ><b>busy</b></span>
+                        <a href="#busy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subscription | undefined</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="configFormGroup"></a>
+                    <span class="name">
+                        <span ><b>configFormGroup</b></span>
+                        <a href="#configFormGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="detailsFormGroup"></a>
+                    <span class="name">
+                        <span ><b>detailsFormGroup</b></span>
+                        <a href="#detailsFormGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredScenarios"></a>
+                    <span class="name">
+                        <span ><b>filteredScenarios</b></span>
+                        <a href="#filteredScenarios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formType"></a>
+                    <span class="name">
+                        <span ><b>formType</b></span>
+                        <a href="#formType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;http&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ftp_description"></a>
+                    <span class="name">
+                        <span ><b>ftp_description</b></span>
+                        <a href="#ftp_description"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>document.getElementById(&#x27;ftp-description&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ftp_request"></a>
+                    <span class="name">
+                        <span ><b>ftp_request</b></span>
+                        <a href="#ftp_request"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/JMeterFTPRequest.html" target="_self" >JMeterFTPRequest</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new JMeterFTPRequest()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ftpForm"></a>
+                    <span class="name">
+                        <span ><b>ftpForm</b></span>
+                        <a href="#ftpForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>document.getElementById(&#x27;ftp-form&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="http_description"></a>
+                    <span class="name">
+                        <span ><b>http_description</b></span>
+                        <a href="#http_description"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>document.getElementById(&#x27;http-description&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="http_request"></a>
+                    <span class="name">
+                        <span ><b>http_request</b></span>
+                        <a href="#http_request"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/JMeterHttpRequest.html" target="_self" >JMeterHttpRequest</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new JMeterHttpRequest()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="httpForm"></a>
+                    <span class="name">
+                        <span ><b>httpForm</b></span>
+                        <a href="#httpForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>document.getElementById(&#x27;http-form&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFtpSidebarVisible"></a>
+                    <span class="name">
+                        <span ><b>isFtpSidebarVisible</b></span>
+                        <a href="#isFtpSidebarVisible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isGlossaryVisible"></a>
+                    <span class="name">
+                        <span ><b>isGlossaryVisible</b></span>
+                        <a href="#isGlossaryVisible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isHttpSidebarVisible"></a>
+                    <span class="name">
+                        <span ><b>isHttpSidebarVisible</b></span>
+                        <a href="#isHttpSidebarVisible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="modal"></a>
+                    <span class="name">
+                        <span ><b>modal</b></span>
+                        <a href="#modal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>document.getElementById(&#x27;myModal&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="paramsFormGroup"></a>
+                    <span class="name">
+                        <span ><b>paramsFormGroup</b></span>
+                        <a href="#paramsFormGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="protocolFormGroup"></a>
+                    <span class="name">
+                        <span ><b>protocolFormGroup</b></span>
+                        <a href="#protocolFormGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="reportFilePath"></a>
+                    <span class="name">
+                        <span ><b>reportFilePath</b></span>
+                        <a href="#reportFilePath"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" >String</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="requestTargets"></a>
+                    <span class="name">
+                        <span ><b>requestTargets</b></span>
+                        <a href="#requestTargets"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    http: this.http_request,
+    ftp: this.ftp_request,
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="result_table"></a>
+                    <span class="name">
+                        <span ><b>result_table</b></span>
+                        <a href="#result_table"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>document.getElementById(&#x27;result_table&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scenarioConfigurations"></a>
+                    <span class="name">
+                        <span ><b>scenarioConfigurations</b></span>
+                        <a href="#scenarioConfigurations"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>JMETER_SCENARIOS</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedScenario"></a>
+                    <span class="name">
+                        <span ><b>selectedScenario</b></span>
+                        <a href="#selectedScenario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedTest"></a>
+                    <span class="name">
+                        <span ><b>selectedTest</b></span>
+                        <a href="#selectedTest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showAIPrompt"></a>
+                    <span class="name">
+                        <span ><b>showAIPrompt</b></span>
+                        <a href="#showAIPrompt"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showFtpButton"></a>
+                    <span class="name">
+                        <span ><b>showFtpButton</b></span>
+                        <a href="#showFtpButton"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:21</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showHttpButton"></a>
+                    <span class="name">
+                        <span ><b>showHttpButton</b></span>
+                        <a href="#showHttpButton"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:20</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="span"></a>
+                    <span class="name">
+                        <span ><b>span</b></span>
+                        <a href="#span"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Element | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>document.getElementsByClassName(&#x27;close&#x27;)[0]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="switchCheckbox"></a>
+                    <span class="name">
+                        <span ><b>switchCheckbox</b></span>
+                        <a href="#switchCheckbox"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLInputElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>document.getElementById(
+    &#x27;formSwitch&#x27;,
+  ) as HTMLInputElement</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="switchLabel"></a>
+                    <span class="name">
+                        <span ><b>switchLabel</b></span>
+                        <a href="#switchLabel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>document.getElementById(&#x27;switchLabel&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testLog"></a>
+                    <span class="name">
+                        <span ><b>testLog</b></span>
+                        <a href="#testLog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" >String</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testResult"></a>
+                    <span class="name">
+                        <span ><b>testResult</b></span>
+                        <a href="#testResult"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testResults"></a>
+                    <span class="name">
+                        <span ><b>testResults</b></span>
+                        <a href="#testResults"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedProtocol"></a>
+                        <span class="name"><b>selectedProtocol</b><a href="#selectedProtocol"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>selectedProtocol()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">src/app/performance-test-api/jmeter-api/jmeter-api.component.ts:121</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { JMeterHttpRequest } from &#x27;./jmeter-http-request&#x27;;
+import { JMeterFTPRequest } from &#x27;./jmeter-ftp-request&#x27;;
+import { JMETER_SCENARIOS } from &#x27;../../models/jmeter_scenarios&#x27;;
+
+import { Subscription } from &#x27;rxjs&#x27;;
+import Swal from &#x27;sweetalert2&#x27;;
+import { PerformanceTestApiService } from &#x27;src/app/_services/performance-test-api.service&#x27;;
+import { environment } from &#x27;src/environments/environment&#x27;;
+
+@Component({
+  selector: &#x27;app-jmeter-api&#x27;,
+  templateUrl: &#x27;./jmeter-api.component.html&#x27;,
+  styleUrls: [&#x27;./jmeter-api.component.css&#x27;],
+})
+export class JmeterApiComponent implements OnInit {
+  isHttpSidebarVisible: boolean &#x3D; false;
+  isFtpSidebarVisible: boolean &#x3D; false;
+  showHttpButton: boolean &#x3D; true;
+  showFtpButton: boolean &#x3D; true;
+
+  modal: HTMLElement | null &#x3D; document.getElementById(&#x27;myModal&#x27;);
+  span: Element | null &#x3D; document.getElementsByClassName(&#x27;close&#x27;)[0];
+  testResult: any;
+  testLog: String &#x3D; &#x27;&#x27;;
+  reportFilePath: String &#x3D; &#x27;&#x27;;
+  busy: Subscription | undefined;
+
+  http_request: JMeterHttpRequest &#x3D; new JMeterHttpRequest();
+  ftp_request: JMeterFTPRequest &#x3D; new JMeterFTPRequest();
+  requestTargets: { [type: string]: any } &#x3D; {
+    http: this.http_request,
+    ftp: this.ftp_request,
+  };
+
+  formType: string &#x3D; &#x27;http&#x27;;
+  isGlossaryVisible: boolean &#x3D; false;
+
+  protocolFormGroup!: FormGroup;
+  detailsFormGroup!: FormGroup;
+  paramsFormGroup!: FormGroup;
+  configFormGroup!: FormGroup;
+
+  filteredScenarios: any[] &#x3D; [];
+  selectedScenario: string | null &#x3D; null;
+  scenarioConfigurations &#x3D; JMETER_SCENARIOS;
+
+  http_description &#x3D; document.getElementById(&#x27;http-description&#x27;);
+  ftp_description &#x3D; document.getElementById(&#x27;ftp-description&#x27;);
+
+  testResults: any[] &#x3D; [];
+  result_table: HTMLElement | null &#x3D; document.getElementById(&#x27;result_table&#x27;);
+  httpForm: HTMLElement | null &#x3D; document.getElementById(&#x27;http-form&#x27;);
+  ftpForm: HTMLElement | null &#x3D; document.getElementById(&#x27;ftp-form&#x27;);
+  switchLabel: HTMLElement | null &#x3D; document.getElementById(&#x27;switchLabel&#x27;);
+  switchCheckbox: HTMLInputElement | null &#x3D; document.getElementById(
+    &#x27;formSwitch&#x27;,
+  ) as HTMLInputElement;
+
+  selectedTest: any &#x3D; null;
+
+  showAIPrompt &#x3D; false;
+  aiPrompt &#x3D; &#x27;&#x27;;
+  aiGenerating &#x3D; false;
+
+  constructor(
+    private fb: FormBuilder,
+    private performanceTestApiService: PerformanceTestApiService,
+  ) {}
+
+  ngOnInit(): void {
+    this.modal &#x3D; document.getElementById(&#x27;myModal&#x27;);
+    this.span &#x3D; document.getElementsByClassName(&#x27;close&#x27;)[0];
+    this.result_table &#x3D; document.getElementById(&#x27;result_table&#x27;);
+    this.httpForm &#x3D; document.getElementById(&#x27;http-form&#x27;);
+    this.ftpForm &#x3D; document.getElementById(&#x27;ftp-form&#x27;);
+    this.switchLabel &#x3D; document.getElementById(&#x27;switchLabel&#x27;);
+    this.http_description &#x3D; document.getElementById(&#x27;http-description&#x27;);
+    this.ftp_description &#x3D; document.getElementById(&#x27;ftp-description&#x27;);
+
+    this.updateScenariosFilter();
+
+    // Initialize FormGroups for Stepper
+    this.protocolFormGroup &#x3D; this.fb.group({
+      protocol: [&#x27;HTTP&#x27;, Validators.required],
+    });
+
+    this.detailsFormGroup &#x3D; this.fb.group({
+      domain: [&#x27;&#x27;, Validators.required],
+      port: [&#x27;&#x27;],
+    });
+
+    this.paramsFormGroup &#x3D; this.fb.group({
+      method: [&#x27;GET&#x27;, Validators.required],
+      path: [&#x27;&#x27;, Validators.required],
+      data: [&#x27;&#x27;],
+    });
+
+    this.configFormGroup &#x3D; this.fb.group({
+      nbThreads: [&#x27;10&#x27;, Validators.required],
+      rampTime: [&#x27;5&#x27;],
+      duration: [&#x27;60&#x27;],
+      loop: [&#x27;1&#x27;, Validators.required],
+    });
+
+    // Set default methods on models
+    this.http_request.method &#x3D; &#x27;GET&#x27;;
+    this.ftp_request.method &#x3D; &#x27;Retrieve&#x27;;
+    this.http_request.protocol &#x3D; &#x27;HTTP&#x27;;
+
+    // Watch for protocol changes to update formType
+    this.protocolFormGroup
+      .get(&#x27;protocol&#x27;)
+      ?.valueChanges.subscribe((value: string) &#x3D;&gt; {
+        this.http_request.protocol &#x3D; value;
+        this.onProtocolChange();
+      });
+  }
+
+  get selectedProtocol(): string {
+    return this.protocolFormGroup?.get(&#x27;protocol&#x27;)?.value || &#x27;HTTP&#x27;;
+  }
+
+  toggleHttpSidebar() {
+    this.isHttpSidebarVisible &#x3D; !this.isHttpSidebarVisible;
+    this.adjustFormMargin();
+  }
+
+  toggleFtpSidebar() {
+    this.isFtpSidebarVisible &#x3D; !this.isFtpSidebarVisible;
+    this.adjustFormMargin();
+  }
+
+  adjustFormMargin() {
+    const mainContent &#x3D; document.querySelector(&#x27;.main&#x27;) as HTMLElement;
+    const headerContainer &#x3D; document.querySelector(
+      &#x27;.header-container&#x27;,
+    ) as HTMLElement;
+
+    if (mainContent &amp;&amp; headerContainer) {
+      if (this.isHttpSidebarVisible || this.isFtpSidebarVisible) {
+        mainContent.style.marginLeft &#x3D; &#x27;500px&#x27;;
+        headerContainer.style.marginLeft &#x3D; &#x27;500px&#x27;;
+      } else {
+        mainContent.style.marginLeft &#x3D; &#x27;0&#x27;;
+        headerContainer.style.marginLeft &#x3D; &#x27;0&#x27;;
+      }
+    }
+  }
+
+  resetForms() {
+    this.protocolFormGroup.reset({ protocol: &#x27;HTTP&#x27; });
+    this.detailsFormGroup.reset();
+    this.paramsFormGroup.reset({ method: &#x27;GET&#x27; });
+    this.configFormGroup.reset({
+      nbThreads: &#x27;10&#x27;,
+      rampTime: &#x27;5&#x27;,
+      duration: &#x27;60&#x27;,
+      loop: &#x27;1&#x27;,
+    });
+  }
+
+  updateScenariosFilter() {
+    this.filteredScenarios &#x3D; JMETER_SCENARIOS.filter(
+      (scenario) &#x3D;&gt; scenario.type &#x3D;&#x3D;&#x3D; this.formType,
+    );
+    console.log(&#x27;Filtering scenarios for:&#x27;, this.formType);
+    console.log(&#x27;Results:&#x27;, this.filteredScenarios);
+  }
+
+  onScenarioSelect() {
+    const scenario &#x3D; this.scenarioConfigurations.find(
+      (s) &#x3D;&gt; s.name &#x3D;&#x3D;&#x3D; this.selectedScenario,
+    );
+    if (!scenario) return;
+
+    const target &#x3D; this.requestTargets[scenario.type];
+    this.applyScenario(target, scenario.config);
+  }
+
+  applyScenario&lt;T&gt;(target: T, source: Partial&lt;T&gt;): T {
+    Object.keys(source).forEach((key) &#x3D;&gt; {
+      const configKey &#x3D; key as keyof T;
+      const sourceValue &#x3D; source[configKey];
+
+      if (typeof sourceValue &#x3D;&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp; sourceValue !&#x3D;&#x3D; &#x27;&#x27;) {
+        target[configKey] &#x3D; sourceValue as T[keyof T];
+      } else if (sourceValue !&#x3D;&#x3D; null &amp;&amp; sourceValue !&#x3D;&#x3D; undefined) {
+        target[configKey] &#x3D; sourceValue as T[keyof T];
+      }
+    });
+    return target;
+  }
+
+  onProtocolChange() {
+    this.formType &#x3D; this.selectedProtocol &#x3D;&#x3D;&#x3D; &#x27;FTP&#x27; ? &#x27;ftp&#x27; : &#x27;http&#x27;;
+    this.updateScenariosFilter();
+
+    // Sync models
+    if (this.formType &#x3D;&#x3D;&#x3D; &#x27;http&#x27;) {
+      this.http_request.protocol &#x3D; this.selectedProtocol;
+    }
+
+    if (this.switchCheckbox) {
+      this.switchCheckbox.checked &#x3D; this.formType &#x3D;&#x3D;&#x3D; &#x27;ftp&#x27;;
+    }
+  }
+
+  toggleGlossary() {
+    this.isGlossaryVisible &#x3D; !this.isGlossaryVisible;
+  }
+
+  selectTestType(type: string) {
+    let config &#x3D; {
+      nbThreads: &#x27;10&#x27;,
+      rampTime: &#x27;5&#x27;,
+      duration: &#x27;60&#x27;,
+      loop: &#x27;1&#x27;,
+    };
+
+    switch (type) {
+      case &#x27;smoke&#x27;:
+        config &#x3D; { nbThreads: &#x27;5&#x27;, rampTime: &#x27;1&#x27;, duration: &#x27;60&#x27;, loop: &#x27;1&#x27; };
+        break;
+      case &#x27;load&#x27;:
+        config &#x3D; {
+          nbThreads: &#x27;50&#x27;,
+          rampTime: &#x27;10&#x27;,
+          duration: &#x27;300&#x27;,
+          loop: &#x27;1&#x27;,
+        };
+        break;
+      case &#x27;stress&#x27;:
+        config &#x3D; {
+          nbThreads: &#x27;200&#x27;,
+          rampTime: &#x27;20&#x27;,
+          duration: &#x27;600&#x27;,
+          loop: &#x27;1&#x27;,
+        };
+        break;
+      case &#x27;spike&#x27;:
+        config &#x3D; {
+          nbThreads: &#x27;500&#x27;,
+          rampTime: &#x27;5&#x27;,
+          duration: &#x27;120&#x27;,
+          loop: &#x27;1&#x27;,
+        };
+        break;
+    }
+
+    // Update models
+    const target &#x3D;
+      this.formType &#x3D;&#x3D;&#x3D; &#x27;http&#x27; ? this.http_request : this.ftp_request;
+    target.nbThreads &#x3D; config.nbThreads;
+    target.rampTime &#x3D; config.rampTime;
+    target.duration &#x3D; config.duration;
+    target.loop &#x3D; config.loop;
+
+    // Update form group
+    this.configFormGroup.patchValue(config);
+  }
+
+  toggleAIPrompt() {
+    this.showAIPrompt &#x3D; !this.showAIPrompt;
+  }
+
+  generateFromPrompt() {
+    if (!this.aiPrompt.trim()) {
+      Swal.fire(&#x27;Erreur&#x27;, &#x27;Veuillez décrire le test à générer.&#x27;, &#x27;error&#x27;);
+      return;
+    }
+
+    this.aiGenerating &#x3D; true;
+    this.busy &#x3D; this.performanceTestApiService
+      .generateTestPlan(this.aiPrompt)
+      .subscribe({
+        next: (response: any) &#x3D;&gt; {
+          const plan &#x3D; response?.test_plan || response?.testPlan || {};
+          this.formType &#x3D; &#x27;http&#x27;;
+
+          const protocol &#x3D; (plan.protocol || &#x27;HTTP&#x27;).toUpperCase();
+          this.protocolFormGroup.patchValue({ protocol });
+          this.detailsFormGroup.patchValue({
+            domain: plan.domain || &#x27;&#x27;,
+            port: plan.port || &#x27;&#x27;,
+          });
+          this.paramsFormGroup.patchValue({
+            method: plan.method || &#x27;GET&#x27;,
+            path: plan.path || &#x27;&#x27;,
+            data: plan.data || &#x27;&#x27;,
+          });
+          this.configFormGroup.patchValue({
+            nbThreads: plan.nbThreads || &#x27;10&#x27;,
+            rampTime: plan.rampTime || &#x27;5&#x27;,
+            duration: plan.duration || &#x27;60&#x27;,
+            loop: plan.loop || &#x27;1&#x27;,
+          });
+
+          this.http_request &#x3D; {
+            ...this.http_request,
+            nbThreads: this.configFormGroup.get(&#x27;nbThreads&#x27;)?.value,
+            rampTime: this.configFormGroup.get(&#x27;rampTime&#x27;)?.value,
+            duration: this.configFormGroup.get(&#x27;duration&#x27;)?.value,
+            domain: this.detailsFormGroup.get(&#x27;domain&#x27;)?.value,
+            port: this.detailsFormGroup.get(&#x27;port&#x27;)?.value,
+            protocol: this.protocolFormGroup.get(&#x27;protocol&#x27;)?.value,
+            path: this.paramsFormGroup.get(&#x27;path&#x27;)?.value,
+            method: this.paramsFormGroup.get(&#x27;method&#x27;)?.value,
+            loop: this.configFormGroup.get(&#x27;loop&#x27;)?.value,
+            data: this.paramsFormGroup.get(&#x27;data&#x27;)?.value,
+          };
+
+          Swal.fire(
+            &#x27;Succès&#x27;,
+            &#x27;Le test JMeter a été généré. Vérifiez et lancez le test.&#x27;,
+            &#x27;success&#x27;,
+          );
+        },
+        error: () &#x3D;&gt; {
+          this.aiGenerating &#x3D; false;
+          Swal.fire(
+            &#x27;Erreur&#x27;,
+            &#x27;Impossible de générer le test depuis la description.&#x27;,
+            &#x27;error&#x27;,
+          );
+        },
+        complete: () &#x3D;&gt; {
+          this.aiGenerating &#x3D; false;
+        },
+      });
+  }
+
+  onFinalSubmit() {
+    // Final sync from FormGroups to models
+    const target &#x3D;
+      this.formType &#x3D;&#x3D;&#x3D; &#x27;http&#x27; ? this.http_request : this.ftp_request;
+
+    // Details
+    target.domain &#x3D; this.detailsFormGroup.get(&#x27;domain&#x27;)?.value;
+    target.port &#x3D; this.detailsFormGroup.get(&#x27;port&#x27;)?.value;
+
+    // Params
+    target.method &#x3D; this.paramsFormGroup.get(&#x27;method&#x27;)?.value;
+    if (this.formType &#x3D;&#x3D;&#x3D; &#x27;http&#x27;) {
+      this.http_request.path &#x3D; this.paramsFormGroup.get(&#x27;path&#x27;)?.value;
+      this.http_request.data &#x3D; this.paramsFormGroup.get(&#x27;data&#x27;)?.value;
+      this.http_request.protocol &#x3D;
+        this.protocolFormGroup.get(&#x27;protocol&#x27;)?.value;
+    }
+
+    // Config
+    target.nbThreads &#x3D; this.configFormGroup.get(&#x27;nbThreads&#x27;)?.value;
+    target.rampTime &#x3D; this.configFormGroup.get(&#x27;rampTime&#x27;)?.value;
+    target.duration &#x3D; this.configFormGroup.get(&#x27;duration&#x27;)?.value;
+    target.loop &#x3D; this.configFormGroup.get(&#x27;loop&#x27;)?.value;
+
+    // Trigger specific submit
+    if (this.formType &#x3D;&#x3D;&#x3D; &#x27;http&#x27;) {
+      this.onHttpSubmit();
+    } else {
+      this.onFtpSubmit();
+    }
+  }
+
+  validateHttpForm(): boolean {
+    let isValid &#x3D; true;
+    const requiredFields &#x3D; [
+      { element: &#x27;loop&#x27;, errorMessage: &#x27;Veuillez entrer une valeur&#x27; },
+      { element: &#x27;nbThreads&#x27;, errorMessage: &#x27;Veuillez entrer une valeur&#x27; },
+      { element: &#x27;domain&#x27;, errorMessage: &#x27;Veuillez entrer une valeur&#x27; },
+      { element: &#x27;path&#x27;, errorMessage: &#x27;Veuillez entrer une valeur&#x27; },
+      {
+        element: &#x27;methodType&#x27;,
+        errorMessage: &#x27;Veuillez sélectionner un type de requête&#x27;,
+      },
+      // { element: &#x27;duration&#x27;, errorMessage: &#x27;Veuillez entrer une durée&#x27; }, // si lors d&#x27;un nouveau teste il est requis
+      // { element: &#x27;rampTime&#x27;, errorMessage: &#x27;Veuillez entrer un temps de montée&#x27; }, // lors d&#x27;un nouveau teste il est requis
+      { element: &#x27;protocol&#x27;, errorMessage: &#x27;Veuillez entrer un protocole&#x27; }, // lors d&#x27;un nouveau teste il est requis
+    ];
+
+    requiredFields.forEach((field) &#x3D;&gt; {
+      const inputElement &#x3D; document.getElementsByName(
+        field.element,
+      )[0] as HTMLInputElement | null;
+      const errorDiv &#x3D; document.createElement(&#x27;div&#x27;);
+      errorDiv.className &#x3D; &#x27;text-danger&#x27;;
+
+      if (inputElement?.nextElementSibling) {
+        inputElement.nextElementSibling.remove();
+      }
+      if (inputElement &amp;&amp; inputElement.value.trim() &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+        isValid &#x3D; false;
+        inputElement.classList.add(&#x27;is-invalid&#x27;);
+        errorDiv.innerText &#x3D; field.errorMessage;
+        inputElement.insertAdjacentElement(&#x27;afterend&#x27;, errorDiv);
+      } else {
+        inputElement?.classList.remove(&#x27;is-invalid&#x27;);
+      }
+    });
+
+    return isValid;
+  }
+
+  onHttpSubmit() {
+    if (!this.http_request.domain || !this.http_request.path) {
+      Swal.fire(
+        &#x27;Erreur&#x27;,
+        &#x27;Veuillez remplir les champs obligatoires (URL et Chemin)&#x27;,
+        &#x27;error&#x27;,
+      );
+      return;
+    }
+
+    this.busy &#x3D; this.performanceTestApiService
+      .sendHttpJMeterRequest(this.http_request)
+      .subscribe(
+        (response: any) &#x3D;&gt; {
+          this.testResults &#x3D; response;
+
+          // Transformation de la réponse pour inclure des informations sur le succès ou l&#x27;échec global
+          const successMessage &#x3D; response.length !&#x3D; 0;
+          this.testResult &#x3D; [
+            {
+              success: successMessage,
+              details: response.details, // Assurez-vous que les détails sont inclus dans la réponse
+            },
+          ];
+
+          // Ajouter un message indiquant que le rapport a été généré
+          if (successMessage) {
+            this.testResult.push({
+              message: &#x27;Le rapport a été généré avec succès.&#x27;,
+              success: true,
+            });
+          }
+
+          if (successMessage) {
+            this.modal!.style.display &#x3D; &#x27;block&#x27;;
+          } else {
+            Swal.fire({
+              icon: &#x27;error&#x27;,
+              title: &#x27;Erreur&#x27;,
+              text: &#x27;Le test a échoué, révisez votre configuration de test&#x27;,
+            });
+          }
+        },
+        (error: any) &#x3D;&gt; {
+          Swal.fire({
+            icon: &#x27;error&#x27;,
+            title: &#x27;Erreur&#x27;,
+            text: &#x27;Le test a échoué, révisez votre configuration de test&#x27;,
+          });
+        },
+      );
+  }
+
+  onFtpSubmit() {
+    if (!this.ftp_request.domain || !this.ftp_request.remotefile) {
+      Swal.fire(
+        &#x27;Erreur&#x27;,
+        &#x27;Veuillez remplir les champs obligatoires (URL et Fichier distant)&#x27;,
+        &#x27;error&#x27;,
+      );
+      return;
+    }
+
+    this.busy &#x3D; this.performanceTestApiService
+      .sendFtpJMeterRequest(this.ftp_request)
+      .subscribe(
+        (response: any) &#x3D;&gt; {
+          this.testResults &#x3D; response;
+          this.testResult &#x3D; response;
+          if (response.length !&#x3D; 0) {
+            this.modal!.style.display &#x3D; &#x27;block&#x27;;
+          } else {
+            Swal.fire({
+              icon: &#x27;error&#x27;,
+              title: &#x27;Erreur&#x27;,
+              text: &#x27;Le test a échoué, révisez votre configuration de test&#x27;,
+            });
+          }
+        },
+        (error: any) &#x3D;&gt; {
+          Swal.fire({
+            icon: &#x27;error&#x27;,
+            title: &#x27;Erreur&#x27;,
+            text: &#x27;Le test a échoué, révisez votre configuration de test&#x27;,
+          });
+        },
+      );
+  }
+
+  closeModal() {
+    this.modal!.style.display &#x3D; &#x27;none&#x27;;
+  }
+
+  showTestDetails(test: any) {
+    console.log(&#x27;Test details:&#x27;, test);
+    this.selectedTest &#x3D; test;
+  }
+
+  closeTestDetails() {
+    this.selectedTest &#x3D; null;
+  }
+
+  closeModalOnOutsideClick(event: MouseEvent) {
+    if ((event.target as HTMLElement).id &#x3D;&#x3D;&#x3D; &#x27;detailModal&#x27;) {
+      this.closeTestDetails();
+    }
+  }
+
+  newTest() {
+    this.testResults &#x3D; [];
+    this.selectedTest &#x3D; null;
+    this.modal!.style.display &#x3D; &#x27;none&#x27;;
+    if (this.httpForm) {
+      (this.httpForm as HTMLFormElement).reset();
+    }
+    if (this.ftpForm) {
+      (this.ftpForm as HTMLFormElement).reset();
+    }
+  }
+
+  //  Afficher le dernier rapport
+  showLatestReport() {
+    if (this.testResult &amp;&amp; this.testResult.length &gt; 0) {
+      const reportUrl &#x3D; &#x60;${environment.apiUrl}${this.testResult[0].details[&#x27;location-url&#x27;]}&#x60;;
+      window.open(reportUrl, &#x27;_blank&#x27;);
+    } else {
+      Swal.fire({
+        icon: &#x27;error&#x27;,
+        title: &#x27;Erreur&#x27;,
+        text: &#x27;Aucun rapport disponible&#x27;,
+      });
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;container&quot;&gt;
+  &lt;div [ngBusy]&#x3D;&quot;busy&quot;&gt;&lt;/div&gt;
+  &lt;div id&#x3D;&quot;myModal&quot; class&#x3D;&quot;modal&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content&quot;&gt;
+      &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+        &lt;h2&gt;Résultat des tests&lt;/h2&gt;
+        &lt;span class&#x3D;&quot;close&quot; (click)&#x3D;&quot;closeModal()&quot;&gt;&amp;times;&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+        &lt;!-- &lt;div class&#x3D;&quot;table-responsive&quot;&gt;
+                    &lt;table id&#x3D;&quot;result_table&quot; class&#x3D;&quot;table table-striped&quot;&gt;
+                        &lt;thead style&#x3D;&quot;background-color: bg;&quot;&gt;
+                            &lt;tr&gt;
+                                &lt;th&gt;Label&lt;/th&gt;
+                                &lt;th&gt;Thread Name&lt;/th&gt;
+                                &lt;th&gt;URL&lt;/th&gt;
+                                &lt;th&gt;Response Code&lt;/th&gt;
+                                &lt;th&gt;Latency&lt;/th&gt;
+                                &lt;th&gt;Status&lt;/th&gt;
+                                &lt;th&gt;Détail&lt;/th&gt;
+                            &lt;/tr&gt;
+                        &lt;/thead&gt;
+                        &lt;tbody&gt;
+                            &lt;tr *ngFor&#x3D;&quot;let result of testResults&quot;&gt;
+                                &lt;td&gt;{{ result.label }}&lt;/td&gt;
+                                &lt;td&gt;{{ result.threadName }}&lt;/td&gt;
+                                &lt;td&gt;{{ result.url }}&lt;/td&gt;
+                                &lt;td&gt;{{ result.responseCode }}&lt;/td&gt;
+                                &lt;td&gt;{{ result.latency }}&lt;/td&gt;
+                                &lt;td
+                                    [style.background-color]&#x3D;&quot;result.success &#x3D;&#x3D;&#x3D; &#x27;true&#x27; ? &#x27;rgba(60, 179, 113, 0.3)&#x27; : &#x27;rgba(255, 0, 0, 0.2)&#x27;&quot;&gt;
+                                    {{ result.success &#x3D;&#x3D;&#x3D; &#x27;true&#x27; ? &#x27;Success&#x27; : &#x27;Failed&#x27; }}
+                                &lt;/td&gt;
+                                &lt;td&gt;
+                                    &lt;button mat-raised-button style&#x3D;&quot;background-color: #007bff; color: white;&quot; (click)&#x3D;&quot;showTestDetails(result)&quot;&gt;Détail&lt;/button&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/tbody&gt;
+                    &lt;/table&gt;
+                &lt;/div&gt; --&gt;
+        &lt;span
+          *ngIf&#x3D;&quot;testResult &amp;&amp; testResult.length &gt; 0&quot;
+          class&#x3D;&quot;result-icon success&quot;
+          &gt;&amp;#10004;&lt;/span
+        &gt;
+        &lt;p *ngIf&#x3D;&quot;testResult &amp;&amp; testResult.length &gt; 0&quot;&gt;
+          Le rapport a été généré avec succès.
+        &lt;/p&gt;
+        &lt;button
+          mat-raised-button
+          class&#x3D;&quot;showbutton&quot;
+          color&#x3D;&quot;primary&quot;
+          (click)&#x3D;&quot;showLatestReport()&quot;
+        &gt;
+          Afficher le rapport
+        &lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+        &lt;button
+          mat-raised-button
+          class&#x3D;&quot;newtestbutton&quot;
+          color&#x3D;&quot;accent&quot;
+          (click)&#x3D;&quot;newTest()&quot;
+        &gt;
+          Nouveau Test
+        &lt;/button&gt;
+        &lt;button
+          mat-raised-button
+          class&#x3D;&quot;closebutton&quot;
+          color&#x3D;&quot;primary&quot;
+          (click)&#x3D;&quot;closeModal()&quot;
+        &gt;
+          Fermer
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div
+    id&#x3D;&quot;detailModal&quot;
+    class&#x3D;&quot;modal-details&quot;
+    *ngIf&#x3D;&quot;selectedTest&quot;
+    (click)&#x3D;&quot;closeModalOnOutsideClick($event)&quot;
+  &gt;
+    &lt;div class&#x3D;&quot;modal-content&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+      &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+        &lt;span class&#x3D;&quot;close&quot; (click)&#x3D;&quot;closeTestDetails()&quot;&gt;&amp;times;&lt;/span&gt;
+        &lt;h2&gt;Détails du test&lt;/h2&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+        &lt;p&gt;&lt;strong&gt;Data Type:&lt;/strong&gt; {{ selectedTest.dataType }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Connect:&lt;/strong&gt; {{ selectedTest.connect }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Label:&lt;/strong&gt; {{ selectedTest.label }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Thread Name:&lt;/strong&gt; {{ selectedTest.threadName }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;URL:&lt;/strong&gt; {{ selectedTest.url }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Response Code:&lt;/strong&gt; {{ selectedTest.responseCode }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Latency:&lt;/strong&gt; {{ selectedTest.latency }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Timestamp:&lt;/strong&gt; {{ selectedTest.timestamp }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Elapsed:&lt;/strong&gt; {{ selectedTest.elapsed }}&lt;/p&gt;
+        &lt;p&gt;
+          &lt;strong&gt;Status:&lt;/strong&gt;
+          {{ selectedTest.success &#x3D;&#x3D;&#x3D; &quot;true&quot; ? &quot;Success&quot; : &quot;Failed&quot; }}
+        &lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Bytes:&lt;/strong&gt; {{ selectedTest.bytes }}&lt;/p&gt;
+        &lt;p&gt;
+          &lt;strong&gt;Response Message:&lt;/strong&gt; {{ selectedTest.responseMessage }}
+        &lt;/p&gt;
+        &lt;p&gt;
+          &lt;strong&gt;Failure Message:&lt;/strong&gt; {{ selectedTest.failureMessage }}
+        &lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Sent Bytes:&lt;/strong&gt; {{ selectedTest.sentBytes }}&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Bouton pour afficher/masquer la sidebar HTTP --&gt;
+  &lt;div
+    *ngIf&#x3D;&quot;showHttpButton&quot;
+    class&#x3D;&quot;sidebar-toggle&quot;
+    (click)&#x3D;&quot;toggleHttpSidebar()&quot;
+  &gt;
+    &lt;h1&gt;i&lt;/h1&gt;
+  &lt;/div&gt;
+  &lt;div
+    class&#x3D;&quot;sidebar http-sidebar&quot;
+    [ngClass]&#x3D;&quot;{
+      &#x27;sidebar-visible&#x27;: isHttpSidebarVisible,
+      &#x27;sidebar-hidden&#x27;: !isHttpSidebarVisible
+    }&quot;
+  &gt;
+    &lt;!-- HTTP Sidebar --&gt;
+    &lt;div class&#x3D;&quot;sidebar-content&quot;&gt;
+      &lt;div class&#x3D;&quot;description&quot; id&#x3D;&quot;http-description&quot;&gt;
+        &lt;p&gt;
+          &lt;br /&gt;
+          &lt;br /&gt;
+          &lt;b&gt;JMeter HTTP&lt;/b&gt;
+          &lt;br /&gt;
+          Apache JMeter est un outil open-source de test de charge et de
+          performance pour évaluer les performances des applications web.&lt;br /&gt;
+          Pour configurer un test avec JMeter, vous devez définir les paramètres
+          suivants :
+          &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Nombre d&#x27;utilisateurs :&lt;/b&gt; Le nombre d&#x27;utilisateurs
+          simultanés, simulant des charges réalistes pour évaluer les
+          performances de l&#x27;application dans différentes conditions de trafic.
+          &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Temps de montée :&lt;/b&gt; Le temps nécessaire pour
+          augmenter progressivement le nombre d&#x27;utilisateurs simultanés.
+          &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Durée du test :&lt;/b&gt; La durée totale du test en
+          secondes. &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Nombre de boucles :&lt;/b&gt; Le nombre de fois que
+          le test sera répété. &lt;br /&gt;&lt;br /&gt;&lt;b&gt;URL :&lt;/b&gt; L&#x27;URL de l&#x27;application à
+          tester. &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Port :&lt;/b&gt; Le port à utiliser pour la
+          connexion. &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Chemin :&lt;/b&gt; Le chemin de l&#x27;URL après le
+          domaine et le port. &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Protocole :&lt;/b&gt; Le protocole à
+          utiliser pour la connexion (ex. HTTP, HTTPS, FTP). &lt;br /&gt;&lt;br /&gt;&lt;b
+            &gt;Données :&lt;/b
+          &gt;
+          Les données à inclure dans la requête.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Bouton pour afficher/masquer la sidebar FTP --&gt;
+  &lt;div
+    *ngIf&#x3D;&quot;showFtpButton&quot;
+    class&#x3D;&quot;sidebar-toggle&quot;
+    (click)&#x3D;&quot;toggleFtpSidebar()&quot;
+  &gt;
+    &lt;h1&gt;i&lt;/h1&gt;
+  &lt;/div&gt;
+  &lt;div
+    class&#x3D;&quot;sidebar ftp-sidebar&quot;
+    [ngClass]&#x3D;&quot;{
+      &#x27;sidebar-visible&#x27;: isFtpSidebarVisible,
+      &#x27;sidebar-hidden&#x27;: !isFtpSidebarVisible
+    }&quot;
+  &gt;
+    &lt;!-- FTP Sidebar --&gt;
+    &lt;div class&#x3D;&quot;sidebar-content&quot;&gt;
+      &lt;div class&#x3D;&quot;description&quot; id&#x3D;&quot;ftp-description&quot;&gt;
+        &lt;p&gt;
+          &lt;br /&gt;
+          &lt;br /&gt;
+          &lt;b&gt;JMeter FTP&lt;/b&gt;
+          &lt;br /&gt;
+          JMeter FTP Request est un service destiné à gérer les requêtes
+          variables FTP dans Apache JMeter, un outil open-source de test de
+          charge et de performance utilisé pour évaluer les performances des
+          applications web. Cette classe est conçue pour gérer différents
+          paramètres nécessaires à la configuration des tests FTP, notamment :
+          &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Nombre d&#x27;utilisateurs :&lt;/b&gt; Le nombre d&#x27;utilisateurs
+          simultanés, simulant des charges réalistes pour évaluer les
+          performances de l&#x27;application dans différentes conditions de trafic.
+          &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Temps de montée :&lt;/b&gt; Le temps nécessaire pour
+          augmenter progressivement le nombre d&#x27;utilisateurs simultanés.
+          &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Durée du test :&lt;/b&gt; La durée totale du test en
+          secondes. &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Boucle :&lt;/b&gt; Indique le nombre de fois que le
+          test sera répété. &lt;br /&gt;&lt;br /&gt;&lt;b&gt;URL :&lt;/b&gt; Définit l&#x27;adresse du
+          serveur FTP testé. &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Port :&lt;/b&gt; Spécifie le port utilisé
+          pour la connexion FTP. &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Méthode FTP :&lt;/b&gt; Indique
+          l&#x27;opération FTP à effectuer (ex. : Retrieve, Store). &lt;br /&gt;&lt;br /&gt;&lt;b
+            &gt;Fichier distant :&lt;/b
+          &gt;
+          Spécifie le chemin d&#x27;accès au fichier distant pour les opérations FTP.
+          &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Fichier local :&lt;/b&gt; Définit le chemin d&#x27;accès au
+          fichier local utilisé dans les interactions FTP. &lt;br /&gt;&lt;br /&gt;&lt;b
+            &gt;Nom d&#x27;utilisateur :&lt;/b
+          &gt;
+          Représente le nom d&#x27;utilisateur FTP pour l&#x27;authentification.
+          &lt;br /&gt;&lt;br /&gt;&lt;b&gt;Mot de passe :&lt;/b&gt; Spécifie le mot de passe FTP pour
+          l&#x27;authentification.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div
+    class&#x3D;&quot;main&quot;
+    [ngClass]&#x3D;&quot;{
+      &#x27;sidebar-visible&#x27;: isHttpSidebarVisible || isFtpSidebarVisible
+    }&quot;
+  &gt;
+    &lt;div class&#x3D;&quot;content&quot;&gt;
+      &lt;div class&#x3D;&quot;form-title&quot;&gt;
+        &lt;img
+          src&#x3D;&quot;assets/logo/jmeter-logo.png&quot;
+          alt&#x3D;&quot;JMeter Icon&quot;
+          class&#x3D;&quot;jmeter-icon&quot;
+        /&gt;
+        &lt;span class&#x3D;&quot;hover-text&quot;
+          &gt;Apache JMeter : Outil de test de performance&lt;/span
+        &gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;ai-generator-panel&quot;&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn-ai-generate&quot;
+          (click)&#x3D;&quot;toggleAIPrompt()&quot;
+        &gt;
+          Générer le test avec IA
+        &lt;/button&gt;
+
+        &lt;div class&#x3D;&quot;ai-prompt-box&quot; *ngIf&#x3D;&quot;showAIPrompt&quot;&gt;
+          &lt;label&gt;&lt;strong&gt;Décrivez le test à générer&lt;/strong&gt;&lt;/label&gt;
+          &lt;textarea
+            class&#x3D;&quot;form-control&quot;
+            [(ngModel)]&#x3D;&quot;aiPrompt&quot;
+            [ngModelOptions]&#x3D;&quot;{ standalone: true }&quot;
+            rows&#x3D;&quot;4&quot;
+            placeholder&#x3D;&quot;Ex: Génère un test HTTP GET sur /api/users avec 20 utilisateurs, ramp-up 10s, pendant 2 minutes.&quot;
+          &gt;&lt;/textarea&gt;
+          &lt;button
+            type&#x3D;&quot;button&quot;
+            class&#x3D;&quot;btn-ai-submit&quot;
+            (click)&#x3D;&quot;generateFromPrompt()&quot;
+            [disabled]&#x3D;&quot;aiGenerating&quot;
+          &gt;
+            {{ aiGenerating ? &quot;Génération...&quot; : &quot;Générer&quot; }}
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;mat-horizontal-stepper [linear]&#x3D;&quot;true&quot; #stepper class&#x3D;&quot;glass-stepper&quot;&gt;
+        &lt;!-- Step 1: Protocol Selection --&gt;
+        &lt;mat-step [stepControl]&#x3D;&quot;protocolFormGroup&quot;&gt;
+          &lt;form [formGroup]&#x3D;&quot;protocolFormGroup&quot;&gt;
+            &lt;ng-template matStepLabel&gt;Protocole&lt;/ng-template&gt;
+            &lt;div class&#x3D;&quot;step-container&quot;&gt;
+              &lt;div class&#x3D;&quot;section-title&quot;&gt;
+                &lt;h2&gt;Étape 1: Choisir le protocole&lt;/h2&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;row justify-content-center&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-6&quot;&gt;
+                  &lt;label for&#x3D;&quot;protocol&quot;
+                    &gt;&lt;strong
+                      &gt;Protocole &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;select
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;protocol&quot;
+                    id&#x3D;&quot;protocol&quot;
+                  &gt;
+                    &lt;option value&#x3D;&quot;HTTP&quot;&gt;HTTP&lt;/option&gt;
+                    &lt;option value&#x3D;&quot;HTTPS&quot;&gt;HTTPS&lt;/option&gt;
+                    &lt;option value&#x3D;&quot;FTP&quot;&gt;FTP&lt;/option&gt;
+                  &lt;/select&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;stepper-actions&quot;&gt;
+                &lt;button mat-button matStepperNext class&#x3D;&quot;btn-next&quot;&gt;
+                  Suivant
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/mat-step&gt;
+
+        &lt;!-- Step 2: Request Details --&gt;
+        &lt;mat-step [stepControl]&#x3D;&quot;detailsFormGroup&quot;&gt;
+          &lt;form [formGroup]&#x3D;&quot;detailsFormGroup&quot;&gt;
+            &lt;ng-template matStepLabel&gt;Détails&lt;/ng-template&gt;
+            &lt;div class&#x3D;&quot;step-container&quot;&gt;
+              &lt;div class&#x3D;&quot;section-title&quot;&gt;
+                &lt;h2&gt;Étape 2: Détails de la requête ({{ selectedProtocol }})&lt;/h2&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col&quot;&gt;
+                  &lt;label for&#x3D;&quot;domain&quot;
+                    &gt;&lt;strong
+                      &gt;URL/Domaine &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;domain&quot;
+                    placeholder&#x3D;&quot;api.example.com&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-3&quot;&gt;
+                  &lt;label for&#x3D;&quot;port&quot;&gt;&lt;strong&gt;Port&lt;/strong&gt;&lt;/label&gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;port&quot;
+                    placeholder&#x3D;&quot;8080&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;!-- Specific FTP Details (Dynamic) --&gt;
+              &lt;div
+                *ngIf&#x3D;&quot;selectedProtocol &#x3D;&#x3D;&#x3D; &#x27;FTP&#x27;&quot;
+                class&#x3D;&quot;additional-ftp-details&quot;
+              &gt;
+                &lt;div class&#x3D;&quot;row&quot;&gt;
+                  &lt;div class&#x3D;&quot;form-group col&quot;&gt;
+                    &lt;label&gt;&lt;strong&gt;Username&lt;/strong&gt;&lt;/label&gt;
+                    &lt;input
+                      type&#x3D;&quot;text&quot;
+                      class&#x3D;&quot;form-control&quot;
+                      [(ngModel)]&#x3D;&quot;ftp_request.username&quot;
+                      [ngModelOptions]&#x3D;&quot;{ standalone: true }&quot;
+                      placeholder&#x3D;&quot;user&quot;
+                    /&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;form-group col&quot;&gt;
+                    &lt;label&gt;&lt;strong&gt;Password&lt;/strong&gt;&lt;/label&gt;
+                    &lt;input
+                      type&#x3D;&quot;password&quot;
+                      class&#x3D;&quot;form-control&quot;
+                      [(ngModel)]&#x3D;&quot;ftp_request.password&quot;
+                      [ngModelOptions]&#x3D;&quot;{ standalone: true }&quot;
+                      placeholder&#x3D;&quot;****&quot;
+                    /&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;stepper-actions&quot;&gt;
+                &lt;button mat-button matStepperPrevious class&#x3D;&quot;btn-prev&quot;&gt;
+                  Retour
+                &lt;/button&gt;
+                &lt;button mat-button matStepperNext class&#x3D;&quot;btn-next&quot;&gt;
+                  Suivant
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/mat-step&gt;
+
+        &lt;!-- Step 3: Parameters &amp; Scenarios --&gt;
+        &lt;mat-step [stepControl]&#x3D;&quot;paramsFormGroup&quot;&gt;
+          &lt;form [formGroup]&#x3D;&quot;paramsFormGroup&quot;&gt;
+            &lt;ng-template matStepLabel&gt;Paramètres&lt;/ng-template&gt;
+            &lt;div class&#x3D;&quot;step-container&quot;&gt;
+              &lt;div class&#x3D;&quot;section-title&quot;&gt;
+                &lt;h2&gt;Étape 3: Paramètres&lt;/h2&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-4&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;{{
+                        selectedProtocol &#x3D;&#x3D;&#x3D; &quot;FTP&quot;
+                          ? &quot;Méthode FTP&quot;
+                          : &quot;Méthode HTTP&quot;
+                      }}
+                      &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;select
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;method&quot;
+                    *ngIf&#x3D;&quot;selectedProtocol !&#x3D;&#x3D; &#x27;FTP&#x27;&quot;
+                  &gt;
+                    &lt;option&gt;GET&lt;/option&gt;
+                    &lt;option&gt;POST&lt;/option&gt;
+                    &lt;option&gt;PUT&lt;/option&gt;
+                    &lt;option&gt;DELETE&lt;/option&gt;
+                    &lt;option&gt;PATCH&lt;/option&gt;
+                  &lt;/select&gt;
+                  &lt;select
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;method&quot;
+                    *ngIf&#x3D;&quot;selectedProtocol &#x3D;&#x3D;&#x3D; &#x27;FTP&#x27;&quot;
+                  &gt;
+                    &lt;option&gt;Retrieve&lt;/option&gt;
+                    &lt;option&gt;Store&lt;/option&gt;
+                  &lt;/select&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col&quot; *ngIf&#x3D;&quot;selectedProtocol !&#x3D;&#x3D; &#x27;FTP&#x27;&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Chemin &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;path&quot;
+                    placeholder&#x3D;&quot;/api/v1/resource&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col&quot; *ngIf&#x3D;&quot;selectedProtocol &#x3D;&#x3D;&#x3D; &#x27;FTP&#x27;&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Remote File &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    [(ngModel)]&#x3D;&quot;ftp_request.remotefile&quot;
+                    [ngModelOptions]&#x3D;&quot;{ standalone: true }&quot;
+                    placeholder&#x3D;&quot;remote/path/file.txt&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;row&quot; *ngIf&#x3D;&quot;selectedProtocol !&#x3D;&#x3D; &#x27;FTP&#x27;&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col&quot;&gt;
+                  &lt;label&gt;&lt;strong&gt;Données (Body)&lt;/strong&gt;&lt;/label&gt;
+                  &lt;textarea
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;data&quot;
+                    placeholder&#x3D;&#x27;{&quot;key&quot;: &quot;value&quot;}&#x27;
+                    rows&#x3D;&quot;3&quot;
+                  &gt;&lt;/textarea&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;stepper-actions&quot;&gt;
+                &lt;button mat-button matStepperPrevious class&#x3D;&quot;btn-prev&quot;&gt;
+                  Retour
+                &lt;/button&gt;
+                &lt;button mat-button matStepperNext class&#x3D;&quot;btn-next&quot;&gt;
+                  Suivant
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/mat-step&gt;
+
+        &lt;!-- Step 4: Test Configuration --&gt;
+        &lt;mat-step [stepControl]&#x3D;&quot;configFormGroup&quot;&gt;
+          &lt;form [formGroup]&#x3D;&quot;configFormGroup&quot;&gt;
+            &lt;ng-template matStepLabel&gt;Configuration&lt;/ng-template&gt;
+            &lt;div class&#x3D;&quot;step-container&quot;&gt;
+              &lt;div class&#x3D;&quot;section-title&quot;&gt;
+                &lt;h2&gt;Étape 4: Profil de charge&lt;/h2&gt;
+              &lt;/div&gt;
+
+              &lt;button
+                type&#x3D;&quot;button&quot;
+                class&#x3D;&quot;btn-scenario-toggle&quot;
+                (click)&#x3D;&quot;toggleGlossary()&quot;
+              &gt;
+                &lt;i
+                  class&#x3D;&quot;fas&quot;
+                  [ngClass]&#x3D;&quot;
+                    isGlossaryVisible ? &#x27;fa-chevron-up&#x27; : &#x27;fa-chevron-down&#x27;
+                  &quot;
+                &gt;&lt;/i&gt;
+                {{
+                  isGlossaryVisible
+                    ? &quot;Masquer les profils&quot;
+                    : &quot;Appliquer un profil de charge&quot;
+                }}
+              &lt;/button&gt;
+
+              &lt;div class&#x3D;&quot;test-types-glossary&quot; *ngIf&#x3D;&quot;isGlossaryVisible&quot;&gt;
+                &lt;div class&#x3D;&quot;glossary-header&quot;&gt;
+                  &lt;h3&gt;Scénarios préconfigurés&lt;/h3&gt;
+                  &lt;span class&#x3D;&quot;glossary-hint&quot;
+                    &gt;Cliquez sur un type pour charger les paramètres de
+                    performance&lt;/span
+                  &gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;glossary-grid&quot;&gt;
+                  &lt;div
+                    class&#x3D;&quot;glossary-item&quot;
+                    (click)&#x3D;&quot;selectTestType(&#x27;smoke&#x27;)&quot;
+                    title&#x3D;&quot;Vérification rapide des fonctions de base.&quot;
+                  &gt;
+                    &lt;strong&gt;Smoke Test&lt;/strong&gt;
+                    &lt;span&gt;Charge minimale pour valider la stabilité.&lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div
+                    class&#x3D;&quot;glossary-item&quot;
+                    (click)&#x3D;&quot;selectTestType(&#x27;load&#x27;)&quot;
+                    title&#x3D;&quot;Performance sous une charge normale prévue.&quot;
+                  &gt;
+                    &lt;strong&gt;Load Test&lt;/strong&gt;
+                    &lt;span&gt;Simule le trafic utilisateur attendu.&lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div
+                    class&#x3D;&quot;glossary-item&quot;
+                    (click)&#x3D;&quot;selectTestType(&#x27;stress&#x27;)&quot;
+                    title&#x3D;&quot;Trouver les limites du système.&quot;
+                  &gt;
+                    &lt;strong&gt;Stress Test&lt;/strong&gt;
+                    &lt;span&gt;Pousse le système jusqu&#x27;à ses limites.&lt;/span&gt;
+                  &lt;/div&gt;
+                  &lt;div
+                    class&#x3D;&quot;glossary-item&quot;
+                    (click)&#x3D;&quot;selectTestType(&#x27;spike&#x27;)&quot;
+                    title&#x3D;&quot;Pic de trafic soudain.&quot;
+                  &gt;
+                    &lt;strong&gt;Spike Test&lt;/strong&gt;
+                    &lt;span&gt;Vérifie la robustesse face aux pics.&lt;/span&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-6&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Nombre d&#x27;utilisateurs
+                      &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;nbThreads&quot;
+                    placeholder&#x3D;&quot;10&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-6&quot;&gt;
+                  &lt;label&gt;&lt;strong&gt;Temps de montée (s)&lt;/strong&gt;&lt;/label&gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;rampTime&quot;
+                    placeholder&#x3D;&quot;5&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;row&quot;&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-6&quot;&gt;
+                  &lt;label&gt;&lt;strong&gt;Durée du test (s)&lt;/strong&gt;&lt;/label&gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;duration&quot;
+                    placeholder&#x3D;&quot;60&quot;
+                  /&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;form-group col-md-6&quot;&gt;
+                  &lt;label
+                    &gt;&lt;strong
+                      &gt;Nombre de boucles
+                      &lt;span class&#x3D;&quot;required-star&quot;&gt;*&lt;/span&gt;&lt;/strong
+                    &gt;&lt;/label
+                  &gt;
+                  &lt;input
+                    type&#x3D;&quot;text&quot;
+                    class&#x3D;&quot;form-control&quot;
+                    formControlName&#x3D;&quot;loop&quot;
+                    placeholder&#x3D;&quot;1&quot;
+                  /&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;stepper-actions&quot;&gt;
+                &lt;button mat-button matStepperPrevious class&#x3D;&quot;btn-prev&quot;&gt;
+                  Retour
+                &lt;/button&gt;
+                &lt;button mat-button matStepperNext class&#x3D;&quot;btn-next&quot;&gt;
+                  Suivant
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/mat-step&gt;
+
+        &lt;!-- Step 5: Review --&gt;
+        &lt;mat-step&gt;
+          &lt;ng-template matStepLabel&gt;Révision&lt;/ng-template&gt;
+          &lt;div class&#x3D;&quot;step-container&quot;&gt;
+            &lt;div class&#x3D;&quot;section-title&quot;&gt;
+              &lt;h2&gt;Étape 5: Récapitulatif&lt;/h2&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;review-card&quot;&gt;
+              &lt;div class&#x3D;&quot;review-section&quot;&gt;
+                &lt;h4&gt;Cibles&lt;/h4&gt;
+                &lt;p&gt;&lt;strong&gt;Protocole:&lt;/strong&gt; {{ selectedProtocol }}&lt;/p&gt;
+                &lt;p&gt;
+                  &lt;strong&gt;URL:&lt;/strong&gt;
+                  {{ detailsFormGroup.get(&quot;domain&quot;)?.value }}
+                &lt;/p&gt;
+                &lt;p *ngIf&#x3D;&quot;detailsFormGroup.get(&#x27;port&#x27;)?.value&quot;&gt;
+                  &lt;strong&gt;Port:&lt;/strong&gt;
+                  {{ detailsFormGroup.get(&quot;port&quot;)?.value }}
+                &lt;/p&gt;
+              &lt;/div&gt;
+              &lt;hr /&gt;
+              &lt;div class&#x3D;&quot;review-section&quot;&gt;
+                &lt;h4&gt;Requête&lt;/h4&gt;
+                &lt;p&gt;
+                  &lt;strong&gt;Méthode:&lt;/strong&gt;
+                  {{ paramsFormGroup.get(&quot;method&quot;)?.value }}
+                &lt;/p&gt;
+                &lt;p *ngIf&#x3D;&quot;selectedProtocol !&#x3D;&#x3D; &#x27;FTP&#x27;&quot;&gt;
+                  &lt;strong&gt;Chemin:&lt;/strong&gt;
+                  {{ paramsFormGroup.get(&quot;path&quot;)?.value }}
+                &lt;/p&gt;
+                &lt;p *ngIf&#x3D;&quot;selectedProtocol &#x3D;&#x3D;&#x3D; &#x27;FTP&#x27;&quot;&gt;
+                  &lt;strong&gt;Remote File:&lt;/strong&gt; {{ ftp_request.remotefile }}
+                &lt;/p&gt;
+              &lt;/div&gt;
+              &lt;hr /&gt;
+              &lt;div class&#x3D;&quot;review-section&quot;&gt;
+                &lt;h4&gt;Profil de charge&lt;/h4&gt;
+                &lt;div class&#x3D;&quot;row&quot;&gt;
+                  &lt;div class&#x3D;&quot;col-md-6&quot;&gt;
+                    &lt;p&gt;
+                      &lt;strong&gt;Nombre d&#x27;utilisateurs:&lt;/strong&gt;
+                      {{ configFormGroup.get(&quot;nbThreads&quot;)?.value }}
+                    &lt;/p&gt;
+                    &lt;p&gt;
+                      &lt;strong&gt;Temps de montée:&lt;/strong&gt;
+                      {{ configFormGroup.get(&quot;rampTime&quot;)?.value }}s
+                    &lt;/p&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;col-md-6&quot;&gt;
+                    &lt;p&gt;
+                      &lt;strong&gt;Durée:&lt;/strong&gt;
+                      {{ configFormGroup.get(&quot;duration&quot;)?.value }}s
+                    &lt;/p&gt;
+                    &lt;p&gt;
+                      &lt;strong&gt;Boucles:&lt;/strong&gt;
+                      {{ configFormGroup.get(&quot;loop&quot;)?.value }}
+                    &lt;/p&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;stepper-actions&quot;&gt;
+              &lt;button mat-button matStepperPrevious class&#x3D;&quot;btn-prev&quot;&gt;
+                Retour
+              &lt;/button&gt;
+              &lt;button mat-button class&#x3D;&quot;btn-launch&quot; (click)&#x3D;&quot;onFinalSubmit()&quot;&gt;
+                Lancer le test
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/mat-step&gt;
+      &lt;/mat-horizontal-stepper&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./jmeter-api.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/* Result Modals */
+.modal {
+  z-index: 1000;
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  border-radius: 15px;
+  width: 60%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 15px 25px;
+  background-color: #27ae60;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+}
+
+.modal-body {
+  padding: 30px;
+}
+
+.modal-footer {
+  padding: 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.close {
+  cursor: pointer;
+  font-size: 32px;
+  font-weight: 300;
+  line-height: 1;
+  color: white !important;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+.result-icon {
+  font-size: 48px;
+  display: block;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.result-icon.success {
+  color: #27ae60;
+}
+
+.modal-details {
+  display: block;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Sidebar &amp; Info Panel */
+.sidebar {
+  width: 500px;
+  max-width: 100%;
+  word-wrap: break-word;
+  height: auto;
+  max-height: 100%;
+  transition: transform 0.5s ease;
+}
+
+.sidebar-toggle {
+  cursor: help;
+  position: absolute;
+  left: 10px;
+  top: 80px;
+  background-color: grey;
+  color: white;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  transform: translateY(-50%);
+  font-size: 2em;
+  z-index: 1000;
+  transition: background-color 0.3s;
+}
+
+.sidebar-toggle:hover {
+  background-color: #0056b3;
+}
+
+.sidebar-hidden {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.sidebar-visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.http-sidebar,
+.ftp-sidebar {
+  background: linear-gradient(to bottom, #f0f0f0, #ffffff);
+  padding: 20px;
+  position: absolute;
+  left: 0;
+}
+
+.main {
+  flex: 1;
+  padding: 20px;
+  transition: margin-left 0.5s ease;
+}
+
+.main.sidebar-visible {
+  margin-left: 500px;
+}
+
+.form-title {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.jmeter-logo {
+  max-width: 200px;
+  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+}
+
+.hover-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* Modern Guided Stepper &amp; Polished UI */
+.glass-stepper {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(15px) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1) !important;
+  padding: 20px;
+  overflow: hidden;
+}
+
+::ng-deep .mat-horizontal-stepper-header-container {
+  padding: 0 20px !important;
+  background: transparent !important;
+}
+
+::ng-deep .mat-step-header .mat-step-label {
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-weight: 500;
+}
+
+::ng-deep .mat-step-header .mat-step-label-active {
+  color: #000 !important;
+  font-weight: 700;
+}
+
+::ng-deep .mat-step-icon {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  color: #333 !important;
+  border: 1px solid rgba(0, 0, 0, 0.2) !important;
+}
+
+::ng-deep .mat-step-icon-selected {
+  background-color: #00d2ff !important;
+  color: #fff !important;
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+  border: none !important;
+}
+
+.step-container {
+  padding: 30px;
+  color: #333;
+}
+
+.step-container h2 {
+  color: #00d2ff;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: color 0.3s ease;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label strong {
+  display: inline-flex;
+  align-items: center;
+  color: #444;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.form-control {
+  background: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-radius: 12px !important;
+  padding: 12px 15px !important;
+  color: #333 !important;
+  transition: all 0.3s ease !important;
+  height: auto !important;
+  line-height: 1.5 !important;
+}
+
+select.form-control {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+  min-height: 45px !important;
+}
+
+.form-control:focus {
+  background: #fff !important;
+  border-color: #00d2ff !important;
+  box-shadow: 0 0 0 3px rgba(0, 210, 255, 0.1) !important;
+}
+
+.stepper-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.btn-next,
+.btn-launch {
+  background: #3a7bd5 !important;
+  color: white !important;
+  padding: 10px 30px !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3) !important;
+}
+
+.btn-next:hover,
+.btn-launch:hover {
+  background: #00d2ff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 20px rgba(0, 210, 255, 0.4) !important;
+}
+
+.btn-prev {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #444 !important;
+  padding: 10px 30px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn-prev:hover {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
+
+.review-card {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  padding: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+}
+
+.review-section h4 {
+  color: #00d2ff;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+.review-section p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.review-section hr {
+  border-color: rgba(0, 0, 0, 0.05);
+  margin: 20px 0;
+}
+
+.required-star {
+  color: #3a7bd5;
+  font-weight: bold;
+  margin-left: 3px;
+}
+
+/* Profiles Glossary */
+.btn-scenario-toggle {
+  background: #3a7bd5 !important;
+  box-shadow: 0 4px 15px rgba(58, 123, 213, 0.3) !important;
+  border-radius: 25px !important;
+  padding: 10px 20px !important;
+  color: white !important;
+  border: none !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 20px;
+  transition: all 0.3s ease !important;
+}
+
+.btn-scenario-toggle:hover {
+  background: #00d2ff !important;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 210, 255, 0.4) !important;
+}
+
+.test-types-glossary {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.glossary-header h3 {
+  color: #00d2ff !important;
+}
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.glossary-item {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.glossary-item:hover {
+  transform: translateY(-8px);
+  border-color: #00d2ff !important;
+  box-shadow: 0 12px 24px rgba(0, 210, 255, 0.15) !important;
+}
+
+.glossary-item strong {
+  display: block;
+  color: #007bff !important;
+  font-size: 1.05rem;
+  margin-bottom: 5px;
+}
+
+.ai-generator-panel {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.btn-ai-generate,
+.btn-ai-submit {
+  background-color: #4c6ef5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.ai-prompt-box {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="container">  <div [ngBusy]="busy"></div>  <div id="myModal" class="modal">    <div class="modal-content">      <div class="modal-header">        <h2>Résultat des tests</h2>        <span class="close" (click)="closeModal()">&times;</span>      </div>      <div class="modal-body">        <!-- <div class="table-responsive">                    <table id="result_table" class="table table-striped">                        <thead style="background-color: bg;">                            <tr>                                <th>Label</th>                                <th>Thread Name</th>                                <th>URL</th>                                <th>Response Code</th>                                <th>Latency</th>                                <th>Status</th>                                <th>Détail</th>                            </tr>                        </thead>                        <tbody>                            <tr *ngFor="let result of testResults">                                <td>{{ result.label }}</td>                                <td>{{ result.threadName }}</td>                                <td>{{ result.url }}</td>                                <td>{{ result.responseCode }}</td>                                <td>{{ result.latency }}</td>                                <td                                    [style.background-color]="result.success === \'true\' ? \'rgba(60, 179, 113, 0.3)\' : \'rgba(255, 0, 0, 0.2)\'">                                    {{ result.success === \'true\' ? \'Success\' : \'Failed\' }}                                </td>                                <td>                                    <button mat-raised-button style="background-color: #007bff; color: white;" (click)="showTestDetails(result)">Détail</button>                                </td>                            </tr>                        </tbody>                    </table>                </div> -->        <span          *ngIf="testResult && testResult.length > 0"          class="result-icon success"          >&#10004;</span        >        <p *ngIf="testResult && testResult.length > 0">          Le rapport a été généré avec succès.        </p>        <button          mat-raised-button          class="showbutton"          color="primary"          (click)="showLatestReport()"        >          Afficher le rapport        </button>      </div>      <div class="modal-footer">        <button          mat-raised-button          class="newtestbutton"          color="accent"          (click)="newTest()"        >          Nouveau Test        </button>        <button          mat-raised-button          class="closebutton"          color="primary"          (click)="closeModal()"        >          Fermer        </button>      </div>    </div>  </div>  <div    id="detailModal"    class="modal-details"    *ngIf="selectedTest"    (click)="closeModalOnOutsideClick($event)"  >    <div class="modal-content" (click)="$event.stopPropagation()">      <div class="modal-header">        <span class="close" (click)="closeTestDetails()">&times;</span>        <h2>Détails du test</h2>      </div>      <div class="modal-body">        <p><strong>Data Type:</strong> {{ selectedTest.dataType }}</p>        <p><strong>Connect:</strong> {{ selectedTest.connect }}</p>        <p><strong>Label:</strong> {{ selectedTest.label }}</p>        <p><strong>Thread Name:</strong> {{ selectedTest.threadName }}</p>        <p><strong>URL:</strong> {{ selectedTest.url }}</p>        <p><strong>Response Code:</strong> {{ selectedTest.responseCode }}</p>        <p><strong>Latency:</strong> {{ selectedTest.latency }}</p>        <p><strong>Timestamp:</strong> {{ selectedTest.timestamp }}</p>        <p><strong>Elapsed:</strong> {{ selectedTest.elapsed }}</p>        <p>          <strong>Status:</strong>          {{ selectedTest.success === "true" ? "Success" : "Failed" }}        </p>        <p><strong>Bytes:</strong> {{ selectedTest.bytes }}</p>        <p>          <strong>Response Message:</strong> {{ selectedTest.responseMessage }}        </p>        <p>          <strong>Failure Message:</strong> {{ selectedTest.failureMessage }}        </p>        <p><strong>Sent Bytes:</strong> {{ selectedTest.sentBytes }}</p>      </div>    </div>  </div>  <!-- Bouton pour afficher/masquer la sidebar HTTP -->  <div    *ngIf="showHttpButton"    class="sidebar-toggle"    (click)="toggleHttpSidebar()"  >    <h1>i</h1>  </div>  <div    class="sidebar http-sidebar"    [ngClass]="{      \'sidebar-visible\': isHttpSidebarVisible,      \'sidebar-hidden\': !isHttpSidebarVisible    }"  >    <!-- HTTP Sidebar -->    <div class="sidebar-content">      <div class="description" id="http-description">        <p>          <br />          <br />          <b>JMeter HTTP</b>          <br />          Apache JMeter est un outil open-source de test de charge et de          performance pour évaluer les performances des applications web.<br />          Pour configurer un test avec JMeter, vous devez définir les paramètres          suivants :          <br /><br /><b>Nombre d\'utilisateurs :</b> Le nombre d\'utilisateurs          simultanés, simulant des charges réalistes pour évaluer les          performances de l\'application dans différentes conditions de trafic.          <br /><br /><b>Temps de montée :</b> Le temps nécessaire pour          augmenter progressivement le nombre d\'utilisateurs simultanés.          <br /><br /><b>Durée du test :</b> La durée totale du test en          secondes. <br /><br /><b>Nombre de boucles :</b> Le nombre de fois que          le test sera répété. <br /><br /><b>URL :</b> L\'URL de l\'application à          tester. <br /><br /><b>Port :</b> Le port à utiliser pour la          connexion. <br /><br /><b>Chemin :</b> Le chemin de l\'URL après le          domaine et le port. <br /><br /><b>Protocole :</b> Le protocole à          utiliser pour la connexion (ex. HTTP, HTTPS, FTP). <br /><br /><b            >Données :</b          >          Les données à inclure dans la requête.        </p>      </div>    </div>  </div>  <!-- Bouton pour afficher/masquer la sidebar FTP -->  <div    *ngIf="showFtpButton"    class="sidebar-toggle"    (click)="toggleFtpSidebar()"  >    <h1>i</h1>  </div>  <div    class="sidebar ftp-sidebar"    [ngClass]="{      \'sidebar-visible\': isFtpSidebarVisible,      \'sidebar-hidden\': !isFtpSidebarVisible    }"  >    <!-- FTP Sidebar -->    <div class="sidebar-content">      <div class="description" id="ftp-description">        <p>          <br />          <br />          <b>JMeter FTP</b>          <br />          JMeter FTP Request est un service destiné à gérer les requêtes          variables FTP dans Apache JMeter, un outil open-source de test de          charge et de performance utilisé pour évaluer les performances des          applications web. Cette classe est conçue pour gérer différents          paramètres nécessaires à la configuration des tests FTP, notamment :          <br /><br /><b>Nombre d\'utilisateurs :</b> Le nombre d\'utilisateurs          simultanés, simulant des charges réalistes pour évaluer les          performances de l\'application dans différentes conditions de trafic.          <br /><br /><b>Temps de montée :</b> Le temps nécessaire pour          augmenter progressivement le nombre d\'utilisateurs simultanés.          <br /><br /><b>Durée du test :</b> La durée totale du test en          secondes. <br /><br /><b>Boucle :</b> Indique le nombre de fois que le          test sera répété. <br /><br /><b>URL :</b> Définit l\'adresse du          serveur FTP testé. <br /><br /><b>Port :</b> Spécifie le port utilisé          pour la connexion FTP. <br /><br /><b>Méthode FTP :</b> Indique          l\'opération FTP à effectuer (ex. : Retrieve, Store). <br /><br /><b            >Fichier distant :</b          >          Spécifie le chemin d\'accès au fichier distant pour les opérations FTP.          <br /><br /><b>Fichier local :</b> Définit le chemin d\'accès au          fichier local utilisé dans les interactions FTP. <br /><br /><b            >Nom d\'utilisateur :</b          >          Représente le nom d\'utilisateur FTP pour l\'authentification.          <br /><br /><b>Mot de passe :</b> Spécifie le mot de passe FTP pour          l\'authentification.        </p>      </div>    </div>  </div>  <div    class="main"    [ngClass]="{      \'sidebar-visible\': isHttpSidebarVisible || isFtpSidebarVisible    }"  >    <div class="content">      <div class="form-title">        <img          src="assets/logo/jmeter-logo.png"          alt="JMeter Icon"          class="jmeter-icon"        />        <span class="hover-text"          >Apache JMeter : Outil de test de performance</span        >      </div>      <div class="ai-generator-panel">        <button          type="button"          class="btn-ai-generate"          (click)="toggleAIPrompt()"        >          Générer le test avec IA        </button>        <div class="ai-prompt-box" *ngIf="showAIPrompt">          <label><strong>Décrivez le test à générer</strong></label>          <textarea            class="form-control"            [(ngModel)]="aiPrompt"            [ngModelOptions]="{ standalone: true }"            rows="4"            placeholder="Ex: Génère un test HTTP GET sur /api/users avec 20 utilisateurs, ramp-up 10s, pendant 2 minutes."          ></textarea>          <button            type="button"            class="btn-ai-submit"            (click)="generateFromPrompt()"            [disabled]="aiGenerating"          >            {{ aiGenerating ? "Génération..." : "Générer" }}          </button>        </div>      </div>      <mat-horizontal-stepper [linear]="true" #stepper class="glass-stepper">        <!-- Step 1: Protocol Selection -->        <mat-step [stepControl]="protocolFormGroup">          <form [formGroup]="protocolFormGroup">            <ng-template matStepLabel>Protocole</ng-template>            <div class="step-container">              <div class="section-title">                <h2>Étape 1: Choisir le protocole</h2>              </div>              <div class="row justify-content-center">                <div class="form-group col-md-6">                  <label for="protocol"                    ><strong                      >Protocole <span class="required-star">*</span></strong                    ></label                  >                  <select                    class="form-control"                    formControlName="protocol"                    id="protocol"                  >                    <option value="HTTP">HTTP</option>                    <option value="HTTPS">HTTPS</option>                    <option value="FTP">FTP</option>                  </select>                </div>              </div>              <div class="stepper-actions">                <button mat-button matStepperNext class="btn-next">                  Suivant                </button>              </div>            </div>          </form>        </mat-step>        <!-- Step 2: Request Details -->        <mat-step [stepControl]="detailsFormGroup">          <form [formGroup]="detailsFormGroup">            <ng-template matStepLabel>Détails</ng-template>            <div class="step-container">              <div class="section-title">                <h2>Étape 2: Détails de la requête ({{ selectedProtocol }})</h2>              </div>              <div class="row">                <div class="form-group col">                  <label for="domain"                    ><strong                      >URL/Domaine <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="text"                    class="form-control"                    formControlName="domain"                    placeholder="api.example.com"                  />                </div>                <div class="form-group col-md-3">                  <label for="port"><strong>Port</strong></label>                  <input                    type="text"                    class="form-control"                    formControlName="port"                    placeholder="8080"                  />                </div>              </div>              <!-- Specific FTP Details (Dynamic) -->              <div                *ngIf="selectedProtocol === \'FTP\'"                class="additional-ftp-details"              >                <div class="row">                  <div class="form-group col">                    <label><strong>Username</strong></label>                    <input                      type="text"                      class="form-control"                      [(ngModel)]="ftp_request.username"                      [ngModelOptions]="{ standalone: true }"                      placeholder="user"                    />                  </div>                  <div class="form-group col">                    <label><strong>Password</strong></label>                    <input                      type="password"                      class="form-control"                      [(ngModel)]="ftp_request.password"                      [ngModelOptions]="{ standalone: true }"                      placeholder="****"                    />                  </div>                </div>              </div>              <div class="stepper-actions">                <button mat-button matStepperPrevious class="btn-prev">                  Retour                </button>                <button mat-button matStepperNext class="btn-next">                  Suivant                </button>              </div>            </div>          </form>        </mat-step>        <!-- Step 3: Parameters & Scenarios -->        <mat-step [stepControl]="paramsFormGroup">          <form [formGroup]="paramsFormGroup">            <ng-template matStepLabel>Paramètres</ng-template>            <div class="step-container">              <div class="section-title">                <h2>Étape 3: Paramètres</h2>              </div>              <div class="row">                <div class="form-group col-md-4">                  <label                    ><strong                      >{{                        selectedProtocol === "FTP"                          ? "Méthode FTP"                          : "Méthode HTTP"                      }}                      <span class="required-star">*</span></strong                    ></label                  >                  <select                    class="form-control"                    formControlName="method"                    *ngIf="selectedProtocol !== \'FTP\'"                  >                    <option>GET</option>                    <option>POST</option>                    <option>PUT</option>                    <option>DELETE</option>                    <option>PATCH</option>                  </select>                  <select                    class="form-control"                    formControlName="method"                    *ngIf="selectedProtocol === \'FTP\'"                  >                    <option>Retrieve</option>                    <option>Store</option>                  </select>                </div>                <div class="form-group col" *ngIf="selectedProtocol !== \'FTP\'">                  <label                    ><strong                      >Chemin <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="text"                    class="form-control"                    formControlName="path"                    placeholder="/api/v1/resource"                  />                </div>                <div class="form-group col" *ngIf="selectedProtocol === \'FTP\'">                  <label                    ><strong                      >Remote File <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="text"                    class="form-control"                    [(ngModel)]="ftp_request.remotefile"                    [ngModelOptions]="{ standalone: true }"                    placeholder="remote/path/file.txt"                  />                </div>              </div>              <div class="row" *ngIf="selectedProtocol !== \'FTP\'">                <div class="form-group col">                  <label><strong>Données (Body)</strong></label>                  <textarea                    class="form-control"                    formControlName="data"                    placeholder=\'{"key": "value"}\'                    rows="3"                  ></textarea>                </div>              </div>              <div class="stepper-actions">                <button mat-button matStepperPrevious class="btn-prev">                  Retour                </button>                <button mat-button matStepperNext class="btn-next">                  Suivant                </button>              </div>            </div>          </form>        </mat-step>        <!-- Step 4: Test Configuration -->        <mat-step [stepControl]="configFormGroup">          <form [formGroup]="configFormGroup">            <ng-template matStepLabel>Configuration</ng-template>            <div class="step-container">              <div class="section-title">                <h2>Étape 4: Profil de charge</h2>              </div>              <button                type="button"                class="btn-scenario-toggle"                (click)="toggleGlossary()"              >                <i                  class="fas"                  [ngClass]="                    isGlossaryVisible ? \'fa-chevron-up\' : \'fa-chevron-down\'                  "                ></i>                {{                  isGlossaryVisible                    ? "Masquer les profils"                    : "Appliquer un profil de charge"                }}              </button>              <div class="test-types-glossary" *ngIf="isGlossaryVisible">                <div class="glossary-header">                  <h3>Scénarios préconfigurés</h3>                  <span class="glossary-hint"                    >Cliquez sur un type pour charger les paramètres de                    performance</span                  >                </div>                <div class="glossary-grid">                  <div                    class="glossary-item"                    (click)="selectTestType(\'smoke\')"                    title="Vérification rapide des fonctions de base."                  >                    <strong>Smoke Test</strong>                    <span>Charge minimale pour valider la stabilité.</span>                  </div>                  <div                    class="glossary-item"                    (click)="selectTestType(\'load\')"                    title="Performance sous une charge normale prévue."                  >                    <strong>Load Test</strong>                    <span>Simule le trafic utilisateur attendu.</span>                  </div>                  <div                    class="glossary-item"                    (click)="selectTestType(\'stress\')"                    title="Trouver les limites du système."                  >                    <strong>Stress Test</strong>                    <span>Pousse le système jusqu\'à ses limites.</span>                  </div>                  <div                    class="glossary-item"                    (click)="selectTestType(\'spike\')"                    title="Pic de trafic soudain."                  >                    <strong>Spike Test</strong>                    <span>Vérifie la robustesse face aux pics.</span>                  </div>                </div>              </div>              <div class="row">                <div class="form-group col-md-6">                  <label                    ><strong                      >Nombre d\'utilisateurs                      <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="text"                    class="form-control"                    formControlName="nbThreads"                    placeholder="10"                  />                </div>                <div class="form-group col-md-6">                  <label><strong>Temps de montée (s)</strong></label>                  <input                    type="text"                    class="form-control"                    formControlName="rampTime"                    placeholder="5"                  />                </div>              </div>              <div class="row">                <div class="form-group col-md-6">                  <label><strong>Durée du test (s)</strong></label>                  <input                    type="text"                    class="form-control"                    formControlName="duration"                    placeholder="60"                  />                </div>                <div class="form-group col-md-6">                  <label                    ><strong                      >Nombre de boucles                      <span class="required-star">*</span></strong                    ></label                  >                  <input                    type="text"                    class="form-control"                    formControlName="loop"                    placeholder="1"                  />                </div>              </div>              <div class="stepper-actions">                <button mat-button matStepperPrevious class="btn-prev">                  Retour                </button>                <button mat-button matStepperNext class="btn-next">                  Suivant                </button>              </div>            </div>          </form>        </mat-step>        <!-- Step 5: Review -->        <mat-step>          <ng-template matStepLabel>Révision</ng-template>          <div class="step-container">            <div class="section-title">              <h2>Étape 5: Récapitulatif</h2>            </div>            <div class="review-card">              <div class="review-section">                <h4>Cibles</h4>                <p><strong>Protocole:</strong> {{ selectedProtocol }}</p>                <p>                  <strong>URL:</strong>                  {{ detailsFormGroup.get("domain")?.value }}                </p>                <p *ngIf="detailsFormGroup.get(\'port\')?.value">                  <strong>Port:</strong>                  {{ detailsFormGroup.get("port")?.value }}                </p>              </div>              <hr />              <div class="review-section">                <h4>Requête</h4>                <p>                  <strong>Méthode:</strong>                  {{ paramsFormGroup.get("method")?.value }}                </p>                <p *ngIf="selectedProtocol !== \'FTP\'">                  <strong>Chemin:</strong>                  {{ paramsFormGroup.get("path")?.value }}                </p>                <p *ngIf="selectedProtocol === \'FTP\'">                  <strong>Remote File:</strong> {{ ftp_request.remotefile }}                </p>              </div>              <hr />              <div class="review-section">                <h4>Profil de charge</h4>                <div class="row">                  <div class="col-md-6">                    <p>                      <strong>Nombre d\'utilisateurs:</strong>                      {{ configFormGroup.get("nbThreads")?.value }}                    </p>                    <p>                      <strong>Temps de montée:</strong>                      {{ configFormGroup.get("rampTime")?.value }}s                    </p>                  </div>                  <div class="col-md-6">                    <p>                      <strong>Durée:</strong>                      {{ configFormGroup.get("duration")?.value }}s                    </p>                    <p>                      <strong>Boucles:</strong>                      {{ configFormGroup.get("loop")?.value }}                    </p>                  </div>                </div>              </div>            </div>            <div class="stepper-actions">              <button mat-button matStepperPrevious class="btn-prev">                Retour              </button>              <button mat-button class="btn-launch" (click)="onFinalSubmit()">                Lancer le test              </button>            </div>          </div>        </mat-step>      </mat-horizontal-stepper>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AddTestDialogComponent', 'selector': 'app-add-test-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BoardAdminComponent', 'selector': 'app-board-admin'},{'name': 'BoardUserComponent', 'selector': 'app-board-user'},{'name': 'BusySpinnerComponent', 'selector': 'app-busy-spinner'},{'name': 'DeleteTestDialogComponent', 'selector': 'app-delete-test-dialog'},{'name': 'GatlingApiComponent', 'selector': 'app-gatling-api'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'JmeterApiComponent', 'selector': 'app-jmeter-api'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PerformanceTestApiComponent', 'selector': 'app-performance-test-api'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProjectComponent', 'selector': 'app-project'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TestApiComponent', 'selector': 'app-test-api'},{'name': 'TestSeleniumComponent', 'selector': 'app-test-selenium'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'JmeterApiComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'JmeterApiComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1899 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>TAF UI</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">TAF UI</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TestSeleniumComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/selenium/test-selenium.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-test-selenium</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./test-selenium.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./test-selenium.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cases" >cases</a>
+                            </li>
+                            <li>
+                                <a href="#counterAction" >counterAction</a>
+                            </li>
+                            <li>
+                                <a href="#counterCase" >counterCase</a>
+                            </li>
+                            <li>
+                                <a href="#percentage" >percentage</a>
+                            </li>
+                            <li>
+                                <a href="#testResult" >testResult</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#actionChose" >actionChose</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#addAction" >addAction</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#addCase" >addCase</a>
+                            </li>
+                            <li>
+                                <a href="#deleteAction" >deleteAction</a>
+                            </li>
+                            <li>
+                                <a href="#deleteCase" >deleteCase</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getAction" >getAction</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getCase" >getCase</a>
+                            </li>
+                            <li>
+                                <a href="#hideResultModal" >hideResultModal</a>
+                            </li>
+                            <li>
+                                <a href="#hideSpinner" >hideSpinner</a>
+                            </li>
+                            <li>
+                                <a href="#runMethod" >runMethod</a>
+                            </li>
+                            <li>
+                                <a href="#showResultModal" >showResultModal</a>
+                            </li>
+                            <li>
+                                <a href="#showSpinner" >showSpinner</a>
+                            </li>
+                            <li>
+                                <a href="#submitAction" >submitAction</a>
+                            </li>
+                            <li>
+                                <a href="#submitCase" >submitCase</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>, el: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/selenium/test-selenium.component.ts:9</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>renderer</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/Renderer2" target="_blank" >Renderer2</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>el</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actionChose"></a>
+                    <span class="name">
+                        <span ><b>actionChose</b></span>
+                        <a href="#actionChose"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>actionChose()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addAction"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>addAction</b></span>
+                        <a href="#addAction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addAction(obj: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="169"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:169</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>obj</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addCase"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>addCase</b></span>
+                        <a href="#addCase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addCase(obj: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:127</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>obj</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteAction"></a>
+                    <span class="name">
+                        <span ><b>deleteAction</b></span>
+                        <a href="#deleteAction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteAction(caseId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, actionId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="185"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:185</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>caseId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>actionId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteCase"></a>
+                    <span class="name">
+                        <span ><b>deleteCase</b></span>
+                        <a href="#deleteCase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteCase(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAction"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>getAction</b></span>
+                        <a href="#getAction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAction(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:180</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCase"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>getCase</b></span>
+                        <a href="#getCase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getCase(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="120"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:120</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hideResultModal"></a>
+                    <span class="name">
+                        <span ><b>hideResultModal</b></span>
+                        <a href="#hideResultModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>hideResultModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hideSpinner"></a>
+                    <span class="name">
+                        <span ><b>hideSpinner</b></span>
+                        <a href="#hideSpinner"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>hideSpinner()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="runMethod"></a>
+                    <span class="name">
+                        <span ><b>runMethod</b></span>
+                        <a href="#runMethod"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>runMethod(cases: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="32"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cases</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showResultModal"></a>
+                    <span class="name">
+                        <span ><b>showResultModal</b></span>
+                        <a href="#showResultModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showResultModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showSpinner"></a>
+                    <span class="name">
+                        <span ><b>showSpinner</b></span>
+                        <a href="#showSpinner"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showSpinner()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitAction"></a>
+                    <span class="name">
+                        <span ><b>submitAction</b></span>
+                        <a href="#submitAction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>submitAction()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="143"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:143</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitCase"></a>
+                    <span class="name">
+                        <span ><b>submitCase</b></span>
+                        <a href="#submitCase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>submitCase()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">src/app/selenium/test-selenium.component.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cases"></a>
+                    <span class="name">
+                        <span ><b>cases</b></span>
+                        <a href="#cases"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/selenium/test-selenium.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="counterAction"></a>
+                    <span class="name">
+                        <span ><b>counterAction</b></span>
+                        <a href="#counterAction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/selenium/test-selenium.component.ts:16</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="counterCase"></a>
+                    <span class="name">
+                        <span ><b>counterCase</b></span>
+                        <a href="#counterCase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/selenium/test-selenium.component.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="percentage"></a>
+                    <span class="name">
+                        <span ><b>percentage</b></span>
+                        <a href="#percentage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/selenium/test-selenium.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="testResult"></a>
+                    <span class="name">
+                        <span ><b>testResult</b></span>
+                        <a href="#testResult"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/selenium/test-selenium.component.ts:15</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Renderer2, ElementRef } from &#x27;@angular/core&#x27;;
+import { HttpClient } from &#x27;@angular/common/http&#x27;;
+
+@Component({
+  selector: &#x27;app-test-selenium&#x27;,
+  templateUrl: &#x27;./test-selenium.component.html&#x27;,
+  styleUrls: [&#x27;./test-selenium.component.css&#x27;],
+})
+export class TestSeleniumComponent {
+  constructor(
+    private http: HttpClient,
+    private renderer: Renderer2,
+    private el: ElementRef,
+  ) {}
+  testResult: any;
+  counterAction: number &#x3D; 1;
+  counterCase: number &#x3D; 0;
+  cases: {
+    case_id: number;
+    caseName: string;
+    actions: {
+      action_id: number;
+      action_type_id: number;
+      action_type_name: string;
+      object: string;
+      input: string;
+      target: string;
+    }[];
+  }[] &#x3D; [];
+  percentage &#x3D; 0;
+
+  runMethod(cases: any) {
+    let counterTrue &#x3D; 0;
+    const API_URL &#x3D; &#x27;http://localhost:8080/api/testselenium&#x27;;
+    this.showResultModal();
+    this.showSpinner();
+    this.http.post(API_URL, cases).subscribe(
+      (response) &#x3D;&gt; {
+        console.log(&#x27;tested successfully:&#x27;, response);
+        this.testResult &#x3D; response;
+        // for calculate the percentage of the success cases
+        for (let result of this.testResult) {
+          if (result.success) {
+            counterTrue++;
+          }
+        }
+        this.percentage &#x3D; (counterTrue / this.testResult.length) * 100;
+        this.hideSpinner();
+      },
+      (error) &#x3D;&gt; {
+        console.error(&#x27;Error test:&#x27;, error);
+      },
+    );
+  }
+  showResultModal(): void {
+    const resultModal &#x3D; this.el.nativeElement.querySelector(&#x27;#modelResult&#x27;);
+    this.renderer.removeClass(resultModal, &#x27;hideIt&#x27;);
+  }
+  hideResultModal(): void {
+    const resultModal &#x3D; this.el.nativeElement.querySelector(&#x27;#modelResult&#x27;);
+    this.renderer.addClass(resultModal, &#x27;hideIt&#x27;);
+  }
+  showSpinner(): void {
+    const resultModal &#x3D; this.el.nativeElement.querySelector(&#x27;#spinner&#x27;);
+    this.renderer.removeClass(resultModal, &#x27;hideIt&#x27;);
+  }
+  hideSpinner(): void {
+    const resultModal &#x3D; this.el.nativeElement.querySelector(&#x27;#spinner&#x27;);
+    this.renderer.addClass(resultModal, &#x27;hideIt&#x27;);
+  }
+  // for enable and disable inputs needed in actions form
+  actionChose(): void {
+    const action &#x3D; (document.getElementById(&#x27;action&#x27;) as HTMLSelectElement)
+      .value;
+    const object &#x3D; document.getElementById(&#x27;object&#x27;) as HTMLInputElement;
+    const input &#x3D; document.getElementById(&#x27;input&#x27;) as HTMLInputElement;
+    const target &#x3D; document.getElementById(&#x27;target&#x27;) as HTMLInputElement;
+
+    object.disabled &#x3D; true;
+    input.disabled &#x3D; true;
+    target.disabled &#x3D; true;
+
+    if (action &#x3D;&#x3D;&#x3D; &#x27;1&#x27; || action &#x3D;&#x3D;&#x3D; &#x27;2&#x27; || action &#x3D;&#x3D;&#x3D; &#x27;3&#x27;) {
+      input.disabled &#x3D; false;
+    }
+
+    if (action &#x3D;&#x3D;&#x3D; &#x27;3&#x27; || action &#x3D;&#x3D;&#x3D; &#x27;4&#x27;) {
+      target.disabled &#x3D; false;
+    }
+
+    if (
+      action &#x3D;&#x3D;&#x3D; &#x27;5&#x27; ||
+      action &#x3D;&#x3D;&#x3D; &#x27;6&#x27; ||
+      action &#x3D;&#x3D;&#x3D; &#x27;7&#x27; ||
+      action &#x3D;&#x3D;&#x3D; &#x27;2&#x27; ||
+      action &#x3D;&#x3D;&#x3D; &#x27;3&#x27;
+    ) {
+      object.disabled &#x3D; false;
+    }
+  }
+  //add new case
+  submitCase() {
+    this.counterCase++;
+    let caseName &#x3D; (document.getElementById(&#x27;caseName&#x27;) as HTMLSelectElement)
+      .value;
+    this.addCase({
+      case_id: this.counterCase,
+      caseName: caseName,
+      actions: [],
+    });
+    (document.getElementById(&#x27;caseName&#x27;) as HTMLInputElement).value &#x3D; &#x27;&#x27;;
+    (document.getElementById(&#x27;close2&#x27;) as HTMLButtonElement).click();
+    this.counterAction &#x3D; 1;
+    const addActionButton &#x3D; document.getElementById(
+      &#x27;addActionButton&#x27;,
+    ) as HTMLInputElement;
+    addActionButton.disabled &#x3D; false;
+  }
+
+  public getCase(id: number) {
+    return this.cases.find((obj) &#x3D;&gt; obj.case_id &#x3D;&#x3D;&#x3D; id);
+  }
+  deleteCase(id: number) {
+    this.cases &#x3D; this.cases.filter((item) &#x3D;&gt; item.case_id !&#x3D;&#x3D; id);
+  }
+
+  public addCase(obj: {
+    case_id: number;
+    caseName: string;
+    actions: {
+      action_id: number;
+      action_type_id: number;
+      action_type_name: string;
+      object: string;
+      input: string;
+      target: string;
+    }[];
+  }) {
+    this.cases.push(obj);
+  }
+
+  // add new action
+  submitAction() {
+    let action_id &#x3D; parseInt(
+      (document.getElementById(&#x27;action&#x27;) as HTMLSelectElement).value,
+    );
+    let action2 &#x3D; document.getElementById(&#x27;action&#x27;) as HTMLSelectElement;
+    let action &#x3D; action2.options[action2.selectedIndex].text;
+    let object &#x3D; (document.getElementById(&#x27;object&#x27;) as HTMLInputElement).value;
+    let input &#x3D; (document.getElementById(&#x27;input&#x27;) as HTMLInputElement).value;
+    let target &#x3D; (document.getElementById(&#x27;target&#x27;) as HTMLInputElement).value;
+    this.addAction({
+      action_id: this.counterAction,
+      action_type_id: action_id,
+      action_type_name: action,
+      object: object,
+      input: input,
+      target: target,
+    });
+    console.log(this.getAction(this.counterAction));
+    this.counterAction++;
+
+    // Clear the input fields
+    (document.getElementById(&#x27;object&#x27;) as HTMLInputElement).value &#x3D; &#x27;&#x27;;
+    (document.getElementById(&#x27;input&#x27;) as HTMLInputElement).value &#x3D; &#x27;&#x27;;
+    (document.getElementById(&#x27;target&#x27;) as HTMLInputElement).value &#x3D; &#x27;&#x27;;
+    (document.getElementById(&#x27;close&#x27;) as HTMLButtonElement).click();
+  }
+  public addAction(obj: {
+    action_id: number;
+    action_type_id: number;
+    action_type_name: string;
+    object: string;
+    input: string;
+    target: string;
+  }) {
+    this.getCase(this.counterCase)?.actions.push(obj);
+  }
+
+  public getAction(id: number) {
+    return this.getCase(this.counterCase)?.actions.find(
+      (obj) &#x3D;&gt; obj.action_id &#x3D;&#x3D;&#x3D; id,
+    );
+  }
+  deleteAction(caseId: number, actionId: number) {
+    const currentCase &#x3D; this.getCase(caseId);
+
+    if (currentCase &amp;&amp; currentCase.actions) {
+      currentCase.actions &#x3D; currentCase.actions.filter(
+        (item) &#x3D;&gt; item.action_id !&#x3D;&#x3D; actionId,
+      );
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;br /&gt;&lt;br /&gt;
+&lt;!-- model of results --&gt;
+&lt;div class&#x3D;&quot;showModelResult hideIt&quot; id&#x3D;&quot;modelResult&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-dialog modal-dialog-centered&quot; role&#x3D;&quot;document&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content&quot;&gt;
+      &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+        &lt;h5 class&#x3D;&quot;modal-title&quot; id&#x3D;&quot;staticModalLabel&quot;&gt;Cases Result&lt;/h5&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+        &lt;div *ngIf&#x3D;&quot;testResult&quot;&gt;
+          &lt;div class&#x3D;&quot;progress&quot;&gt;
+            &lt;div
+              class&#x3D;&quot;progress-bar&quot;
+              role&#x3D;&quot;progressbar&quot;
+              [style.width]&#x3D;&quot;percentage + &#x27;%&#x27;&quot;
+              aria-valuenow&#x3D;&quot;percentage&quot;
+              aria-valuemin&#x3D;&quot;0&quot;
+              aria-valuemax&#x3D;&quot;100&quot;
+            &gt;
+              {{ percentage }}%
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;table class&#x3D;&quot;table&quot;&gt;
+            &lt;thead&gt;
+              &lt;tr&gt;
+                &lt;th scope&#x3D;&quot;col&quot;&gt;Case ID&lt;/th&gt;
+                &lt;th scope&#x3D;&quot;col&quot;&gt;Case Name&lt;/th&gt;
+                &lt;th scope&#x3D;&quot;col&quot;&gt;Status&lt;/th&gt;
+              &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+              &lt;tr *ngFor&#x3D;&quot;let result of testResult&quot;&gt;
+                &lt;td&gt;{{ result.case_id }}&lt;/td&gt;
+                &lt;td&gt;{{ result.caseName }}&lt;/td&gt;
+                &lt;td&gt;
+                  &lt;span class&#x3D;&quot;badge bg-success&quot; *ngIf&#x3D;&quot;result.success &#x3D;&#x3D;&#x3D; true&quot;
+                    &gt;success&lt;/span
+                  &gt;
+                  &lt;span class&#x3D;&quot;badge bg-danger&quot; *ngIf&#x3D;&quot;result.success &#x3D;&#x3D;&#x3D; false&quot;
+                    &gt;failed&lt;/span
+                  &gt;
+                &lt;/td&gt;
+              &lt;/tr&gt;
+            &lt;/tbody&gt;
+          &lt;/table&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;&quot; id&#x3D;&quot;spinner&quot;&gt;
+          &lt;div class&#x3D;&quot;text-center&quot;&gt;
+            &lt;div
+              class&#x3D;&quot;spinner-border text-primary&quot;
+              style&#x3D;&quot;width: 3rem; height: 3rem&quot;
+              role&#x3D;&quot;status&quot;
+            &gt;
+              &lt;span class&#x3D;&quot;sr-only&quot;&gt;Loading...&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn btn-danger&quot;
+          (click)&#x3D;&quot;hideResultModal()&quot;
+        &gt;
+          Close
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- model of new action --&gt;
+&lt;div
+  class&#x3D;&quot;modal fade&quot;
+  tabindex&#x3D;&quot;-1&quot;
+  id&#x3D;&quot;addAction&quot;
+  aria-labelledby&#x3D;&quot;Add new Action&quot;
+  aria-hidden&#x3D;&quot;true&quot;
+  data-bs-backdrop&#x3D;&quot;static&quot;
+  data-bs-keyboard&#x3D;&quot;false&quot;
+&gt;
+  &lt;div class&#x3D;&quot;modal-dialog modal-dialog-centered modal-xl&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content&quot;&gt;
+      &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+        &lt;h5 class&#x3D;&quot;modal-title&quot;&gt;New Action&lt;/h5&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn-close&quot;
+          data-bs-dismiss&#x3D;&quot;modal&quot;
+          aria-label&#x3D;&quot;Close&quot;
+        &gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;form&gt;
+        &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+          &lt;div class&#x3D;&quot;input-group mb-3&quot;&gt;
+            &lt;select
+              class&#x3D;&quot;form-select&quot;
+              id&#x3D;&quot;action&quot;
+              (change)&#x3D;&quot;actionChose()&quot;
+              required
+            &gt;
+              &lt;option value&#x3D;&quot;&quot; selected&gt;Action&lt;/option&gt;
+              &lt;option value&#x3D;&quot;1&quot;&gt;GoToUrl&lt;/option&gt;
+              &lt;option value&#x3D;&quot;2&quot;&gt;FillField&lt;/option&gt;
+              &lt;option value&#x3D;&quot;3&quot;&gt;GetAttribute&lt;/option&gt;
+              &lt;option value&#x3D;&quot;4&quot;&gt;GetPageTitle&lt;/option&gt;
+              &lt;option value&#x3D;&quot;5&quot;&gt;Clear&lt;/option&gt;
+              &lt;option value&#x3D;&quot;6&quot;&gt;Click&lt;/option&gt;
+              &lt;option value&#x3D;&quot;7&quot;&gt;IsDisplayed&lt;/option&gt;
+            &lt;/select&gt;
+            &lt;input
+              type&#x3D;&quot;text&quot;
+              class&#x3D;&quot;form-control&quot;
+              placeholder&#x3D;&quot;Object&quot;
+              id&#x3D;&quot;object&quot;
+              disabled
+            /&gt;
+            &lt;input
+              type&#x3D;&quot;text&quot;
+              class&#x3D;&quot;form-control&quot;
+              placeholder&#x3D;&quot;Input&quot;
+              id&#x3D;&quot;input&quot;
+              disabled
+            /&gt;
+            &lt;input
+              type&#x3D;&quot;text&quot;
+              class&#x3D;&quot;form-control&quot;
+              placeholder&#x3D;&quot;Target&quot;
+              id&#x3D;&quot;target&quot;
+              disabled
+            /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+          &lt;button class&#x3D;&quot;btn btn-secondary&quot; data-bs-dismiss&#x3D;&quot;modal&quot; id&#x3D;&quot;close&quot;&gt;
+            Close
+          &lt;/button&gt;
+          &lt;input
+            type&#x3D;&quot;submit&quot;
+            class&#x3D;&quot;btn btn-primary&quot;
+            (click)&#x3D;&quot;submitAction()&quot;
+            value&#x3D;&quot;Add Action&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- model of new Case --&gt;
+&lt;div
+  class&#x3D;&quot;modal fade&quot;
+  tabindex&#x3D;&quot;-1&quot;
+  id&#x3D;&quot;addCase&quot;
+  aria-labelledby&#x3D;&quot;Add new Case&quot;
+  aria-hidden&#x3D;&quot;true&quot;
+  data-bs-backdrop&#x3D;&quot;static&quot;
+  data-bs-keyboard&#x3D;&quot;false&quot;
+&gt;
+  &lt;div class&#x3D;&quot;modal-dialog modal-dialog-centered&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-content&quot;&gt;
+      &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+        &lt;h5 class&#x3D;&quot;modal-title&quot;&gt;New Case&lt;/h5&gt;
+        &lt;button
+          type&#x3D;&quot;button&quot;
+          class&#x3D;&quot;btn-close&quot;
+          data-bs-dismiss&#x3D;&quot;modal&quot;
+          aria-label&#x3D;&quot;Close&quot;
+        &gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;form&gt;
+        &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            class&#x3D;&quot;form-control&quot;
+            placeholder&#x3D;&quot;Case Name&quot;
+            id&#x3D;&quot;caseName&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+          &lt;button class&#x3D;&quot;btn btn-secondary&quot; data-bs-dismiss&#x3D;&quot;modal&quot; id&#x3D;&quot;close2&quot;&gt;
+            Close
+          &lt;/button&gt;
+          &lt;input
+            type&#x3D;&quot;submit&quot;
+            class&#x3D;&quot;btn btn-primary&quot;
+            (click)&#x3D;&quot;submitCase()&quot;
+            value&#x3D;&quot;Add Case&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- show the added cases and actions --&gt;
+&lt;div class&#x3D;&quot;container&quot;&gt;
+  &lt;div class&#x3D;&quot;btn-group&quot; role&#x3D;&quot;group&quot; aria-label&#x3D;&quot;Basic outlined example&quot;&gt;
+    &lt;button
+      type&#x3D;&quot;button&quot;
+      class&#x3D;&quot;btn btn-outline-primary&quot;
+      data-bs-toggle&#x3D;&quot;modal&quot;
+      data-bs-target&#x3D;&quot;#addCase&quot;
+    &gt;
+      Add New Case
+    &lt;/button&gt;
+    &lt;button
+      type&#x3D;&quot;button&quot;
+      class&#x3D;&quot;btn btn-outline-primary&quot;
+      data-bs-toggle&#x3D;&quot;modal&quot;
+      data-bs-target&#x3D;&quot;#addAction&quot;
+      id&#x3D;&quot;addActionButton&quot;
+      disabled
+    &gt;
+      Add New Action
+    &lt;/button&gt;
+    &lt;button
+      type&#x3D;&quot;button&quot;
+      class&#x3D;&quot;btn btn-success&quot;
+      data-toggle&#x3D;&quot;modal&quot;
+      data-target&#x3D;&quot;#resultModal&quot;
+      (click)&#x3D;&quot;runMethod(cases)&quot;
+    &gt;
+      Run
+    &lt;/button&gt;
+  &lt;/div&gt;
+  &lt;br /&gt;&lt;br /&gt;
+  &lt;div class&#x3D;&quot;container&quot; *ngFor&#x3D;&quot;let case of cases&quot;&gt;
+    &lt;h4&gt;Case #{{ case.case_id }} : {{ case.caseName }}&lt;/h4&gt;
+    &lt;span&gt;
+      &lt;button
+        type&#x3D;&quot;button&quot;
+        class&#x3D;&quot;btn btn-danger&quot;
+        style&#x3D;&quot;
+          --bs-btn-padding-y: 0.25rem;
+          --bs-btn-padding-x: 0.5rem;
+          --bs-btn-font-size: 0.75rem;
+        &quot;
+        (click)&#x3D;&quot;deleteCase(case.case_id)&quot;
+      &gt;
+        Delete
+      &lt;/button&gt;
+    &lt;/span&gt;
+    &lt;table class&#x3D;&quot;table table-hover&quot;&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Action&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Object&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Input&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot;&gt;Target&lt;/th&gt;
+          &lt;th scope&#x3D;&quot;col&quot; style&#x3D;&quot;width: 70px !important&quot;&gt;&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody class&#x3D;&quot;table-group-divider&quot;&gt;
+        &lt;tr *ngFor&#x3D;&quot;let action of case.actions&quot;&gt;
+          &lt;td&gt;{{ action.action_type_name }}&lt;/td&gt;
+          &lt;td&gt;{{ action.object }}&lt;/td&gt;
+          &lt;td&gt;{{ action.input }}&lt;/td&gt;
+          &lt;td&gt;{{ action.target }}&lt;/td&gt;
+          &lt;td&gt;
+            &lt;button
+              type&#x3D;&quot;button&quot;
+              class&#x3D;&quot;btn btn-danger&quot;
+              style&#x3D;&quot;
+                --bs-btn-padding-y: 0.25rem;
+                --bs-btn-padding-x: 0.5rem;
+                --bs-btn-font-size: 0.75rem;
+              &quot;
+              (click)&#x3D;&quot;deleteAction(case.case_id, action.action_id)&quot;
+            &gt;
+              Delete
+            &lt;/button&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;br /&gt;&lt;br /&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./test-selenium.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.showModelResult {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+}
+
+.hideIt {
+  visibility: hidden;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><br /><br /><!-- model of results --><div class="showModelResult hideIt" id="modelResult">  <div class="modal-dialog modal-dialog-centered" role="document">    <div class="modal-content">      <div class="modal-header">        <h5 class="modal-title" id="staticModalLabel">Cases Result</h5>      </div>      <div class="modal-body">        <div *ngIf="testResult">          <div class="progress">            <div              class="progress-bar"              role="progressbar"              [style.width]="percentage + \'%\'"              aria-valuenow="percentage"              aria-valuemin="0"              aria-valuemax="100"            >              {{ percentage }}%            </div>          </div>          <table class="table">            <thead>              <tr>                <th scope="col">Case ID</th>                <th scope="col">Case Name</th>                <th scope="col">Status</th>              </tr>            </thead>            <tbody>              <tr *ngFor="let result of testResult">                <td>{{ result.case_id }}</td>                <td>{{ result.caseName }}</td>                <td>                  <span class="badge bg-success" *ngIf="result.success === true"                    >success</span                  >                  <span class="badge bg-danger" *ngIf="result.success === false"                    >failed</span                  >                </td>              </tr>            </tbody>          </table>        </div>        <div class="" id="spinner">          <div class="text-center">            <div              class="spinner-border text-primary"              style="width: 3rem; height: 3rem"              role="status"            >              <span class="sr-only">Loading...</span>            </div>          </div>        </div>      </div>      <div class="modal-footer">        <button          type="button"          class="btn btn-danger"          (click)="hideResultModal()"        >          Close        </button>      </div>    </div>  </div></div><!-- model of new action --><div  class="modal fade"  tabindex="-1"  id="addAction"  aria-labelledby="Add new Action"  aria-hidden="true"  data-bs-backdrop="static"  data-bs-keyboard="false">  <div class="modal-dialog modal-dialog-centered modal-xl">    <div class="modal-content">      <div class="modal-header">        <h5 class="modal-title">New Action</h5>        <button          type="button"          class="btn-close"          data-bs-dismiss="modal"          aria-label="Close"        ></button>      </div>      <form>        <div class="modal-body">          <div class="input-group mb-3">            <select              class="form-select"              id="action"              (change)="actionChose()"              required            >              <option value="" selected>Action</option>              <option value="1">GoToUrl</option>              <option value="2">FillField</option>              <option value="3">GetAttribute</option>              <option value="4">GetPageTitle</option>              <option value="5">Clear</option>              <option value="6">Click</option>              <option value="7">IsDisplayed</option>            </select>            <input              type="text"              class="form-control"              placeholder="Object"              id="object"              disabled            />            <input              type="text"              class="form-control"              placeholder="Input"              id="input"              disabled            />            <input              type="text"              class="form-control"              placeholder="Target"              id="target"              disabled            />          </div>        </div>        <div class="modal-footer">          <button class="btn btn-secondary" data-bs-dismiss="modal" id="close">            Close          </button>          <input            type="submit"            class="btn btn-primary"            (click)="submitAction()"            value="Add Action"          />        </div>      </form>    </div>  </div></div><!-- model of new Case --><div  class="modal fade"  tabindex="-1"  id="addCase"  aria-labelledby="Add new Case"  aria-hidden="true"  data-bs-backdrop="static"  data-bs-keyboard="false">  <div class="modal-dialog modal-dialog-centered">    <div class="modal-content">      <div class="modal-header">        <h5 class="modal-title">New Case</h5>        <button          type="button"          class="btn-close"          data-bs-dismiss="modal"          aria-label="Close"        ></button>      </div>      <form>        <div class="modal-body">          <input            type="text"            class="form-control"            placeholder="Case Name"            id="caseName"          />        </div>        <div class="modal-footer">          <button class="btn btn-secondary" data-bs-dismiss="modal" id="close2">            Close          </button>          <input            type="submit"            class="btn btn-primary"            (click)="submitCase()"            value="Add Case"          />        </div>      </form>    </div>  </div></div><!-- show the added cases and actions --><div class="container">  <div class="btn-group" role="group" aria-label="Basic outlined example">    <button      type="button"      class="btn btn-outline-primary"      data-bs-toggle="modal"      data-bs-target="#addCase"    >      Add New Case    </button>    <button      type="button"      class="btn btn-outline-primary"      data-bs-toggle="modal"      data-bs-target="#addAction"      id="addActionButton"      disabled    >      Add New Action    </button>    <button      type="button"      class="btn btn-success"      data-toggle="modal"      data-target="#resultModal"      (click)="runMethod(cases)"    >      Run    </button>  </div>  <br /><br />  <div class="container" *ngFor="let case of cases">    <h4>Case #{{ case.case_id }} : {{ case.caseName }}</h4>    <span>      <button        type="button"        class="btn btn-danger"        style="          --bs-btn-padding-y: 0.25rem;          --bs-btn-padding-x: 0.5rem;          --bs-btn-font-size: 0.75rem;        "        (click)="deleteCase(case.case_id)"      >        Delete      </button>    </span>    <table class="table table-hover">      <thead>        <tr>          <th scope="col">Action</th>          <th scope="col">Object</th>          <th scope="col">Input</th>          <th scope="col">Target</th>          <th scope="col" style="width: 70px !important"></th>        </tr>      </thead>      <tbody class="table-group-divider">        <tr *ngFor="let action of case.actions">          <td>{{ action.action_type_name }}</td>          <td>{{ action.object }}</td>          <td>{{ action.input }}</td>          <td>{{ action.target }}</td>          <td>            <button              type="button"              class="btn btn-danger"              style="                --bs-btn-padding-y: 0.25rem;                --bs-btn-padding-x: 0.5rem;                --bs-btn-font-size: 0.75rem;              "              (click)="deleteAction(case.case_id, action.action_id)"            >              Delete            </button>          </td>        </tr>      </tbody>    </table>    <br /><br />  </div></div></div>'
+    var COMPONENTS = [{'name': 'AddTestDialogComponent', 'selector': 'app-add-test-dialog'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BoardAdminComponent', 'selector': 'app-board-admin'},{'name': 'BoardUserComponent', 'selector': 'app-board-user'},{'name': 'BusySpinnerComponent', 'selector': 'app-busy-spinner'},{'name': 'DeleteTestDialogComponent', 'selector': 'app-delete-test-dialog'},{'name': 'GatlingApiComponent', 'selector': 'app-gatling-api'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'JmeterApiComponent', 'selector': 'app-jmeter-api'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PerformanceTestApiComponent', 'selector': 'app-performance-test-api'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ProjectComponent', 'selector': 'app-project'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TestApiComponent', 'selector': 'app-test-api'},{'name': 'TestSeleniumComponent', 'selector': 'app-test-selenium'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TestSeleniumComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TestSeleniumComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
