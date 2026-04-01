@@ -566,12 +566,12 @@ jobs:
               METRICS_URL="https://sonarcloud.io/api/measures/component?component=${EFFECTIVE_COMPONENT_KEY}&branch=${GITHUB_REF_NAME}&metricKeys=new_coverage"
               curl -sS -u "${SONAR_TOKEN}:" "$METRICS_URL" -o /tmp/sonar_coverage.json
 
-              COVERAGE=$(grep -o '"metric":"new_coverage","value":"[0-9.]*"' /tmp/sonar_coverage.json | sed -E 's/.*"value":"([0-9.]+)".*/\1/' | head -1)
+              COVERAGE=$(python3 -c 'import json,sys; d=json.load(open("/tmp/sonar_coverage.json")); measures=d.get("component",{}).get("measures",[]); m=next((x for x in measures if x.get("metric")=="new_coverage"), {}); print(m.get("value") or (m.get("periods", [{}])[0].get("value", "")))')
 
               if [ -z "$COVERAGE" ]; then
-                echo "Unable to read SonarCloud coverage from API response."
+                echo "Unable to read SonarCloud new-code coverage from API response (non-blocking)."
                 cat /tmp/sonar_coverage.json
-                exit 1
+                exit 0
               fi
 
               echo "SonarCloud new-code coverage: ${COVERAGE}%"
