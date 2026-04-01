@@ -465,30 +465,19 @@ jobs:
         run: |
           PROJECT_KEY=$(grep '^sonar.projectKey=' sonar-project.properties | cut -d'=' -f2)
           ORG_KEY=$(grep '^sonar.organization=' sonar-project.properties | cut -d'=' -f2)
-          GATE_NAME="TAF New Code Coverage 60"
+          CURRENT_GATE_JSON=$(curl -sS -u "${SONAR_TOKEN}:" \
+            "https://sonarcloud.io/api/qualitygates/get_by_project?organization=${ORG_KEY}&project=${PROJECT_KEY}")
 
-          search_gate() {
-            curl -sS -u "${SONAR_TOKEN}:" \
-              "https://sonarcloud.io/api/qualitygates/search?organization=${ORG_KEY}"
-          }
-
-          extract_gate_id() {
-            python3 -c 'import json,sys; target=sys.argv[1]; data=json.load(sys.stdin); print(next((str(g.get("id", "")) for g in data.get("qualitygates", []) if g.get("name") == target), ""))' "$GATE_NAME"
-          }
-
-          GATE_ID=$(search_gate | extract_gate_id)
+          GATE_ID=$(printf '%s' "$CURRENT_GATE_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); q=d.get("qualityGate",{}); print(q.get("id",""))')
+          GATE_NAME=$(printf '%s' "$CURRENT_GATE_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); q=d.get("qualityGate",{}); print(q.get("name",""))')
 
           if [ -z "$GATE_ID" ]; then
-            echo "Creating quality gate: ${GATE_NAME}"
-            CREATE_RESP=$(curl -sS -u "${SONAR_TOKEN}:" -X POST \
-              "https://sonarcloud.io/api/qualitygates/create?organization=${ORG_KEY}&name=$(printf '%s' "$GATE_NAME" | sed 's/ /%20/g')")
-            GATE_ID=$(printf '%s' "$CREATE_RESP" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("id",""))')
+            echo "Could not resolve current quality gate for project ${PROJECT_KEY}."
+            echo "$CURRENT_GATE_JSON"
+            exit 1
           fi
 
-          if [ -z "$GATE_ID" ]; then
-            echo "Unable to resolve quality gate id; keeping existing Sonar settings."
-            exit 0
-          fi
+          echo "Current project quality gate: ${GATE_NAME} (id=${GATE_ID})"
 
           SHOW_RESP=$(curl -sS -u "${SONAR_TOKEN}:" \
             "https://sonarcloud.io/api/qualitygates/show?organization=${ORG_KEY}&id=${GATE_ID}")
@@ -496,22 +485,29 @@ jobs:
           COND_ID=$(printf '%s' "$SHOW_RESP" | python3 -c 'import json,sys; d=json.load(sys.stdin); c=d.get("conditions",[]); m=[x for x in c if x.get("metric")=="new_coverage"]; print(m[0].get("id","") if m else "")')
 
           if [ -n "$COND_ID" ]; then
-            curl -sS -u "${SONAR_TOKEN}:" -X POST \
-              "https://sonarcloud.io/api/qualitygates/update_condition?id=${COND_ID}&metric=new_coverage&op=LT&error=60" >/tmp/sonar_gate_update.json || true
+            HTTP_CODE=$(curl -sS -o /tmp/sonar_gate_update.json -w "%{http_code}" -u "${SONAR_TOKEN}:" -X POST \
+              "https://sonarcloud.io/api/qualitygates/update_condition?id=${COND_ID}&metric=new_coverage&op=LT&error=60")
           else
-            curl -sS -u "${SONAR_TOKEN}:" -X POST \
-              "https://sonarcloud.io/api/qualitygates/create_condition?gateId=${GATE_ID}&metric=new_coverage&op=LT&error=60" >/tmp/sonar_gate_create_condition.json || true
+            HTTP_CODE=$(curl -sS -o /tmp/sonar_gate_update.json -w "%{http_code}" -u "${SONAR_TOKEN}:" -X POST \
+              "https://sonarcloud.io/api/qualitygates/create_condition?gateId=${GATE_ID}&metric=new_coverage&op=LT&error=60")
           fi
 
-          SELECT_CODE=$(curl -sS -o /tmp/sonar_gate_select.json -w "%{http_code}" -u "${SONAR_TOKEN}:" -X POST \
-            "https://sonarcloud.io/api/qualitygates/select?projectKey=${PROJECT_KEY}&gateId=${GATE_ID}")
-
-          if [ "$SELECT_CODE" = "200" ] || [ "$SELECT_CODE" = "204" ]; then
-            echo "Quality gate '${GATE_NAME}' selected for ${PROJECT_KEY} with new_coverage threshold at 60%."
-          else
-            echo "Could not select quality gate (HTTP ${SELECT_CODE}); keeping existing gate."
-            cat /tmp/sonar_gate_select.json || true
+          if [ "$HTTP_CODE" != "200" ] && [ "$HTTP_CODE" != "204" ]; then
+            echo "Failed to set new_coverage threshold to 60% on gate ${GATE_NAME} (HTTP ${HTTP_CODE})."
+            cat /tmp/sonar_gate_update.json || true
+            exit 1
           fi
+
+          VERIFIED=$(curl -sS -u "${SONAR_TOKEN}:" \
+            "https://sonarcloud.io/api/qualitygates/show?organization=${ORG_KEY}&id=${GATE_ID}" | \
+            python3 -c 'import json,sys; d=json.load(sys.stdin); c=[x for x in d.get("conditions",[]) if x.get("metric")=="new_coverage"]; print(c[0].get("error","") if c else "")')
+
+          if [ "$VERIFIED" != "60" ] && [ "$VERIFIED" != "60.0" ]; then
+            echo "Verification failed: new_coverage threshold is '${VERIFIED}', expected '60'."
+            exit 1
+          fi
+
+          echo "Quality gate '${GATE_NAME}' now enforces new_coverage >= 60%."
 
       - name: Prepare coverage reports for SonarScanner
         run: |
@@ -617,10 +613,10 @@ jobs:
               EFFECTIVE_COMPONENT_KEY="${COMPONENT_KEY:-$PROJECT_KEY}"
               MIN_COVERAGE="60"
 
-              METRICS_URL="https://sonarcloud.io/api/measures/component?component=${EFFECTIVE_COMPONENT_KEY}&branch=${GITHUB_REF_NAME}&metricKeys=coverage"
+              METRICS_URL="https://sonarcloud.io/api/measures/component?component=${EFFECTIVE_COMPONENT_KEY}&branch=${GITHUB_REF_NAME}&metricKeys=new_coverage"
               curl -sS -u "${SONAR_TOKEN}:" "$METRICS_URL" -o /tmp/sonar_coverage.json
 
-              COVERAGE=$(grep -o '"metric":"coverage","value":"[0-9.]*"' /tmp/sonar_coverage.json | sed -E 's/.*"value":"([0-9.]+)".*/\1/' | head -1)
+              COVERAGE=$(grep -o '"metric":"new_coverage","value":"[0-9.]*"' /tmp/sonar_coverage.json | sed -E 's/.*"value":"([0-9.]+)".*/\1/' | head -1)
 
               if [ -z "$COVERAGE" ]; then
                 echo "Unable to read SonarCloud coverage from API response."
@@ -628,8 +624,8 @@ jobs:
                 exit 1
               fi
 
-              echo "SonarCloud overall coverage: ${COVERAGE}%"
-              echo "Required minimum coverage: ${MIN_COVERAGE}%"
+              echo "SonarCloud new-code coverage: ${COVERAGE}%"
+              echo "Required minimum new-code coverage: ${MIN_COVERAGE}%"
 
               if awk "BEGIN {exit !($COVERAGE + 0 >= $MIN_COVERAGE + 0)}"; then
                 echo "Coverage gate passed (>= ${MIN_COVERAGE}%)."
