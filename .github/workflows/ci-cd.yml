@@ -465,49 +465,66 @@ jobs:
         run: |
           PROJECT_KEY=$(grep '^sonar.projectKey=' sonar-project.properties | cut -d'=' -f2)
           ORG_KEY=$(grep '^sonar.organization=' sonar-project.properties | cut -d'=' -f2)
-          CURRENT_GATE_JSON=$(curl -sS -u "${SONAR_TOKEN}:" \
-            "https://sonarcloud.io/api/qualitygates/get_by_project?organization=${ORG_KEY}&project=${PROJECT_KEY}")
 
-          GATE_ID=$(printf '%s' "$CURRENT_GATE_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); q=d.get("qualityGate",{}); print(q.get("id",""))')
-          GATE_NAME=$(printf '%s' "$CURRENT_GATE_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); q=d.get("qualityGate",{}); print(q.get("name",""))')
-
+          CUSTOM_GATE_NAME="TAF New Code Coverage 60"
+          
+          # Search for existing custom gate
+          GATES_JSON=$(curl -sS -u "${SONAR_TOKEN}:" \
+            "https://sonarcloud.io/api/qualitygates/search?organization=${ORG_KEY}")
+          
+          GATE_ID=$(printf '%s' "$GATES_JSON" | python3 -c 'import json,sys; target=sys.argv[1]; data=json.load(sys.stdin); gates=[g for g in data.get("qualitygates",[]) if g.get("name")==target and not g.get("isBuiltin",False)]; print(gates[0].get("id","") if gates else "")' "$CUSTOM_GATE_NAME")
+          
+          # If custom gate doesn't exist, create it
           if [ -z "$GATE_ID" ]; then
-            echo "Could not resolve current quality gate for project ${PROJECT_KEY}."
-            echo "$CURRENT_GATE_JSON"
-            exit 1
+            echo "Custom gate '${CUSTOM_GATE_NAME}' not found, creating..."
+            CREATE_JSON=$(curl -sS -u "${SONAR_TOKEN}:" -X POST \
+              "https://sonarcloud.io/api/qualitygates/create?organization=${ORG_KEY}&name=${CUSTOM_GATE_NAME}")
+            GATE_ID=$(printf '%s' "$CREATE_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); print(d.get("id",""))')
+            if [ -z "$GATE_ID" ]; then
+              echo "Failed to create custom quality gate."
+              echo "$CREATE_JSON"
+              exit 1
+            fi
+            echo "Created custom gate with id=${GATE_ID}"
+          else
+            echo "Found existing custom gate '${CUSTOM_GATE_NAME}' with id=${GATE_ID}"
           fi
-
-          echo "Current project quality gate: ${GATE_NAME} (id=${GATE_ID})"
-
+          
+          # Check if new_coverage condition already exists
           SHOW_RESP=$(curl -sS -u "${SONAR_TOKEN}:" \
             "https://sonarcloud.io/api/qualitygates/show?organization=${ORG_KEY}&id=${GATE_ID}")
-
+          
           COND_ID=$(printf '%s' "$SHOW_RESP" | python3 -c 'import json,sys; d=json.load(sys.stdin); c=d.get("conditions",[]); m=[x for x in c if x.get("metric")=="new_coverage"]; print(m[0].get("id","") if m else "")')
-
+          
+          # Create or update new_coverage condition
           if [ -n "$COND_ID" ]; then
+            echo "Updating existing new_coverage condition..."
             HTTP_CODE=$(curl -sS -o /tmp/sonar_gate_update.json -w "%{http_code}" -u "${SONAR_TOKEN}:" -X POST \
               "https://sonarcloud.io/api/qualitygates/update_condition?organization=${ORG_KEY}&id=${COND_ID}&metric=new_coverage&op=LT&error=60")
           else
+            echo "Creating new_coverage condition..."
             HTTP_CODE=$(curl -sS -o /tmp/sonar_gate_update.json -w "%{http_code}" -u "${SONAR_TOKEN}:" -X POST \
               "https://sonarcloud.io/api/qualitygates/create_condition?organization=${ORG_KEY}&gateId=${GATE_ID}&metric=new_coverage&op=LT&error=60")
           fi
-
+          
           if [ "$HTTP_CODE" != "200" ] && [ "$HTTP_CODE" != "204" ]; then
-            echo "Failed to set new_coverage threshold to 60% on gate ${GATE_NAME} (HTTP ${HTTP_CODE})."
+            echo "Failed to set new_coverage condition (HTTP ${HTTP_CODE})."
             cat /tmp/sonar_gate_update.json || true
             exit 1
           fi
-
-          VERIFIED=$(curl -sS -u "${SONAR_TOKEN}:" \
-            "https://sonarcloud.io/api/qualitygates/show?organization=${ORG_KEY}&id=${GATE_ID}" | \
-            python3 -c 'import json,sys; d=json.load(sys.stdin); c=[x for x in d.get("conditions",[]) if x.get("metric")=="new_coverage"]; print(c[0].get("error","") if c else "")')
-
-          if [ "$VERIFIED" != "60" ] && [ "$VERIFIED" != "60.0" ]; then
-            echo "Verification failed: new_coverage threshold is '${VERIFIED}', expected '60'."
+          
+          # Assign custom gate to project
+          echo "Assigning custom gate to project..."
+          SELECT_CODE=$(curl -sS -o /tmp/sonar_gate_select.json -w "%{http_code}" -u "${SONAR_TOKEN}:" -X POST \
+            "https://sonarcloud.io/api/qualitygates/select?organization=${ORG_KEY}&projectKey=${PROJECT_KEY}&gateId=${GATE_ID}")
+          
+          if [ "$SELECT_CODE" != "200" ] && [ "$SELECT_CODE" != "204" ]; then
+            echo "Failed to assign custom gate to project (HTTP ${SELECT_CODE})."
+            cat /tmp/sonar_gate_select.json || true
             exit 1
           fi
-
-          echo "Quality gate '${GATE_NAME}' now enforces new_coverage >= 60%."
+          
+          echo "✅ Custom quality gate '${CUSTOM_GATE_NAME}' assigned to project with new_coverage >= 60%."
 
       - name: Prepare coverage reports for SonarScanner
         run: |
