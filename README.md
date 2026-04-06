@@ -243,3 +243,6 @@ npm run precommit
 
 Projet actif dans le cadre du TP2 MGL7760.
 Base refactoree, pipeline documente, et processus de stabilisation trace dans le guide CI/CD.
+
+
+pour video demo TEST
