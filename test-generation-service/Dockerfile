@@ -9,4 +9,4 @@ COPY test-generation-service/app ./app
 
 EXPOSE 8090
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8090"]
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8090}"]
