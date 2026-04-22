@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import ca.etsmtl.taf.payload.request.TestApiRequest;
 import jakarta.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
@@ -29,9 +33,14 @@ public class TestApiController {
     String Test_API_microservice_port;
 
     @PostMapping("/checkApi")
-    public ResponseEntity<String> testApi(@Valid @RequestBody TestApiRequest testApiRequest) throws URISyntaxException, IOException, InterruptedException {
-        URI uri = new URI(Test_API_microservice_url+":"+Test_API_microservice_port+"/microservice/testapi/checkApi");
-        uri.toString().trim();
+        public ResponseEntity<Map<String, Object>> testApi(@Valid @RequestBody TestApiRequest testApiRequest) throws URISyntaxException, IOException, InterruptedException {
+                URI uri;
+                if (testApiRequest.getApiUrl() != null && !testApiRequest.getApiUrl().isBlank()) {
+                        uri = new URI(testApiRequest.getApiUrl().trim());
+                } else {
+                        uri = new URI(Test_API_microservice_url + ":" + Test_API_microservice_port + "/microservice/testapi/checkApi");
+                }
+
         ObjectMapper objectMapper = new ObjectMapper();
 
         String requestBody = objectMapper
@@ -40,13 +49,40 @@ public class TestApiController {
 
         HttpClient client = HttpClient.newHttpClient();
 
-        HttpRequest request = HttpRequest.newBuilder(uri)
-                .header("Content-Type", "application/json")
-                .POST(BodyPublishers.ofString(requestBody))
-                .build();
+                String method = testApiRequest.getMethod() == null ? "POST" : testApiRequest.getMethod().trim().toUpperCase(Locale.ROOT);
+
+                HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(uri)
+                                .header("Content-Type", "application/json");
+
+                switch (method) {
+                        case "GET":
+                                requestBuilder.GET();
+                                break;
+                        case "DELETE":
+                                requestBuilder.DELETE();
+                                break;
+                        case "PUT":
+                                requestBuilder.PUT(BodyPublishers.ofString(requestBody));
+                                break;
+                        case "POST":
+                        default:
+                                requestBuilder.POST(BodyPublishers.ofString(requestBody));
+                                break;
+                }
+
+                HttpRequest request = requestBuilder.build();
 
         HttpResponse<String> response =
                 client.send(request, BodyHandlers.ofString());
-        return ResponseEntity.ok(response.body());
+
+                Map<String, Object> result = new HashMap<>();
+                result.put("id", 0);
+                result.put("stutsCode", response.statusCode());
+                result.put("output", response.body());
+                result.put("fieldAnswer", null);
+                result.put("answer", response.statusCode() == testApiRequest.getStatusCode());
+                result.put("messages", new ArrayList<>());
+
+                return ResponseEntity.ok(result);
     }
 }
