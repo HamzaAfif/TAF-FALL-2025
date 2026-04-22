@@ -25,9 +25,8 @@ export class TestApiService {
   }
 
   //to refresh automatically the tests's  list
-  private readonly testsSubject: BehaviorSubject<testModel2[]> = new BehaviorSubject<
-    testModel2[]
-  >([]);
+  private readonly testsSubject: BehaviorSubject<testModel2[]> =
+    new BehaviorSubject<testModel2[]>([]);
   tests$: Observable<testModel2[]> = this.testsSubject.asObservable();
   listTests: testModel2[] = [];
 
