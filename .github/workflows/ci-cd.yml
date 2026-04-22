@@ -390,6 +390,108 @@ jobs:
           fi
 
   # ============================================================================
+  # CD: Deploy published Docker images to Heroku container apps (main only)
+  # ============================================================================
+  heroku-deploy:
+    needs: [docker-images]
+    runs-on: ubuntu-latest
+    name: Heroku Deploy (Container)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - service_name: Backend
+            image_name: taf-backend
+            heroku_app_secret: HEROKU_BACKEND_APP_NAME
+          - service_name: Frontend
+            image_name: taf-frontend
+            heroku_app_secret: HEROKU_FRONTEND_APP_NAME
+          - service_name: Test Generation
+            image_name: taf-test-generation
+            heroku_app_secret: HEROKU_TESTGEN_APP_NAME
+    env:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+      HEROKU_BACKEND_APP_NAME: ${{ secrets.HEROKU_BACKEND_APP_NAME }}
+      HEROKU_FRONTEND_APP_NAME: ${{ secrets.HEROKU_FRONTEND_APP_NAME }}
+      HEROKU_TESTGEN_APP_NAME: ${{ secrets.HEROKU_TESTGEN_APP_NAME }}
+    steps:
+      - name: Resolve Heroku app name
+        id: app
+        shell: bash
+        run: |
+          case "${{ matrix.heroku_app_secret }}" in
+            HEROKU_BACKEND_APP_NAME) APP_NAME="${HEROKU_BACKEND_APP_NAME}" ;;
+            HEROKU_FRONTEND_APP_NAME) APP_NAME="${HEROKU_FRONTEND_APP_NAME}" ;;
+            HEROKU_TESTGEN_APP_NAME) APP_NAME="${HEROKU_TESTGEN_APP_NAME}" ;;
+            *) APP_NAME="" ;;
+          esac
+          echo "app_name=${APP_NAME}" >> "$GITHUB_OUTPUT"
+
+      - name: Validate deployment secrets
+        if: steps.app.outputs.app_name != ''
+        shell: bash
+        run: |
+          if [ -z "${HEROKU_API_KEY}" ] || [ -z "${HEROKU_EMAIL}" ]; then
+            echo "HEROKU_API_KEY and HEROKU_EMAIL are required to deploy containers to Heroku."
+            exit 1
+          fi
+          if [ -z "${DOCKERHUB_USERNAME}" ] || [ -z "${DOCKERHUB_TOKEN}" ]; then
+            echo "DOCKERHUB_USERNAME and DOCKERHUB_TOKEN are required to pull published images."
+            exit 1
+          fi
+
+      - name: Login to Docker Hub
+        if: steps.app.outputs.app_name != ''
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
+
+      - name: Login to Heroku container registry
+        if: steps.app.outputs.app_name != ''
+        run: |
+          echo "${HEROKU_API_KEY}" | docker login --username=_ --password-stdin registry.heroku.com
+
+      - name: Pull, retag and push image to Heroku
+        if: steps.app.outputs.app_name != ''
+        run: |
+          docker pull docker.io/${DOCKERHUB_USERNAME}/${{ matrix.image_name }}:sha-${GITHUB_SHA}
+          docker tag docker.io/${DOCKERHUB_USERNAME}/${{ matrix.image_name }}:sha-${GITHUB_SHA} registry.heroku.com/${{ steps.app.outputs.app_name }}/web
+          docker push registry.heroku.com/${{ steps.app.outputs.app_name }}/web
+
+      - name: Release image on Heroku
+        if: steps.app.outputs.app_name != ''
+        env:
+          APP_NAME: ${{ steps.app.outputs.app_name }}
+        run: |
+          IMAGE_ID=$(docker inspect registry.heroku.com/${APP_NAME}/web --format={{.Id}})
+          PAYLOAD="{\"updates\":[{\"type\":\"web\",\"docker_image\":\"${IMAGE_ID}\"}]}"
+          curl --fail -X PATCH "https://api.heroku.com/apps/${APP_NAME}/formation" \
+            -H "Accept: application/vnd.heroku+json; version=3.docker-releases" \
+            -H "Authorization: Bearer ${HEROKU_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d "${PAYLOAD}"
+
+      - name: Skip missing Heroku app configuration
+        if: steps.app.outputs.app_name == ''
+        run: echo "No app name configured for ${{ matrix.service_name }} (secret ${{ matrix.heroku_app_secret }}). Skipping deployment."
+
+      - name: Add Heroku summary
+        if: always()
+        run: |
+          echo "## Heroku Deploy - ${{ matrix.service_name }}" >> $GITHUB_STEP_SUMMARY
+          if [ -n "${{ steps.app.outputs.app_name }}" ]; then
+            echo "- App: \`${{ steps.app.outputs.app_name }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "- Source image: \`docker.io/${DOCKERHUB_USERNAME}/${{ matrix.image_name }}:sha-${GITHUB_SHA}\`" >> $GITHUB_STEP_SUMMARY
+            echo "- Status: deployed to Heroku Container Registry" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- Status: skipped (missing app name secret ${{ matrix.heroku_app_secret }})" >> $GITHUB_STEP_SUMMARY
+          fi
+  # ============================================================================
   # Quality Gate: SonarCloud Analysis (runs after tests complete)
   # ============================================================================
   sonarcloud:
