@@ -6,10 +6,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -35,20 +35,19 @@ class TestApiControllerTest {
             int port = server.getAddress().getPort();
 
             TestApiController controller = new TestApiController();
-            controller.Test_API_microservice_url = "http://localhost";
-            controller.Test_API_microservice_port = String.valueOf(port);
 
             TestApiRequest request = new TestApiRequest();
             request.setMethod("GET");
-            request.setApiUrl("https://example.com");
+            request.setApiUrl("http://localhost:" + port + "/microservice/testapi/checkApi");
             request.setStatusCode(200);
             request.setInput("{}");
             request.setExpectedOutput("ok");
 
-            ResponseEntity<String> response = controller.testApi(request);
+            ResponseEntity<Map<String, Object>> response = controller.testApi(request);
 
             assertEquals(200, response.getStatusCode().value());
-            assertEquals("{\"result\":\"ok\"}", response.getBody());
+            assertEquals("{\"result\":\"ok\"}", response.getBody().get("output"));
+            assertEquals(true, response.getBody().get("answer"));
         } finally {
             server.stop(0);
         }
@@ -58,12 +57,10 @@ class TestApiControllerTest {
     @DisplayName("testApi should throw URISyntaxException when URL is invalid")
     void testApiShouldThrowForInvalidUri() {
         TestApiController controller = new TestApiController();
-        controller.Test_API_microservice_url = "http://bad host";
-        controller.Test_API_microservice_port = "8080";
 
         TestApiRequest request = new TestApiRequest();
         request.setMethod("GET");
-        request.setApiUrl("https://example.com");
+        request.setApiUrl("http://bad host");
         request.setStatusCode(200);
         request.setInput("{}");
         request.setExpectedOutput("ok");
