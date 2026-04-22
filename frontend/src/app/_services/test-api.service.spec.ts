@@ -65,7 +65,7 @@ describe('TestApiService', () => {
     });
 
     const requests = httpMock.match((req) =>
-      req.url.endsWith('/team3/api/testapi/checkApi'),
+      req.url.endsWith('/api/testapi/checkApi'),
     );
     expect(requests.length).toBe(2);
 
