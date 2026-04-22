@@ -11,7 +11,7 @@ spring:
       uri: ${DB_URI:mongodb://admin:admin123@mongodb:27017/taf?authSource=admin}
       authentication-database: ${DB_AUTH:admin}
       database: ${DB_NAME:taf}
-      auto-index-creation: true
+      auto-index-creation: ${MONGO_AUTO_INDEX_CREATION:false}
 
   jpa:
     hibernate:
@@ -21,7 +21,7 @@ spring:
   messages:
     basename: validation
     encoding: ISO-8859-1
-      
+
 taf:
   app:
     jwtSecret: ${API_TEST_TOKEN}
@@ -54,4 +54,4 @@ springdoc:
     path: /api-docs
 
   swagger-ui:
-    path:  /swagger-ui.html
+    path: /swagger-ui.html
