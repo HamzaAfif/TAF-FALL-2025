@@ -26,11 +26,13 @@ import org.springframework.beans.factory.annotation.Value;
 @RestController
 @RequestMapping("/api/testapi")
 public class TestApiController {
+        private static final HttpClient HTTP_CLIENT = HttpClient.newHttpClient();
+
     @Value("${taf.app.testAPI_url}")
-    String Test_API_microservice_url;
+        String testApiMicroserviceUrl;
 
     @Value("${taf.app.testAPI_port}")
-    String Test_API_microservice_port;
+        String testApiMicroservicePort;
 
     @PostMapping("/checkApi")
         public ResponseEntity<Map<String, Object>> testApi(@Valid @RequestBody TestApiRequest testApiRequest) throws URISyntaxException, IOException, InterruptedException {
@@ -38,7 +40,7 @@ public class TestApiController {
                 if (testApiRequest.getApiUrl() != null && !testApiRequest.getApiUrl().isBlank()) {
                         uri = new URI(testApiRequest.getApiUrl().trim());
                 } else {
-                        uri = new URI(Test_API_microservice_url + ":" + Test_API_microservice_port + "/microservice/testapi/checkApi");
+                        uri = new URI(testApiMicroserviceUrl + ":" + testApiMicroservicePort + "/microservice/testapi/checkApi");
                 }
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -46,8 +48,6 @@ public class TestApiController {
         String requestBody = objectMapper
                 .writerWithDefaultPrettyPrinter()
                 .writeValueAsString(testApiRequest);
-
-        HttpClient client = HttpClient.newHttpClient();
 
                 String method = testApiRequest.getMethod() == null ? "POST" : testApiRequest.getMethod().trim().toUpperCase(Locale.ROOT);
 
@@ -73,7 +73,7 @@ public class TestApiController {
                 HttpRequest request = requestBuilder.build();
 
         HttpResponse<String> response =
-                client.send(request, BodyHandlers.ofString());
+                        HTTP_CLIENT.send(request, BodyHandlers.ofString());
 
                 Map<String, Object> result = new HashMap<>();
                 result.put("id", 0);
