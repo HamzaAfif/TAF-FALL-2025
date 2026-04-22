@@ -1,8 +1,6 @@
 package ca.etsmtl.taf.controller;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ca.etsmtl.taf.entity.ERole;
-import ca.etsmtl.taf.entity.Role;
 import ca.etsmtl.taf.entity.User;
 import ca.etsmtl.taf.payload.request.LoginRequest;
 import ca.etsmtl.taf.payload.request.SignupRequest;
 import ca.etsmtl.taf.payload.response.JwtResponse;
 import ca.etsmtl.taf.payload.response.MessageResponse;
-import ca.etsmtl.taf.repository.RoleRepository;
 import ca.etsmtl.taf.repository.UserRepository;
 import ca.etsmtl.taf.security.jwt.JwtUtils;
 import ca.etsmtl.taf.security.services.UserDetailsImpl;
@@ -41,9 +36,6 @@ public class AuthController {
 
   @Autowired
   UserRepository userRepository;
-
-  @Autowired
-  RoleRepository roleRepository;
 
   @Autowired
   PasswordEncoder encoder;
@@ -90,29 +82,8 @@ public class AuthController {
         signUpRequest.getEmail(),
         encoder.encode(signUpRequest.getPassword()));
 
-    Set<String> strRoles = signUpRequest.getRole();
-    Set<Role> roles = new HashSet<>();
-
-    if (strRoles == null || strRoles.isEmpty()) {
-      roles.add(getOrCreateRole(ERole.ROLE_USER));
-    } else {
-      for (String role : strRoles) {
-        if ("admin".equalsIgnoreCase(role) || "ROLE_ADMIN".equalsIgnoreCase(role)) {
-          roles.add(getOrCreateRole(ERole.ROLE_ADMIN));
-        } else {
-          roles.add(getOrCreateRole(ERole.ROLE_USER));
-        }
-      }
-    }
-
-    user.setRoles(roles);
     userRepository.save(user);
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
-  }
-
-  private Role getOrCreateRole(ERole roleName) {
-    return roleRepository.findByName(roleName)
-        .orElseGet(() -> roleRepository.save(new Role(roleName)));
   }
 }
