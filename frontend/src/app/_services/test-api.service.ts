@@ -1,19 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-} from '@angular/common/http';
-import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  forkJoin,
-  throwError,
-} from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, forkJoin } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { testModel } from '../models/test-model';
 import { testModel2 } from '../models/testmodel2';
 import { TestResponseModel } from '../models/testResponseModel';
 
@@ -21,8 +9,8 @@ import { TestResponseModel } from '../models/testResponseModel';
   providedIn: 'root',
 })
 export class TestApiService {
-  REST_API: string = `${environment.apiUrl}/team3/api`;
-  constructor(private http: HttpClient) {}
+  REST_API: string = `${environment.apiUrl}/api`;
+  constructor(private readonly http: HttpClient) {}
 
   //execute tests one by one
   executeTests(dataTests: testModel2[]): Observable<TestResponseModel[]> {
@@ -37,7 +25,7 @@ export class TestApiService {
   }
 
   //to refresh automatically the tests's  list
-  private testsSubject: BehaviorSubject<testModel2[]> = new BehaviorSubject<
+  private readonly testsSubject: BehaviorSubject<testModel2[]> = new BehaviorSubject<
     testModel2[]
   >([]);
   tests$: Observable<testModel2[]> = this.testsSubject.asObservable();
